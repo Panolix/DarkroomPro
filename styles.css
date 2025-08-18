@@ -1,0 +1,362 @@
+/* DarkroomPro Styles - City Frame Design Language */
+:root {
+    /* City Frame Color Palette */
+    --primary-color: #000000;
+    --accent-color: #ffffff;
+    --background-color: #000000;
+    --text-color: #ffffff;
+    --light-gray: #333333;
+    --dark-gray: #666666;
+    --shadow: rgba(255, 255, 255, 0.1);
+    --transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --fast-transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    
+    /* DarkroomPro Specific Colors */
+    --surface: #1a1a1a;
+    --border: #333333;
+    --input-bg: #0d0d0d;
+    --success: #4caf50;
+    --warning: #ff9800;
+    --error: #f44336;
+    --darkroom-red: #cc0000;
+    --film-amber: #ffb366;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    line-height: 1.6;
+    font-weight: 300;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 40px 0;
+    background: var(--primary-color);
+    border: 1px solid var(--border);
+    border-radius: 0;
+    box-shadow: 0 4px 20px var(--shadow);
+}
+
+.header h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+}
+
+.header p {
+    font-size: 1.2rem;
+    color: var(--dark-gray);
+    font-weight: 300;
+}
+
+.calculator {
+    display: grid;
+    gap: 30px;
+    grid-template-columns: 1fr;
+}
+
+.input-section {
+    background: var(--surface);
+    padding: 40px;
+    border: 1px solid var(--border);
+    border-radius: 0;
+    box-shadow: 0 4px 20px var(--shadow);
+    transition: var(--fast-transition);
+}
+
+.input-section:hover {
+    box-shadow: 0 8px 30px var(--shadow);
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 400;
+    color: var(--accent-color);
+    font-size: 0.95rem;
+    letter-spacing: 0.01em;
+}
+
+select, input {
+    width: 100%;
+    padding: 15px 20px;
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: 0;
+    color: var(--text-color);
+    font-size: 1rem;
+    font-weight: 300;
+    transition: var(--fast-transition);
+    font-family: inherit;
+}
+
+select:focus, input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px var(--shadow);
+    background: var(--surface);
+}
+
+.calculate-btn {
+    width: 100%;
+    padding: 18px 30px;
+    background: var(--accent-color);
+    color: var(--primary-color);
+    border: 1px solid var(--accent-color);
+    border-radius: 0;
+    font-size: 1.1rem;
+    font-weight: 400;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-top: 30px;
+    letter-spacing: 0.02em;
+    font-family: inherit;
+}
+
+.calculate-btn:hover {
+    background: var(--primary-color);
+    color: var(--accent-color);
+    box-shadow: 0 4px 20px var(--shadow);
+}
+
+.calculate-btn:active {
+    transform: scale(0.98);
+}
+
+.results-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.result-card {
+    background: var(--surface);
+    padding: 30px;
+    border: 1px solid var(--border);
+    text-align: center;
+    transition: var(--transition);
+    border-radius: 0;
+}
+
+.result-card:hover {
+    box-shadow: 0 8px 30px var(--shadow);
+    border-color: var(--light-gray);
+}
+
+.result-card h3 {
+    color: var(--accent-color);
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+}
+
+.result-value {
+    font-size: 2.8rem;
+    font-weight: 300;
+    color: var(--text-color);
+    margin-bottom: 15px;
+    font-family: 'Inter', monospace;
+    letter-spacing: -0.02em;
+}
+
+.result-note {
+    color: var(--dark-gray);
+    font-size: 0.9rem;
+    font-weight: 300;
+}
+
+.result-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: var(--dark-gray);
+    font-weight: 300;
+}
+
+.timer-section {
+    background: var(--surface);
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid var(--border);
+}
+
+.timer-card {
+    text-align: center;
+}
+
+.timer-display {
+    font-size: 4rem;
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+    color: var(--accent-color);
+    margin: 20px 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.timer-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.timer-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.timer-btn.start {
+    background: var(--success);
+    color: white;
+}
+
+.timer-btn.pause {
+    background: var(--warning);
+    color: white;
+}
+
+.timer-btn.reset {
+    background: var(--error);
+    color: white;
+}
+
+.timer-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.timer-progress {
+    width: 100%;
+    height: 8px;
+    background: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--success) 0%, var(--accent-color) 100%);
+    width: 0%;
+    transition: width 1s linear;
+}
+
+.info-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.film-info, .developer-info {
+    background: var(--surface);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+}
+
+.film-info h4, .developer-info h4 {
+    color: var(--accent-color);
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.film-info p, .developer-info p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 60px;
+    padding: 30px;
+    color: var(--dark-gray);
+    font-size: 0.9rem;
+    font-weight: 300;
+    border-top: 1px solid var(--border);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    
+    .header h1 {
+        font-size: 2.5rem;
+    }
+    
+    .input-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .results-section {
+        grid-template-columns: 1fr;
+    }
+    
+    .info-section {
+        grid-template-columns: 1fr;
+    }
+    
+    .timer-display {
+        font-size: 3rem;
+    }
+    
+    .timer-controls {
+        flex-wrap: wrap;
+    }
+}
+
+/* Animation for results appearing */
+.result-card.updated {
+    animation: resultUpdate 0.5s ease-out;
+}
+
+@keyframes resultUpdate {
+    0% {
+        transform: scale(0.95);
+        opacity: 0.7;
+    }
+    50% {
+        transform: scale(1.02);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

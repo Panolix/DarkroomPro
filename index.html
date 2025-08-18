@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DarkroomPro - Film Development Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🧪 DarkroomPro</h1>
+            <p>Professional Film Development Calculator</p>
+        </header>
+
+        <main class="calculator">
+            <div class="input-section">
+                <div class="input-group">
+                    <label for="film-stock">Film Stock</label>
+                    <select id="film-stock">
+                        <option value="">Select Film Stock...</option>
+                        <option value="tri-x-400">Kodak Tri-X 400</option>
+                        <option value="hp5-400">Ilford HP5 Plus 400</option>
+                        <option value="tmax-400">Kodak T-Max 400</option>
+                        <option value="delta-400">Ilford Delta 400</option>
+                        <option value="fp4-125">Ilford FP4 Plus 125</option>
+                        <option value="tmax-100">Kodak T-Max 100</option>
+                        <option value="acros-100">Fuji Acros 100</option>
+                        <option value="pan-f-50">Ilford Pan F Plus 50</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="developer">Developer</label>
+                    <select id="developer">
+                        <option value="">Select Developer...</option>
+                        <option value="d76">Kodak D-76</option>
+                        <option value="hc110">Kodak HC-110</option>
+                        <option value="id11">Ilford ID-11</option>
+                        <option value="ilfosol3">Ilford Ilfosol 3</option>
+                        <option value="rodinal">Agfa Rodinal</option>
+                        <option value="xtol">Kodak Xtol</option>
+                        <option value="microphen">Ilford Microphen</option>
+                        <option value="perceptol">Ilford Perceptol</option>
+                    </select>
+                </div>
+
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="temperature">Temperature (°C)</label>
+                        <input type="number" id="temperature" value="20" min="15" max="30" step="0.5">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="push-pull">Push/Pull (stops)</label>
+                        <select id="push-pull">
+                            <option value="-2">Pull 2 stops</option>
+                            <option value="-1">Pull 1 stop</option>
+                            <option value="0" selected>Normal</option>
+                            <option value="1">Push 1 stop</option>
+                            <option value="2">Push 2 stops</option>
+                            <option value="3">Push 3 stops</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="volume">Solution Volume (ml)</label>
+                    <input type="number" id="volume" value="500" min="100" max="2000" step="50">
+                </div>
+
+                <button id="calculate" class="calculate-btn">Calculate Development</button>
+            </div>
+
+            <div class="results-section">
+                <div class="result-card" id="time-result">
+                    <h3>⏱️ Development Time</h3>
+                    <div class="result-value" id="dev-time">--:--</div>
+                    <div class="result-note" id="time-note">Select film and developer</div>
+                </div>
+
+                <div class="result-card" id="dilution-result">
+                    <h3>🧪 Dilution Ratio</h3>
+                    <div class="result-value" id="dilution">1:--</div>
+                    <div class="result-breakdown" id="dilution-breakdown">
+                        <span id="developer-amount">-- ml developer</span>
+                        <span id="water-amount">-- ml water</span>
+                    </div>
+                </div>
+
+                <div class="result-card" id="temp-result">
+                    <h3>🌡️ Temperature Info</h3>
+                    <div class="result-value" id="temp-display">--°C</div>
+                    <div class="result-note" id="temp-note">Standard: 20°C</div>
+                </div>
+            </div>
+
+            <div class="timer-section" id="timer-section" style="display: none;">
+                <div class="timer-card">
+                    <h3>⏰ Development Timer</h3>
+                    <div class="timer-display" id="timer-display">00:00</div>
+                    <div class="timer-controls">
+                        <button id="start-timer" class="timer-btn start">Start</button>
+                        <button id="pause-timer" class="timer-btn pause">Pause</button>
+                        <button id="reset-timer" class="timer-btn reset">Reset</button>
+                    </div>
+                    <div class="timer-progress">
+                        <div class="progress-bar" id="progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <div class="film-info" id="film-info">
+                    <h4>Film Information</h4>
+                    <p id="film-details">Select a film stock to see details</p>
+                </div>
+                
+                <div class="developer-info" id="developer-info">
+                    <h4>Developer Information</h4>
+                    <p id="developer-details">Select a developer to see details</p>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>🎬 Part of the FilmGrainPro ecosystem - <strong>DarkroomPro</strong> for development, <strong>FilmGrainPro</strong> for grain simulation</p>
+        </footer>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="calculator.js"></script>
+    <script src="timer.js"></script>
+</body>
+</html>
