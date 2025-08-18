@@ -1,12 +1,18 @@
 {
   "name": "darkroom-pro",
+  "private": true,
   "version": "1.0.0",
+  "type": "module",
   "description": "Professional Film Development Calculator for Darkroom Enthusiasts",
-  "main": "index.html",
   "scripts": {
-    "dev": "python -m http.server 8000",
-    "serve": "python3 -m http.server 8000",
-    "start": "open http://localhost:8000 && python -m http.server 8000"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "tauri": "tauri",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build",
+    "web:dev": "python -m http.server 8000",
+    "web:serve": "python3 -m http.server 8000"
   },
   "keywords": [
     "film-photography",
@@ -15,16 +21,26 @@
     "calculator",
     "analog-photography",
     "black-and-white",
-    "film-processing"
+    "film-processing",
+    "tauri",
+    "desktop-app"
   ],
-  "author": "Your Name",
-  "license": "MIT",
+  "author": "Panagiotis Smponias <info@cityframe-photography.com>",
+  "license": "Proprietary",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/DarkroomPro"
+    "url": "https://github.com/Panolix/DarkroomPro"
   },
-  "homepage": "https://yourusername.github.io/DarkroomPro",
+  "homepage": "https://github.com/Panolix/DarkroomPro",
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2.0.0",
+    "@tauri-apps/plugin-shell": "^2.0.0"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.0.0",
+    "vite": "^5.0.0"
   }
 }

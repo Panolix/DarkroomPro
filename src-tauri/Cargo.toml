@@ -1,0 +1,24 @@
+[package]
+name = "darkroom-pro"
+version = "1.0.0"
+description = "Professional Film Development Calculator for Darkroom Enthusiasts"
+authors = ["Panagiotis Smponias <info@cityframe-photography.com>"]
+license = "Proprietary"
+repository = "https://github.com/Panolix/DarkroomPro"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[build-dependencies]
+tauri-build = { version = "2.0", features = [] }
+
+[dependencies]
+tauri = { version = "2.0", features = ["shell-open"] }
+tauri-plugin-shell = "2.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+[features]
+# This feature is used for production builds or when `devPath` points to the filesystem
+# DO NOT REMOVE!!
+custom-protocol = ["tauri/custom-protocol"]
