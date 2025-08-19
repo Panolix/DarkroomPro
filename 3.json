@@ -1,0 +1,802 @@
+{
+  "films": {
+    "fuji_neopan_400": {
+      "name": "Fuji Neopan 400",
+      "manufacturer": "Fujifilm",
+      "iso": 400,
+      "type": "black_white",
+      "process": "bw_development",
+      "year_released": 1984,
+      "current_production": false,
+      "price_35mm_usd": 18.5,
+      "alternative_names": [
+        "Neopan 400",
+        "NPH"
+      ],
+      "description": "Professional black and white film with excellent push processing capability",
+      "grain": "medium",
+      "contrast": "medium_high",
+      "best_uses": [
+        "available_light",
+        "push_processing",
+        "general_purpose"
+      ],
+      "developers": {
+        "kodak_d76_stock": {
+          "dilution": "stock",
+          "time_minutes": 7.5,
+          "temperature_c": 20,
+          "agitation_initial_seconds": 30,
+          "agitation_interval_seconds": 10,
+          "agitation_frequency_minutes": 1,
+          "push_1_stop_minutes": 10.0,
+          "push_2_stop_minutes": 13.5,
+          "push_3_stop_minutes": 18.0,
+          "pull_1_stop_minutes": 5.5,
+          "pull_2_stop_minutes": 4.0
+        },
+        "kodak_hc110_b": {
+          "dilution": "1:31",
+          "time_minutes": 6.0,
+          "temperature_c": 20,
+          "agitation_initial_seconds": 30,
+          "agitation_interval_seconds": 10,
+          "agitation_frequency_minutes": 1,
+          "push_1_stop_minutes": 8.0,
+          "push_2_stop_minutes": 11.0,
+          "push_3_stop_minutes": 15.0,
+          "pull_1_stop_minutes": 4.5,
+          "pull_2_stop_minutes": 3.5
+        },
+        "ilford_ddx_1_4": {
+          "dilution": "1:4",
+          "time_minutes": 8.0,
+          "temperature_c": 20,
+          "agitation_initial_seconds": 10,
+          "agitation_interval_seconds": 10,
+          "agitation_frequency_minutes": 1,
+          "push_1_stop_minutes": 10.5,
+          "push_2_stop_minutes": 14.0,
+          "push_3_stop_minutes": 18.5,
+          "pull_1_stop_minutes": 6.0,
+          "pull_2_stop_minutes": 4.5
+        }
+      }
+    },
+    "kodak_tri_x_400": {
+      "name": "Kodak Tri-X 400",
+      "manufacturer": "Kodak",
+      "iso": 400,
+      "type": "black_white",
+      "process": "bw_development",
+      "year_released": 1954,
+      "current_production": true,
+      "price_35mm_usd": 8.5,
+      "alternative_names": [
+        "TX",
+        "Tri-X Pan",
+        "400TX"
+      ],
+      "description": "Classic high-speed black and white film with distinctive grain",
+      "grain": "medium",
+      "contrast": "high",
+      "best_uses": [
+        "street",
+        "photojournalism",
+        "low_light",
+        "general_purpose"
+      ],
+      "developers": {
+        "kodak_d76_stock": {
+          "dilution": "stock",
+          "time_minutes": 8.0,
+          "temperature_c": 20,
+          "agitation_initial_seconds": 30,
+          "agitation_interval_seconds": 10,
+          "agitation_frequency_minutes": 1,
+          "push_1_stop_minutes": 11.0,
+          "push_2_stop_minutes": 16.0,
+          "push_3_stop_minutes": 22.0,
+          "pull_1_stop_minutes": 6.0,
+          "pull_2_stop_minutes": 4.5
+        },
+        "kodak_hc110_b": {
+          "dilution": "1:31",
+          "time_minutes": 6.5,
+          "temperature_c": 20,
+          "agitation_initial_seconds": 30,
+          "agitation_interval_seconds": 10,
+          "agitation_frequency_minutes": 1,
+          "push_1_stop_minutes": 8.5,
+          "push_2_stop_minutes": 12.0,
+          "push_3_stop_minutes": 16.0,
+          "pull_1_stop_minutes": 5.0,
+          "pull_2_stop_minutes": 4.0
+        },
+        "ilford_hp5_plus": {
+          "dilution": "1:4",
+          "time_minutes": 8.5,
+          "temperature_c": 20,
+          "agitation_initial_seconds": 10,
+          "agitation_interval_seconds": 10,
+          "agitation_frequency_minutes": 1,
+          "push_1_stop_minutes": 11.0,
+          "push_2_stop_minutes": 14.0,
+          "push_3_stop_minutes": 18.0,
+          "pull_1_stop_minutes": 6.5,
+          "pull_2_stop_minutes": 5.0
+        },
+        "adox_rodinal_1_50": {
+          "dilution": "1:50",
+          "time_minutes": 8.0,
+          "temperature_c": 20,
+          "agitation_initial_seconds": 30,
+          "agitation_interval_seconds": 10,
+          "agitation_frequency_minutes": 1,
+          "push_1_stop_minutes": 11.0,
+          "push_2_stop_minutes": 16.0,
+          "push_3_stop_minutes": 22.0,
+          "pull_1_stop_minutes": 6.0,
+          "pull_2_stop_minutes": 4.5
+        }
+      }
+    },
+    "ilford_hp5_plus": {
+      "name": "Ilford HP5 Plus",
+      "manufacturer": "Ilford",
+      "iso": 400,
+      "type": "black_white",
+      "process": "bw_development",
+      "year_released": 1989,
+      "current_production": true,
+      "price_35mm_usd": 7.25,
+      "alternative_names": [
+        "HP5+",
+        "HP5 Plus"
+      ],
+      "description": "Fast black and white film ideal for action and available light",
+      "grain": "medium",
+      "contrast": "medium_high",
+      "best_uses": [
+        "action",
+        "available_light",
+        "general_purpose",
+        "push_processing"
+      ],
+      "developers": {
+        "ilford_id11_stock": {
+          "dilution": "stock",
+          "time_minutes": 7.0,
+          "temperature_c": 20,
+          "agitation_initial_seconds": 10,
+          "agitation_interval_seconds": 10,
+          "agitation_frequency_minutes": 1,
+          "push_1_stop_minutes": 9.0,
+          "push_2_stop_minutes": 11.5,
+          "push_3_stop_minutes": 15.0,
+          "pull_1_stop_minutes": 5.5,
+          "pull_2_stop_minutes": 4.5
+        },
+        "ilford_ddx_1_4": {
+          "dilution": "1:4",
+          "time_minutes": 8.5,
+          "temperature_c": 20,
+          "agitation_initial_seconds": 10,
+          "agitation_interval_seconds": 10,
+          "agitation_frequency_minutes": 1,
+          "push_1_stop_minutes": 11.0,
+          "push_2_stop_minutes": 14.0,
+          "push_3_stop_minutes": 18.0,
+          "pull_1_stop_minutes": 6.5,
+          "pull_2_stop_minutes": 5.0
+        },
+        "kodak_d76_stock": {
+          "dilution": "stock",
+          "time_minutes": 7.5,
+          "temperature_c": 20,
+          "agitation_initial_seconds": 30,
+          "agitation_interval_seconds": 10,
+          "agitation_frequency_minutes": 1,
+          "push_1_stop_minutes": 10.0,
+          "push_2_stop_minutes": 13.5,
+          "push_3_stop_minutes": 18.0,
+          "pull_1_stop_minutes": 5.5,
+          "pull_2_stop_minutes": 4.5
+        }
+      }
+    },
+    "kodak_portra_160": {
+      "name": "Kodak Portra 160",
+      "manufacturer": "Kodak",
+      "iso": 160,
+      "type": "color_negative",
+      "process": "c41",
+      "year_released": 2007,
+      "current_production": true,
+      "price_35mm_usd": 15.75,
+      "alternative_names": [
+        "Portra 160"
+      ],
+      "description": "Professional color negative film optimized for portraits with natural skin tones",
+      "grain": "ultra_fine",
+      "contrast": "low",
+      "best_uses": [
+        "portraits",
+        "studio",
+        "fashion",
+        "weddings"
+      ],
+      "c41_processing": {
+        "kodak_flexicolor_c41": {
+          "process": "c41",
+          "developer_time_minutes": 3.25,
+          "developer_temp_c": 37.8,
+          "bleach_time_minutes": 6.5,
+          "fixer_time_minutes": 6.5,
+          "stabilizer_time_minutes": 1.0,
+          "total_time_minutes": 17.25,
+          "temperature_tolerance_c": 0.3,
+          "push_1_stop_dev_time": 4.5,
+          "push_2_stop_dev_time": 6.5,
+          "pull_1_stop_dev_time": 2.5,
+          "pull_2_stop_dev_time": 2.0
+        },
+        "tetenal_c41_kit": {
+          "process": "c41",
+          "developer_time_minutes": 3.25,
+          "developer_temp_c": 37.8,
+          "bleach_time_minutes": 6.5,
+          "fixer_time_minutes": 6.5,
+          "stabilizer_time_minutes": 1.0,
+          "total_time_minutes": 17.25,
+          "temperature_tolerance_c": 0.3,
+          "push_1_stop_dev_time": 4.5,
+          "push_2_stop_dev_time": 6.5,
+          "pull_1_stop_dev_time": 2.5,
+          "pull_2_stop_dev_time": 2.0
+        },
+        "cinestill_c41_kit": {
+          "process": "c41_simplified",
+          "developer_time_minutes": 3.5,
+          "developer_temp_c": 37.8,
+          "blix_time_minutes": 8.0,
+          "stabilizer_time_minutes": 1.0,
+          "total_time_minutes": 12.5,
+          "temperature_tolerance_c": 0.5,
+          "push_1_stop_dev_time": 4.8,
+          "push_2_stop_dev_time": 7.0,
+          "pull_1_stop_dev_time": 2.8,
+          "pull_2_stop_dev_time": 2.2
+        }
+      }
+    },
+    "kodak_portra_400": {
+      "name": "Kodak Portra 400",
+      "manufacturer": "Kodak",
+      "iso": 400,
+      "type": "color_negative",
+      "process": "c41",
+      "year_released": 2007,
+      "current_production": true,
+      "price_35mm_usd": 16.5,
+      "alternative_names": [
+        "Portra 400"
+      ],
+      "description": "Professional color negative film optimized for portraits",
+      "grain": "fine",
+      "contrast": "low",
+      "best_uses": [
+        "portraits",
+        "weddings",
+        "fashion",
+        "general_color"
+      ],
+      "c41_processing": {
+        "kodak_flexicolor_c41": {
+          "process": "c41",
+          "developer_time_minutes": 3.25,
+          "developer_temp_c": 37.8,
+          "bleach_time_minutes": 6.5,
+          "fixer_time_minutes": 6.5,
+          "stabilizer_time_minutes": 1.0,
+          "total_time_minutes": 17.25,
+          "temperature_tolerance_c": 0.3,
+          "push_1_stop_dev_time": 4.5,
+          "push_2_stop_dev_time": 6.5,
+          "pull_1_stop_dev_time": 2.5,
+          "pull_2_stop_dev_time": 2.0
+        },
+        "tetenal_c41_kit": {
+          "process": "c41",
+          "developer_time_minutes": 3.25,
+          "developer_temp_c": 37.8,
+          "bleach_time_minutes": 6.5,
+          "fixer_time_minutes": 6.5,
+          "stabilizer_time_minutes": 1.0,
+          "total_time_minutes": 17.25,
+          "temperature_tolerance_c": 0.3,
+          "push_1_stop_dev_time": 4.5,
+          "push_2_stop_dev_time": 6.5,
+          "pull_1_stop_dev_time": 2.5,
+          "pull_2_stop_dev_time": 2.0
+        },
+        "cinestill_c41_kit": {
+          "process": "c41_simplified",
+          "developer_time_minutes": 3.5,
+          "developer_temp_c": 37.8,
+          "blix_time_minutes": 8.0,
+          "stabilizer_time_minutes": 1.0,
+          "total_time_minutes": 12.5,
+          "temperature_tolerance_c": 0.5,
+          "push_1_stop_dev_time": 4.8,
+          "push_2_stop_dev_time": 7.0,
+          "pull_1_stop_dev_time": 2.8,
+          "pull_2_stop_dev_time": 2.2
+        }
+      }
+    },
+    "cinestill_800t": {
+      "name": "CineStill 800T",
+      "manufacturer": "CineStill",
+      "iso": 800,
+      "type": "color_negative",
+      "process": "c41",
+      "year_released": 2012,
+      "current_production": true,
+      "price_35mm_usd": 14.25,
+      "alternative_names": [
+        "800T",
+        "800 Tungsten"
+      ],
+      "description": "High-speed cinema film stock with tungsten balance and halation effects",
+      "grain": "fine",
+      "contrast": "medium",
+      "best_uses": [
+        "low_light",
+        "night",
+        "neon",
+        "tungsten_light"
+      ],
+      "c41_processing": {
+        "kodak_flexicolor_c41": {
+          "process": "c41",
+          "developer_time_minutes": 3.25,
+          "developer_temp_c": 37.8,
+          "bleach_time_minutes": 6.5,
+          "fixer_time_minutes": 6.5,
+          "stabilizer_time_minutes": 1.0,
+          "total_time_minutes": 17.25,
+          "temperature_tolerance_c": 0.3,
+          "push_1_stop_dev_time": 4.5,
+          "push_2_stop_dev_time": 6.5,
+          "pull_1_stop_dev_time": 2.5,
+          "pull_2_stop_dev_time": 2.0
+        },
+        "tetenal_c41_kit": {
+          "process": "c41",
+          "developer_time_minutes": 3.25,
+          "developer_temp_c": 37.8,
+          "bleach_time_minutes": 6.5,
+          "fixer_time_minutes": 6.5,
+          "stabilizer_time_minutes": 1.0,
+          "total_time_minutes": 17.25,
+          "temperature_tolerance_c": 0.3,
+          "push_1_stop_dev_time": 4.5,
+          "push_2_stop_dev_time": 6.5,
+          "pull_1_stop_dev_time": 2.5,
+          "pull_2_stop_dev_time": 2.0
+        },
+        "cinestill_c41_kit": {
+          "process": "c41_simplified",
+          "developer_time_minutes": 3.5,
+          "developer_temp_c": 37.8,
+          "blix_time_minutes": 8.0,
+          "stabilizer_time_minutes": 1.0,
+          "total_time_minutes": 12.5,
+          "temperature_tolerance_c": 0.5,
+          "push_1_stop_dev_time": 4.8,
+          "push_2_stop_dev_time": 7.0,
+          "pull_1_stop_dev_time": 2.8,
+          "pull_2_stop_dev_time": 2.2
+        }
+      }
+    },
+    "kodak_ektachrome_e100": {
+      "name": "Kodak Ektachrome E100",
+      "manufacturer": "Kodak",
+      "iso": 100,
+      "type": "slide",
+      "process": "e6",
+      "year_released": 2018,
+      "current_production": true,
+      "price_35mm_usd": 18.5,
+      "alternative_names": [
+        "Ektachrome E100",
+        "E100"
+      ],
+      "description": "Professional slide film with natural color reproduction",
+      "grain": "ultra_fine",
+      "contrast": "medium",
+      "best_uses": [
+        "landscapes",
+        "nature",
+        "commercial",
+        "projection"
+      ],
+      "e6_processing": {
+        "kodak_e6_kit": {
+          "process": "e6",
+          "first_dev_time_minutes": 6.0,
+          "first_dev_temp_c": 37.8,
+          "reversal_time_minutes": 2.0,
+          "color_dev_time_minutes": 6.0,
+          "bleach_time_minutes": 6.0,
+          "fixer_time_minutes": 4.0,
+          "stabilizer_time_minutes": 1.0,
+          "total_time_minutes": 25.0,
+          "temperature_tolerance_c": 0.15,
+          "push_1_stop_first_dev_time": 8.0,
+          "push_2_stop_first_dev_time": 10.0,
+          "pull_1_stop_first_dev_time": 4.5,
+          "pull_2_stop_first_dev_time": 3.5
+        },
+        "tetenal_e6_kit": {
+          "process": "e6_simplified",
+          "first_dev_time_minutes": 6.0,
+          "first_dev_temp_c": 37.8,
+          "reversal_time_minutes": 2.0,
+          "color_dev_time_minutes": 6.0,
+          "bleach_fix_time_minutes": 8.0,
+          "stabilizer_time_minutes": 1.0,
+          "total_time_minutes": 23.0,
+          "temperature_tolerance_c": 0.2,
+          "push_1_stop_first_dev_time": 8.0,
+          "push_2_stop_first_dev_time": 10.0,
+          "pull_1_stop_first_dev_time": 4.5,
+          "pull_2_stop_first_dev_time": 3.5
+        }
+      }
+    },
+    "fuji_velvia_50": {
+      "name": "Fuji Velvia 50",
+      "manufacturer": "Fujifilm",
+      "iso": 50,
+      "type": "slide",
+      "process": "e6",
+      "year_released": 1990,
+      "current_production": true,
+      "price_35mm_usd": 19.75,
+      "alternative_names": [
+        "Velvia 50",
+        "RVP"
+      ],
+      "description": "Ultra-saturated slide film famous for landscape photography",
+      "grain": "ultra_fine",
+      "contrast": "high",
+      "best_uses": [
+        "landscapes",
+        "nature",
+        "macro",
+        "fine_art"
+      ],
+      "e6_processing": {
+        "kodak_e6_kit": {
+          "process": "e6",
+          "first_dev_time_minutes": 6.0,
+          "first_dev_temp_c": 37.8,
+          "reversal_time_minutes": 2.0,
+          "color_dev_time_minutes": 6.0,
+          "bleach_time_minutes": 6.0,
+          "fixer_time_minutes": 4.0,
+          "stabilizer_time_minutes": 1.0,
+          "total_time_minutes": 25.0,
+          "temperature_tolerance_c": 0.15,
+          "push_1_stop_first_dev_time": 8.0,
+          "push_2_stop_first_dev_time": 10.0,
+          "pull_1_stop_first_dev_time": 4.5,
+          "pull_2_stop_first_dev_time": 3.5
+        },
+        "tetenal_e6_kit": {
+          "process": "e6_simplified",
+          "first_dev_time_minutes": 6.0,
+          "first_dev_temp_c": 37.8,
+          "reversal_time_minutes": 2.0,
+          "color_dev_time_minutes": 6.0,
+          "bleach_fix_time_minutes": 8.0,
+          "stabilizer_time_minutes": 1.0,
+          "total_time_minutes": 23.0,
+          "temperature_tolerance_c": 0.2,
+          "push_1_stop_first_dev_time": 8.0,
+          "push_2_stop_first_dev_time": 10.0,
+          "pull_1_stop_first_dev_time": 4.5,
+          "pull_2_stop_first_dev_time": 3.5
+        }
+      }
+    }
+  },
+  "developers": {
+    "kodak_d76": {
+      "name": "Kodak D-76",
+      "manufacturer": "Kodak",
+      "type": "powder",
+      "film_types": [
+        "black_white"
+      ],
+      "year_introduced": 1927,
+      "current_production": true,
+      "price_per_liter_usd": 4.5,
+      "alternative_names": [
+        "D76",
+        "Generic D-76"
+      ],
+      "description": "Classic general-purpose black and white developer",
+      "characteristics": "Fine grain, good shadow detail, excellent latitude",
+      "mixing_ratio": "1 packet per 3.8 liters water",
+      "stock_life_months": 6,
+      "working_life_hours": 24,
+      "capacity_rolls_per_liter": 20,
+      "safety_notes": "Wear gloves, ensure ventilation",
+      "best_for": [
+        "general_purpose",
+        "fine_grain",
+        "beginner_friendly"
+      ],
+      "avoid_with": []
+    },
+    "kodak_flexicolor_c41": {
+      "name": "Kodak Flexicolor C-41",
+      "manufacturer": "Kodak",
+      "type": "powder_kit",
+      "film_types": [
+        "color_negative"
+      ],
+      "year_introduced": 1972,
+      "current_production": true,
+      "price_per_liter_usd": 52.0,
+      "alternative_names": [
+        "Flexicolor",
+        "C-41 Pro"
+      ],
+      "description": "Professional C-41 processing chemistry",
+      "characteristics": "Laboratory-grade results, excellent color accuracy",
+      "mixing_ratio": "Professional mixing ratios",
+      "stock_life_months": 8,
+      "working_life_hours": 8,
+      "capacity_rolls_per_liter": 15,
+      "safety_notes": "Professional handling required",
+      "best_for": [
+        "professional_labs",
+        "high_volume",
+        "color_accuracy"
+      ],
+      "avoid_with": []
+    },
+    "tetenal_c41_kit": {
+      "name": "Tetenal Colortec C-41 Kit",
+      "manufacturer": "Tetenal",
+      "type": "liquid_kit",
+      "film_types": [
+        "color_negative"
+      ],
+      "year_introduced": 1980,
+      "current_production": true,
+      "price_per_liter_usd": 45.0,
+      "alternative_names": [
+        "Colortec C-41",
+        "C-41 Kit"
+      ],
+      "description": "Professional C-41 color negative processing kit",
+      "characteristics": "Accurate color reproduction, consistent results",
+      "mixing_ratio": "Ready-to-use concentrates",
+      "stock_life_months": 6,
+      "working_life_hours": 8,
+      "capacity_rolls_per_liter": 12,
+      "safety_notes": "Handle with care, ensure proper ventilation",
+      "best_for": [
+        "color_negative",
+        "professional_results",
+        "home_processing"
+      ],
+      "avoid_with": []
+    },
+    "cinestill_c41_kit": {
+      "name": "CineStill C-41 Powder Kit",
+      "manufacturer": "CineStill",
+      "type": "powder_kit",
+      "film_types": [
+        "color_negative"
+      ],
+      "year_introduced": 2015,
+      "current_production": true,
+      "price_per_liter_usd": 38.0,
+      "alternative_names": [
+        "CineStill C-41"
+      ],
+      "description": "Simplified C-41 kit for home processing",
+      "characteristics": "Two-bath simplified process, beginner friendly",
+      "mixing_ratio": "Simplified mixing instructions",
+      "stock_life_months": 6,
+      "working_life_hours": 6,
+      "capacity_rolls_per_liter": 8,
+      "safety_notes": "Simplified for home use",
+      "best_for": [
+        "home_processing",
+        "beginners",
+        "small_batches"
+      ],
+      "avoid_with": []
+    },
+    "kodak_e6_kit": {
+      "name": "Kodak E-6 Kit",
+      "manufacturer": "Kodak",
+      "type": "powder_kit",
+      "film_types": [
+        "slide"
+      ],
+      "year_introduced": 1977,
+      "current_production": true,
+      "price_per_liter_usd": 75.0,
+      "alternative_names": [
+        "Kodak E-6"
+      ],
+      "description": "Professional E-6 slide processing chemistry",
+      "characteristics": "Laboratory-grade results, precise color reproduction",
+      "mixing_ratio": "Professional 6-bath system",
+      "stock_life_months": 6,
+      "working_life_hours": 6,
+      "capacity_rolls_per_liter": 10,
+      "safety_notes": "Temperature critical, professional handling required",
+      "best_for": [
+        "professional_labs",
+        "slide_processing",
+        "color_accuracy"
+      ],
+      "avoid_with": []
+    },
+    "tetenal_e6_kit": {
+      "name": "Tetenal E-6 Kit",
+      "manufacturer": "Tetenal",
+      "type": "liquid_kit",
+      "film_types": [
+        "slide"
+      ],
+      "year_introduced": 1982,
+      "current_production": true,
+      "price_per_liter_usd": 65.0,
+      "alternative_names": [
+        "E-6 3-Bath Kit"
+      ],
+      "description": "Professional E-6 slide film processing kit",
+      "characteristics": "Accurate color reproduction, consistent density",
+      "mixing_ratio": "Three-bath system",
+      "stock_life_months": 4,
+      "working_life_hours": 6,
+      "capacity_rolls_per_liter": 8,
+      "safety_notes": "Temperature critical, handle with care",
+      "best_for": [
+        "slide_processing",
+        "professional_results",
+        "color_accuracy"
+      ],
+      "avoid_with": []
+    }
+  },
+  "processes": {
+    "bw_development": {
+      "name": "Black & White Development",
+      "steps": [
+        "developer",
+        "stop_bath",
+        "fixer",
+        "wash"
+      ],
+      "temperature_range_c": [
+        16,
+        27
+      ],
+      "standard_temp_c": 20,
+      "temperature_critical": false,
+      "typical_times": {
+        "developer": "6-12 minutes",
+        "stop_bath": "30 seconds",
+        "fixer": "5-10 minutes",
+        "wash": "20-30 minutes"
+      }
+    },
+    "c41": {
+      "name": "C-41 Color Negative Process",
+      "steps": [
+        "developer",
+        "bleach",
+        "wash",
+        "fixer",
+        "wash",
+        "stabilizer"
+      ],
+      "developer_time_minutes": 3.25,
+      "developer_temp_c": 37.8,
+      "bleach_time_minutes": 6.5,
+      "fixer_time_minutes": 6.5,
+      "stabilizer_time_minutes": 1.0,
+      "temperature_tolerance_c": 0.3,
+      "temperature_critical": true,
+      "push_pull_adjustments": {
+        "push_1_stop": {
+          "developer_time_minutes": 4.5
+        },
+        "push_2_stop": {
+          "developer_time_minutes": 6.5
+        },
+        "pull_1_stop": {
+          "developer_time_minutes": 2.5
+        },
+        "pull_2_stop": {
+          "developer_time_minutes": 2.0
+        }
+      }
+    },
+    "e6": {
+      "name": "E-6 Slide Film Process",
+      "steps": [
+        "first_developer",
+        "reversal",
+        "color_developer",
+        "bleach",
+        "fixer",
+        "stabilizer"
+      ],
+      "first_dev_time_minutes": 6.0,
+      "first_dev_temp_c": 37.8,
+      "reversal_time_minutes": 2.0,
+      "color_dev_time_minutes": 6.0,
+      "bleach_time_minutes": 6.0,
+      "fixer_time_minutes": 4.0,
+      "stabilizer_time_minutes": 1.0,
+      "temperature_tolerance_c": 0.15,
+      "temperature_critical": true,
+      "push_pull_adjustments": {
+        "push_1_stop": {
+          "first_dev_time_minutes": 8.0
+        },
+        "push_2_stop": {
+          "first_dev_time_minutes": 10.0
+        },
+        "pull_1_stop": {
+          "first_dev_time_minutes": 4.5
+        },
+        "pull_2_stop": {
+          "first_dev_time_minutes": 3.5
+        }
+      }
+    }
+  },
+  "temperature_compensation": {
+    "15": 1.9,
+    "16": 1.6,
+    "17": 1.45,
+    "18": 1.3,
+    "19": 1.15,
+    "20": 1.0,
+    "21": 0.9,
+    "22": 0.8,
+    "23": 0.72,
+    "24": 0.65,
+    "25": 0.6,
+    "26": 0.55,
+    "27": 0.5,
+    "28": 0.46,
+    "29": 0.42,
+    "30": 0.38
+  },
+  "metadata": {
+    "version": "3.0",
+    "last_updated": "2025-08-19",
+    "total_films": 6,
+    "total_developers": 6,
+    "b_and_w_combinations": 9,
+    "c41_combinations": 9,
+    "e6_combinations": 4,
+    "total_combinations": 22,
+    "note": "COMPLETE DATABASE WITH ALL C-41 AND E-6 PROCESSING DATA"
+  }
+}

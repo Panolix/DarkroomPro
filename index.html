@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DarkroomPro - Film Development Calculator</title>
+    <title>DarkroomPro v1.0.2 - Professional Film Development Calculator</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <header class="header">
-            <h1>🧪 DarkroomPro</h1>
+            <h1>DarkroomPro</h1>
             <p>Professional Film Development Calculator</p>
         </header>
 
@@ -18,30 +18,14 @@
                 <div class="input-group">
                     <label for="film-stock">Film Stock</label>
                     <select id="film-stock">
-                        <option value="">Select Film Stock...</option>
-                        <option value="tri-x-400">Kodak Tri-X 400</option>
-                        <option value="hp5-400">Ilford HP5 Plus 400</option>
-                        <option value="tmax-400">Kodak T-Max 400</option>
-                        <option value="delta-400">Ilford Delta 400</option>
-                        <option value="fp4-125">Ilford FP4 Plus 125</option>
-                        <option value="tmax-100">Kodak T-Max 100</option>
-                        <option value="acros-100">Fuji Acros 100</option>
-                        <option value="pan-f-50">Ilford Pan F Plus 50</option>
+                        <option value="">Loading films...</option>
                     </select>
                 </div>
 
                 <div class="input-group">
                     <label for="developer">Developer</label>
                     <select id="developer">
-                        <option value="">Select Developer...</option>
-                        <option value="d76">Kodak D-76</option>
-                        <option value="hc110">Kodak HC-110</option>
-                        <option value="id11">Ilford ID-11</option>
-                        <option value="ilfosol3">Ilford Ilfosol 3</option>
-                        <option value="rodinal">Agfa Rodinal</option>
-                        <option value="xtol">Kodak Xtol</option>
-                        <option value="microphen">Ilford Microphen</option>
-                        <option value="perceptol">Ilford Perceptol</option>
+                        <option value="">Select film first...</option>
                     </select>
                 </div>
 
@@ -80,7 +64,7 @@
                 </div>
 
                 <div class="result-card" id="dilution-result">
-                    <h3>🧪 Dilution Ratio</h3>
+                    <h3>Dilution Ratio</h3>
                     <div class="result-value" id="dilution">1:--</div>
                     <div class="result-breakdown" id="dilution-breakdown">
                         <span id="developer-amount">-- ml developer</span>
