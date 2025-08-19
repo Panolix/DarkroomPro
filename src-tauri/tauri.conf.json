@@ -45,8 +45,10 @@
     ],
     "resources": [],
     "externalBin": [],
-    "deb": {
-      "depends": []
+    "linux": {
+      "deb": {
+        "depends": []
+      }
     },
     "macOS": {
       "frameworks": [],
@@ -59,9 +61,5 @@
       "timestampUrl": ""
     }
   },
-  "plugins": {
-    "shell": {
-      "open": true
-    }
-  }
+  "plugins": {}
 }
