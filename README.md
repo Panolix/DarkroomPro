@@ -215,7 +215,7 @@ This project is proprietary software. All rights reserved.
 **Panagiotis Smponias**
 - Email: info@cityframe-photography.com
 - GitHub: [@Panolix](https://github.com/Panolix)
-- Website: [CityFrame Photography](https://cityframe-photography.com)
+- Website: [City Frame Photography](https://cityframe-photography.com)
 
 ## 🙏 **Acknowledgments**
 
