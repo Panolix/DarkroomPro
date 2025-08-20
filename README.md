@@ -1,8 +1,25 @@
-# 🧪 DarkroomPro - Professional Film Development Calculator
+# 🧪 DarkroomPro
 
-A precision calculator for film photographers and darkroom enthusiasts. Calculate exact development times, dilution ratios, and temperature compensations for any film stock and developer combination.
+A professional desktop application for calculating **precise film development parameters** with scientifically accurate timing, temperature compensation, and dilution ratios for over 76 film/developer combinations.
 
-Built with a hybrid Rust-JavaScript architecture for maximum performance and reliability.
+![Platform Support](https://img.shields.io/badge/Platform-macOS%20%7C%20Windows%20%7C%20Linux-blue)
+![License](https://img.shields.io/badge/License-Proprietary-red)
+![Built with](https://img.shields.io/badge/Built%20with-Rust%20%7C%20Tauri%20%7C%20JavaScript-orange)
+
+## 🧪 **App Overview**
+
+*Professional interface featuring: **Left** - Film stock selection with manufacturer grouping, **Center** - Calculation parameters with temperature and push/pull controls, **Right** - Precise results with development timer, **Bottom** - Export functionality for calculation records*
+
+## 🎯 **Key Features**
+
+- **36+ Film Stocks** - Comprehensive database of B&W, color negative, and slide films
+- **17+ Developers** - Popular developers with precise dilution ratios  
+- **76+ Combinations** - Tested film/developer pairings with accurate data
+- **Temperature Compensation** - Automatic time adjustments (15-30°C)
+- **Push/Pull Processing** - Accurate calculations for ±3 stops
+- **Built-in Timer** - Integrated countdown with audio alerts
+- **Export Functionality** - Save calculations as JSON, CSV, or PDF
+- **Cross-Platform** - Native apps for macOS, Windows, and Linux
 
 ## ✨ Features
 

@@ -1,12 +1,13 @@
 {
   "productName": "DarkroomPro",
   "version": "1.0.2",
-  "identifier": "com.darkroompro.app",
+  "identifier": "com.panolix.darkroompro",
   "build": {
     "beforeBuildCommand": "",
     "beforeDevCommand": "",
     "devUrl": "http://localhost:1420",
-    "frontendDist": "../dist"
+    "frontendDist": "../dist",
+    "beforeBuildCommand": "npm run build"
   },
   "app": {
     "windows": [
