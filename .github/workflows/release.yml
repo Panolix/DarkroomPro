@@ -1,0 +1,127 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  release:
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: 'macos-latest'
+            args: '--target aarch64-apple-darwin'
+          - platform: 'macos-latest'
+            args: '--target x86_64-apple-darwin'
+          - platform: 'ubuntu-24.04'
+            args: ''
+          - platform: 'windows-latest'
+            args: ''
+
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies (ubuntu only)
+        if: matrix.platform == 'ubuntu-24.04'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf
+
+      - name: Rust setup
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: './src-tauri -> target'
+
+      - name: Sync node version and setup cache
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+          cache: 'npm'
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Build the app
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: 'DarkroomPro ${{ github.ref_name }}'
+          releaseBody: |
+            ## 🧪 DarkroomPro ${{ github.ref_name }}
+            
+            Professional Film Development Calculator with Rust-powered precision.
+            
+            ### 📥 Downloads
+            - **macOS**: Download the `.dmg` file for your architecture
+            - **Windows**: Download the `.msi` installer
+            - **Linux**: Download the `.deb` or `.rpm` package
+            
+            ### ✨ Features
+            - 36+ film stocks with comprehensive database
+            - 17+ developers with precise dilution ratios
+            - Temperature compensation (15-30°C)
+            - Push/pull processing (±3 stops)
+            - Built-in development timer
+            - Export functionality (JSON, CSV, PDF)
+            - Cross-platform desktop apps
+            
+            ### 🔧 Technical
+            - Rust-powered calculation engine
+            - Type-safe data handling
+            - Decimal precision arithmetic
+            - Graceful web fallback
+            
+            See the [README](https://github.com/Panolix/DarkroomPro/blob/main/README.md) for installation instructions.
+          releaseDraft: false
+          prerelease: false
+          args: ${{ matrix.args }}
+
+  deploy-web:
+    needs: release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Build web version
+        run: npm run build
+        
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+        
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist'
+          
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
