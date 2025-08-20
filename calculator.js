@@ -1,3 +1,9 @@
+// Global function to clean up text display
+function cleanText(text) {
+    if (!text) return text;
+    return text.toString().replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+}
+
 // DarkroomPro Calculator Engine - Enhanced with Complete Database
 class DevelopmentCalculator {
     constructor() {
@@ -144,11 +150,11 @@ class DevelopmentCalculator {
                 <div class="info-grid">
                     <div class="info-item">
                         <span class="label">Manufacturer</span>
-                        <span class="value">${film.manufacturer || 'Unknown'}</span>
+                        <span class="value">${cleanText(film.manufacturer) || 'Unknown'}</span>
                     </div>
                     <div class="info-item">
                         <span class="label">Type</span>
-                        <span class="value">${this.getTypeDisplayName(film.type)}</span>
+                        <span class="value">${cleanText(this.getTypeDisplayName(film.type))}</span>
                     </div>
                     <div class="info-item">
                         <span class="label">Year Released</span>
@@ -167,15 +173,15 @@ class DevelopmentCalculator {
                 <div class="characteristics">
                     <div class="char-item">
                         <span class="char-label">Grain:</span>
-                        <span class="char-value">${film.grain ? film.grain.replace(/_/g, ' ') : 'Unknown'}</span>
+                        <span class="char-value">${cleanText(film.grain) || 'Unknown'}</span>
                     </div>
                     <div class="char-item">
                         <span class="char-label">Contrast:</span>
-                        <span class="char-value">${film.contrast ? film.contrast.replace(/_/g, ' ') : 'Unknown'}</span>
+                        <span class="char-value">${cleanText(film.contrast) || 'Unknown'}</span>
                     </div>
                     <div class="char-item">
                         <span class="char-label">Best Uses:</span>
-                        <span class="char-value">${(film.best_uses || []).map(use => use.replace(/_/g, ' ')).join(', ')}</span>
+                        <span class="char-value">${(film.best_uses || []).map(use => cleanText(use)).join(', ')}</span>
                     </div>
                 </div>
                 
@@ -263,18 +269,43 @@ class DevelopmentCalculator {
             return;
         }
 
-        const developer = developerDatabase[developerKey];
+        // Enhanced lookup logic for developer info
+        let developer = developerDatabase[developerKey];
+        console.log('🔍 Looking for developer:', developerKey, 'Direct match:', !!developer);
+        
+        if (!developer) {
+            // Try removing _stock suffix
+            let baseKey = developerKey.replace('_stock', '');
+            developer = developerDatabase[baseKey];
+            console.log('🔄 Trying without _stock:', baseKey, !!developer);
+            
+            if (!developer) {
+                // Try removing all suffixes
+                baseKey = developerKey.replace(/_stock|_\d+_\d+|_[a-z]$|_kit$/g, '');
+                developer = developerDatabase[baseKey];
+                console.log('🔄 Trying base key:', baseKey, !!developer);
+                
+                if (!developer) {
+                    // Try just first two parts
+                    baseKey = developerKey.split('_').slice(0, 2).join('_');
+                    developer = developerDatabase[baseKey];
+                    console.log('🔄 Trying first two parts:', baseKey, !!developer);
+                }
+            }
+        }
+        
+        console.log('🎯 Final developer result:', developer ? developer.name : 'NOT FOUND');
         this.developerDetailsElement.innerHTML = `
             <div class="info-card-content">
                 <div class="info-header">
                     <h3>${developer.name}</h3>
-                    <span class="type-badge">${developer.type}</span>
+                    <span class="type-badge">${cleanText(developer.type)}</span>
                 </div>
                 
                 <div class="info-grid">
                     <div class="info-item">
                         <span class="label">Manufacturer</span>
-                        <span class="value">${developer.manufacturer || 'Unknown'}</span>
+                        <span class="value">${cleanText(developer.manufacturer) || 'Unknown'}</span>
                     </div>
                     <div class="info-item">
                         <span class="label">Year Introduced</span>
@@ -297,7 +328,7 @@ class DevelopmentCalculator {
                 <div class="characteristics">
                     <div class="char-item">
                         <span class="char-label">Characteristics:</span>
-                        <span class="char-value">${developer.characteristics ? developer.characteristics.replace(/_/g, ' ') : 'N/A'}</span>
+                        <span class="char-value">${cleanText(developer.characteristics) || 'N/A'}</span>
                     </div>
                     ${developer.dilutions && developer.dilutions.length > 0 ? `
                         <div class="char-item">
@@ -378,16 +409,26 @@ class DevelopmentCalculator {
 
         const baseData = film.developers[developerKey];
         
-        // Get base time based on film type
+        // Get base time based on film type - FIXED LOGIC
         let baseTime;
+        console.log('🔍 Film type detection:', { 
+            filmName: film.name,
+            filmType: film.type, 
+            availableFields: Object.keys(baseData) 
+        });
+        
         if (film.type === 'black_white') {
             baseTime = baseData.time_minutes || baseData.time || 8.0;
+            console.log('⏱️ B&W base time:', baseTime, 'from field:', baseData.time_minutes ? 'time_minutes' : 'time');
         } else if (film.type === 'color_negative') {
             baseTime = baseData.developer_time_minutes || 3.25;
+            console.log('⏱️ C-41 base time:', baseTime, 'from field: developer_time_minutes');
         } else if (film.type === 'slide') {
             baseTime = baseData.first_dev_time_minutes || 6.0;
+            console.log('⏱️ E-6 base time:', baseTime, 'from field: first_dev_time_minutes');
         } else {
             baseTime = 8.0; // fallback
+            console.log('⚠️ Unknown film type, using fallback:', baseTime);
         }
         
         // Apply push/pull adjustments
