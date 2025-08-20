@@ -6,10 +6,6 @@ A professional desktop application for calculating **precise film development pa
 ![License](https://img.shields.io/badge/License-Proprietary-red)
 ![Built with](https://img.shields.io/badge/Built%20with-Rust%20%7C%20Tauri%20%7C%20JavaScript-orange)
 
-## 🧪 **App Overview**
-
-*Professional interface featuring: **Left** - Film stock selection with manufacturer grouping, **Center** - Calculation parameters with temperature and push/pull controls, **Right** - Precise results with development timer, **Bottom** - Export functionality for calculation records*
-
 ## 🎯 **Key Features**
 
 - **36+ Film Stocks** - Comprehensive database of B&W, color negative, and slide films
