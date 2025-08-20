@@ -54,7 +54,14 @@
                 </div>
 
                 <button id="calculate" class="calculate-btn">Calculate Development</button>
-                <button id="export" class="export-btn" style="display: none;">Export Results</button>
+                <div id="export-section" style="display: none;">
+                    <select id="export-format" class="export-format-select">
+                        <option value="json">JSON</option>
+                        <option value="csv">CSV</option>
+                        <option value="txt">Text Report</option>
+                    </select>
+                    <button id="export" class="export-btn">Export Results</button>
+                </div>
             </div>
 
             <div class="results-section">

@@ -54,6 +54,8 @@ class DevelopmentCalculator {
         this.volumeInput = document.getElementById('volume');
         this.calculateBtn = document.getElementById('calculate');
         this.exportBtn = document.getElementById('export');
+        this.exportSection = document.getElementById('export-section');
+        this.exportFormatSelect = document.getElementById('export-format');
         
         // Result elements
         this.devTimeElement = document.getElementById('dev-time');
@@ -622,8 +624,8 @@ class DevelopmentCalculator {
             setTimeout(() => card.classList.remove('updated'), 500);
         });
         
-        // Show export button and store results for export
-        this.exportBtn.style.display = 'inline-block';
+        // Show export section and store results for export
+        this.exportSection.style.display = 'block';
         this.lastCalculationResult = results;
     }
 
@@ -634,12 +636,13 @@ class DevelopmentCalculator {
         }
 
         try {
+            const format = this.exportFormatSelect.value;
             const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-            const filename = `darkroom-calculation-${timestamp}.json`;
+            const filename = `darkroom-calculation-${timestamp}.${format}`;
             
             const result = await window.rustBridge.exportCalculationEnhanced(
                 this.lastCalculationResult,
-                'json',
+                format,
                 filename
             );
             

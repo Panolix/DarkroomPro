@@ -18,7 +18,7 @@ A professional desktop application for calculating **precise film development pa
 - **Temperature Compensation** - Automatic time adjustments (15-30°C)
 - **Push/Pull Processing** - Accurate calculations for ±3 stops
 - **Built-in Timer** - Integrated countdown with audio alerts
-- **Export Functionality** - Save calculations as JSON, CSV, or PDF
+- **Export Functionality** - Save calculations as JSON, CSV, or Text Report
 - **Cross-Platform** - Native apps for macOS, Windows, and Linux
 
 ## ✨ Features
@@ -42,7 +42,7 @@ A professional desktop application for calculating **precise film development pa
 - **Visual Feedback**: Color-coded timer states (normal, warning, complete)
 
 ### 📤 **Export & Sharing**
-- **Multiple Formats**: Export calculations as JSON, CSV, or PDF reports
+- **Multiple Formats**: Export calculations as JSON, CSV, or Text reports
 - **Timestamped Reports**: Professional calculation summaries
 - **Database Export**: Complete film/developer database summaries
 
