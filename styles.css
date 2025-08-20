@@ -565,6 +565,34 @@ select:focus, input:focus {
     color: #000000 !important;
 }
 
+.export-btn {
+    background: transparent !important;
+    color: #ffa500 !important;
+    border: 1px solid #ffa500 !important;
+    padding: 12px 24px !important;
+    border-radius: 0px !important;
+    font-size: 1rem !important;
+    font-weight: 300 !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+    cursor: pointer !important;
+    transition: all 0.15s ease !important;
+    width: 100% !important;
+    margin-top: 0.5rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+}
+
+.export-btn:hover {
+    background: #ffa500 !important;
+    color: #000000 !important;
+    border-color: #ffa500 !important;
+}
+
+.export-btn:active {
+    background: #cc8400 !important;
+    color: #000000 !important;
+}
+
 .calculate-btn:disabled {
     background: transparent !important;
     color: #666666 !important;
@@ -590,6 +618,58 @@ select:focus, input:focus {
 select, option {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
     font-weight: 300 !important;
+}
+
+/* Enhanced dropdown styling for consistency */
+select {
+    font-size: 1rem !important;
+    letter-spacing: 0.01em !important;
+    color: #ffffff !important;
+    background-color: #0d0d0d !important;
+}
+
+option {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+    font-size: 1rem !important;
+    font-weight: 300 !important;
+    letter-spacing: 0.01em !important;
+    color: #ffffff !important;
+    background-color: #0d0d0d !important;
+    padding: 8px 12px !important;
+}
+
+/* Force dropdown options to use Inter font - nuclear approach */
+select option, 
+select optgroup,
+#film-stock option,
+#film-stock optgroup,
+#developer option,
+#push-pull option,
+option[value] {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+    font-weight: 300 !important;
+    font-size: 1rem !important;
+    letter-spacing: 0.01em !important;
+}
+
+/* Browser-specific dropdown font fixes */
+select::-webkit-option {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+    font-weight: 300 !important;
+}
+
+select::-moz-option {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+    font-weight: 300 !important;
+}
+
+optgroup {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+    font-weight: 400 !important;
+    font-size: 0.95rem !important;
+    color: #cccccc !important;
+    background-color: #1a1a1a !important;
+    letter-spacing: 0.02em !important;
 }
 
 /* Input fields override */

@@ -17,7 +17,8 @@ class DevelopmentCalculator {
     
     waitForDatabase() {
         const checkDatabase = () => {
-            if (Object.keys(filmDatabase).length > 0) {
+            // Check if Rust backend is ready or JavaScript database is loaded
+            if (window.rustBridge?.isDatabaseReady() || Object.keys(filmDatabase).length > 0) {
                 console.log('✅ Calculator: Database ready, populating UI');
                 this.populateFilmOptions();
                 this.updateFilmInfo();
@@ -28,6 +29,14 @@ class DevelopmentCalculator {
             }
         };
         checkDatabase();
+    }
+    
+    // Called when Rust backend is ready
+    onRustBackendReady() {
+        console.log('✅ Calculator: Rust backend ready, refreshing UI');
+        this.populateFilmOptions();
+        this.updateFilmInfo();
+        this.updateDeveloperInfo();
     }
     
     onDatabaseLoaded() {
@@ -44,6 +53,7 @@ class DevelopmentCalculator {
         this.pushPullSelect = document.getElementById('push-pull');
         this.volumeInput = document.getElementById('volume');
         this.calculateBtn = document.getElementById('calculate');
+        this.exportBtn = document.getElementById('export');
         
         // Result elements
         this.devTimeElement = document.getElementById('dev-time');
@@ -64,6 +74,7 @@ class DevelopmentCalculator {
 
     bindEvents() {
         this.calculateBtn.addEventListener('click', () => this.calculate());
+        this.exportBtn.addEventListener('click', () => this.exportResults());
         this.filmSelect.addEventListener('change', () => this.updateFilmInfo());
         this.developerSelect.addEventListener('change', () => this.updateDeveloperInfo());
         this.temperatureInput.addEventListener('input', () => this.updateTemperatureDisplay());
@@ -375,7 +386,7 @@ class DevelopmentCalculator {
         }
     }
 
-    calculate() {
+    async calculate() {
         const filmKey = this.filmSelect.value;
         const developerKey = this.developerSelect.value;
         const temperature = parseFloat(this.temperatureInput.value);
@@ -386,6 +397,34 @@ class DevelopmentCalculator {
             this.showError('Please select both film stock and developer');
             return;
         }
+
+        // Try Rust backend first
+        if (window.rustBridge?.isRustBackendAvailable()) {
+            try {
+                const rustResult = await window.rustBridge.calculateDevelopmentEnhanced(
+                    filmKey, developerKey, temperature, pushPull, volume
+                );
+                
+                if (rustResult) {
+                    console.log('🦀 Using Rust calculation result');
+                    this.updateResults(rustResult);
+                    
+                    // Show timer section
+                    this.timerSection.style.display = 'block';
+                    
+                    // Initialize timer with calculated time - ensure whole seconds only
+                    if (window.developmentTimer) {
+                        window.developmentTimer.setDuration(Math.round(rustResult.time * 60)); // Convert to seconds and round
+                    }
+                    return;
+                }
+            } catch (error) {
+                console.warn('⚠️ Rust calculation failed, falling back to JavaScript:', error);
+            }
+        }
+
+        // Fallback to JavaScript calculation
+        console.log('📜 Using JavaScript calculation engine');
 
         const film = filmDatabase[filmKey];
         
@@ -498,9 +537,9 @@ class DevelopmentCalculator {
         // Show timer section
         this.timerSection.style.display = 'block';
         
-        // Initialize timer with calculated time
+        // Initialize timer with calculated time - ensure whole seconds only
         if (window.developmentTimer) {
-            window.developmentTimer.setDuration(adjustedTime * 60); // Convert to seconds
+            window.developmentTimer.setDuration(Math.round(adjustedTime * 60)); // Convert to seconds and round
         }
     }
 
@@ -582,6 +621,44 @@ class DevelopmentCalculator {
             card.classList.add('updated');
             setTimeout(() => card.classList.remove('updated'), 500);
         });
+        
+        // Show export button and store results for export
+        this.exportBtn.style.display = 'inline-block';
+        this.lastCalculationResult = results;
+    }
+
+    async exportResults() {
+        if (!this.lastCalculationResult) {
+            alert('No calculation results to export');
+            return;
+        }
+
+        try {
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+            const filename = `darkroom-calculation-${timestamp}.json`;
+            
+            const result = await window.rustBridge.exportCalculationEnhanced(
+                this.lastCalculationResult,
+                'json',
+                filename
+            );
+            
+            console.log('✅ Export successful:', result);
+            
+            // Show success message
+            const originalText = this.exportBtn.textContent;
+            this.exportBtn.textContent = 'Exported!';
+            this.exportBtn.style.backgroundColor = 'var(--success)';
+            
+            setTimeout(() => {
+                this.exportBtn.textContent = originalText;
+                this.exportBtn.style.backgroundColor = '';
+            }, 2000);
+            
+        } catch (error) {
+            console.error('❌ Export failed:', error);
+            alert('Export failed: ' + error.message);
+        }
     }
 
     showError(message) {

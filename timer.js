@@ -27,8 +27,9 @@ class DevelopmentTimer {
     }
 
     setDuration(seconds) {
-        this.duration = seconds;
-        this.remaining = seconds;
+        // Round to whole seconds to avoid decimal places in timer
+        this.duration = Math.round(seconds);
+        this.remaining = Math.round(seconds);
         this.updateDisplay();
         this.updateProgress();
     }
@@ -68,7 +69,8 @@ class DevelopmentTimer {
         this.isRunning = false;
         this.isPaused = false;
         clearInterval(this.interval);
-        this.remaining = this.duration;
+        // Ensure we reset to whole seconds
+        this.remaining = Math.round(this.duration);
         this.updateDisplay();
         this.updateProgress();
         this.updateButtons();
@@ -76,7 +78,8 @@ class DevelopmentTimer {
     }
 
     tick() {
-        this.remaining--;
+        // Ensure we're always working with whole seconds
+        this.remaining = Math.round(this.remaining) - 1;
         this.updateDisplay();
         this.updateProgress();
         
@@ -108,17 +111,19 @@ class DevelopmentTimer {
     }
 
     updateDisplay() {
-        const minutes = Math.floor(Math.abs(this.remaining) / 60);
-        const seconds = Math.abs(this.remaining) % 60;
-        const sign = this.remaining < 0 ? '-' : '';
+        // Ensure we're working with whole seconds only
+        const wholeSeconds = Math.round(this.remaining);
+        const minutes = Math.floor(Math.abs(wholeSeconds) / 60);
+        const seconds = Math.abs(wholeSeconds) % 60;
+        const sign = wholeSeconds < 0 ? '-' : '';
         
         this.displayElement.textContent = 
-            `${sign}${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            `${sign}${minutes.toString().padStart(2, '0')}:${Math.round(seconds).toString().padStart(2, '0')}`;
         
         // Change color when time is up
-        if (this.remaining <= 0) {
+        if (wholeSeconds <= 0) {
             this.displayElement.style.color = 'var(--error)';
-        } else if (this.remaining <= 30) {
+        } else if (wholeSeconds <= 30) {
             this.displayElement.style.color = 'var(--warning)';
         } else {
             this.displayElement.style.color = 'var(--accent-color)';
