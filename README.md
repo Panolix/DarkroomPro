@@ -73,7 +73,7 @@ A professional desktop application for calculating **precise film development pa
 ### **Desktop Apps (Recommended)**
 
 #### **macOS**
-1. Download `DarkroomPro_1.0.2_aarch64.dmg` from [Releases](../../releases)
+1. Download `DarkroomPro_1.0.2_universal.dmg` from [Releases](../../releases)
 2. Open the DMG file
 3. Drag DarkroomPro to Applications folder
 4. Launch from Applications or Launchpad
