@@ -8,7 +8,7 @@ A professional desktop application for calculating **precise film development pa
 
 ## 📸 App Preview
 
-![DarkroomPro Application Screenshot](readme-images/CleanShot%202025-08-21%20at%2010.02.18@2x.png)
+![DarkroomPro Application Screenshot](readme-images/CleanShot%202025-08-21%20at%2010.02.18%402x.png)
 
 *DarkroomPro's intuitive interface showing film selection, developer options, temperature compensation, and built-in development timer.*
 
