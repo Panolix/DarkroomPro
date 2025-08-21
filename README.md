@@ -6,6 +6,12 @@ A professional desktop application for calculating **precise film development pa
 ![License](https://img.shields.io/badge/License-Proprietary-red)
 ![Built with](https://img.shields.io/badge/Built%20with-Rust%20%7C%20Tauri%20%7C%20JavaScript-orange)
 
+## 📸 App Preview
+
+![DarkroomPro Application Screenshot](readme-images/CleanShot%202025-08-21%20at%2010.02.18@2x.png)
+
+*DarkroomPro's intuitive interface showing film selection, developer options, temperature compensation, and built-in development timer.*
+
 ## 🎯 **Key Features**
 
 - **36+ Film Stocks** - Comprehensive database of B&W, color negative, and slide films
