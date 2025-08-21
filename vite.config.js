@@ -25,5 +25,15 @@ export default defineConfig(async () => ({
     minify: !process.env.TAURI_DEBUG ? "esbuild" : false,
     // produce sourcemaps for debug builds
     sourcemap: !!process.env.TAURI_DEBUG,
+    // Ensure assets are copied correctly
+    rollupOptions: {
+      input: {
+        main: 'index.html'
+      },
+      external: ['@tauri-apps/api/tauri', '@tauri-apps/api/fs', '@tauri-apps/api/path']
+    },
+    // Copy additional assets
+    copyPublicDir: true,
+    assetsDir: 'assets'
   },
 }))

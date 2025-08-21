@@ -6,7 +6,7 @@
   "description": "Professional Film Development Calculator for Darkroom Enthusiasts",
   "scripts": {
     "dev": "vite",
-    "build": "mkdir -p dist && cp *.js *.css *.html *.json dist/ 2>/dev/null || echo 'Build complete'",
+    "build": "vite build",
     "preview": "vite preview",
     "tauri": "tauri",
     "tauri:dev": "tauri dev",
