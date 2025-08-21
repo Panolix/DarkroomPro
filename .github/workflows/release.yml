@@ -37,6 +37,12 @@ jobs:
         with:
           targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
 
+      - name: Clear Tauri cache and ensure fresh icons
+        run: |
+          rm -rf src-tauri/target
+          rm -rf ~/.cargo/registry/cache
+          echo "Cleared Tauri build cache to ensure fresh icon build"
+
       - name: Rust cache
         uses: swatinem/rust-cache@v2
         with:
@@ -53,6 +59,14 @@ jobs:
 
       - name: Build frontend
         run: npm run build
+
+      - name: Verify icon files before build
+        run: |
+          echo "=== Verifying icon files exist and are current ==="
+          ls -la src-tauri/icons/
+          echo "Icon file sizes:"
+          stat -c "%n: %s bytes" src-tauri/icons/icon.png src-tauri/icons/icon.icns src-tauri/icons/32x32.png src-tauri/icons/128x128.png src-tauri/icons/128x128@2x.png 2>/dev/null || stat -f "%N: %z bytes" src-tauri/icons/icon.png src-tauri/icons/icon.icns src-tauri/icons/32x32.png src-tauri/icons/128x128.png src-tauri/icons/128x128@2x.png
+          echo "=== Icon verification complete ==="
 
       - name: Build the app
         uses: tauri-apps/tauri-action@v0
