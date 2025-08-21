@@ -38,9 +38,10 @@ jobs:
           targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
 
       - name: Clear Tauri cache and ensure fresh icons
+        shell: bash
         run: |
           rm -rf src-tauri/target
-          rm -rf ~/.cargo/registry/cache
+          rm -rf ~/.cargo/registry/cache || true
           echo "Cleared Tauri build cache to ensure fresh icon build"
 
       - name: Rust cache
@@ -61,11 +62,20 @@ jobs:
         run: npm run build
 
       - name: Verify icon files before build
+        shell: bash
         run: |
           echo "=== Verifying icon files exist and are current ==="
           ls -la src-tauri/icons/
           echo "Icon file sizes:"
-          stat -c "%n: %s bytes" src-tauri/icons/icon.png src-tauri/icons/icon.icns src-tauri/icons/32x32.png src-tauri/icons/128x128.png src-tauri/icons/128x128@2x.png 2>/dev/null || stat -f "%N: %z bytes" src-tauri/icons/icon.png src-tauri/icons/icon.icns src-tauri/icons/32x32.png src-tauri/icons/128x128.png src-tauri/icons/128x128@2x.png
+          if command -v stat >/dev/null 2>&1; then
+            if stat -c "%n: %s bytes" src-tauri/icons/icon.png 2>/dev/null; then
+              stat -c "%n: %s bytes" src-tauri/icons/icon.png src-tauri/icons/icon.icns src-tauri/icons/32x32.png src-tauri/icons/128x128.png src-tauri/icons/128x128@2x.png 2>/dev/null || true
+            else
+              stat -f "%N: %z bytes" src-tauri/icons/icon.png src-tauri/icons/icon.icns src-tauri/icons/32x32.png src-tauri/icons/128x128.png src-tauri/icons/128x128@2x.png 2>/dev/null || true
+            fi
+          else
+            echo "stat command not available, listing files only"
+          fi
           echo "=== Icon verification complete ==="
 
       - name: Build the app
