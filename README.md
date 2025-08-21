@@ -96,9 +96,6 @@ A professional desktop application for calculating **precise film development pa
    ```
 3. Launch from applications menu
 
-### **Web Version**
-Access the web version at: [https://panolix.github.io/DarkroomPro](https://panolix.github.io/DarkroomPro)
-
 ## 🚀 Quick Start
 
 1. **Select your film stock** from the categorized dropdown
