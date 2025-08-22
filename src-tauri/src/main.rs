@@ -156,12 +156,7 @@ fn main() {
             save_preferences,
             export_calculation
         ])
-        .setup(|app| {
-            #[cfg(debug_assertions)] // only include this code on debug builds
-            {
-                let window = app.get_webview_window("main").unwrap();
-                window.open_devtools();
-            }
+        .setup(|_app| {
             Ok(())
         })
         .run(tauri::generate_context!())

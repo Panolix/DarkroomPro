@@ -17,15 +17,15 @@
             <div class="input-section">
                 <div class="input-group">
                     <label for="film-stock">Film Stock</label>
-                    <select id="film-stock">
-                        <option value="">Loading films...</option>
+                    <select id="film-stock" disabled>
+                        <option value="">Loading database...</option>
                     </select>
                 </div>
 
                 <div class="input-group">
                     <label for="developer">Developer</label>
-                    <select id="developer">
-                        <option value="">Select film first...</option>
+                    <select id="developer" disabled>
+                        <option value="">Loading...</option>
                     </select>
                 </div>
 
@@ -124,5 +124,34 @@
     <script type="module" src="rust-bridge.js"></script>
     <script type="module" src="calculator.js"></script>
     <script type="module" src="timer.js"></script>
+    
+    <!-- Force database loading debug -->
+    <script>
+        window.addEventListener('load', async () => {
+            console.log('🚀 Window loaded, forcing database check...');
+            
+            // Wait a bit for modules to load
+            setTimeout(async () => {
+                console.log('🔍 Checking if database loaded:', {
+                    filmDatabase: typeof filmDatabase !== 'undefined' ? Object.keys(filmDatabase).length : 'undefined',
+                    calculator: !!window.calculator
+                });
+                
+                // Force database reload if empty
+                if (typeof filmDatabase !== 'undefined' && Object.keys(filmDatabase).length === 0) {
+                    console.log('🔄 Database empty, forcing reload...');
+                    if (typeof loadDatabase === 'function') {
+                        await loadDatabase();
+                    }
+                }
+                
+                // Force calculator refresh
+                if (window.calculator) {
+                    console.log('🔄 Forcing calculator refresh...');
+                    window.calculator.populateFilmOptions();
+                }
+            }, 2000);
+        });
+    </script>
 </body>
 </html>

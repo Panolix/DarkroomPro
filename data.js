@@ -1,10 +1,18 @@
 // Film Development Database - Complete Professional Database
-let filmDatabase = {};
-let developerDatabase = {};
-let temperatureCompensation = {};
-let pushPullCompensation = {};
-let agitationPatterns = {};
-let processes = {};
+window.filmDatabase = {};
+window.developerDatabase = {};
+window.temperatureCompensation = {};
+window.pushPullCompensation = {};
+window.agitationPatterns = {};
+window.processes = {};
+
+// Also keep local references
+let filmDatabase = window.filmDatabase;
+let developerDatabase = window.developerDatabase;
+let temperatureCompensation = window.temperatureCompensation;
+let pushPullCompensation = window.pushPullCompensation;
+let agitationPatterns = window.agitationPatterns;
+let processes = window.processes;
 
 // Set up push/pull compensation
 pushPullCompensation = {
@@ -17,14 +25,55 @@ pushPullCompensation = {
 };
 
 // Load the complete database
-async function loadDatabase() {
+window.loadDatabase = async function loadDatabase() {
     try {
-        const response = await fetch('./complete_database.json');
-        const data = await response.json();
+        let data;
         
-        filmDatabase = data.films || {};
-        developerDatabase = data.developers || {};
-        temperatureCompensation = data.temperature_compensation || {
+        // Check if we're in Tauri (desktop app) and use Rust backend
+        if (window.__TAURI__ && window.rustBridge) {
+            console.log('🦀 Loading database from Rust backend...');
+            try {
+                const { invoke } = await import('@tauri-apps/api/tauri');
+                const result = await invoke('load_database');
+                console.log('✅ Rust database loaded:', result);
+                
+                // Get films and developers from Rust
+                const films = await invoke('get_films');
+                const filmDatabase_temp = {};
+                
+                // Convert films array to object format
+                films.forEach(film => {
+                    filmDatabase_temp[film.key] = film;
+                });
+                
+                data = {
+                    films: filmDatabase_temp,
+                    developers: {}, // Will be populated as needed
+                    temperature_compensation: {
+                        15: 1.8, 16: 1.6, 17: 1.45, 18: 1.3, 19: 1.15,
+                        20: 1.0, 21: 0.9, 22: 0.8, 23: 0.72, 24: 0.65,
+                        25: 0.6, 26: 0.55, 27: 0.5, 28: 0.46, 29: 0.42, 30: 0.38
+                    }
+                };
+                console.log('✅ Database loaded from Rust backend');
+            } catch (rustError) {
+                console.warn('⚠️ Rust backend failed, trying fetch fallback:', rustError);
+                // Fallback to fetch
+                const response = await fetch('./complete_database.json');
+                data = await response.json();
+                console.log('✅ Database loaded from fetch fallback');
+            }
+        } else {
+            console.log('🌐 Loading database from web fetch...');
+            // Fallback for web mode
+            const response = await fetch('./complete_database.json');
+            data = await response.json();
+            console.log('✅ Database loaded from web fetch');
+        }
+        
+        filmDatabase = window.filmDatabase = data.films || {};
+        developerDatabase = window.developerDatabase = data.developers || {};
+        temperatureCompensation = window.temperatureCompensation = data.temperature_compensation || {
             15: 1.8, 16: 1.6, 17: 1.45, 18: 1.3, 19: 1.15,
             20: 1.0, 21: 0.9, 22: 0.8, 23: 0.72, 24: 0.65,
             25: 0.6, 26: 0.55, 27: 0.5, 28: 0.46, 29: 0.42, 30: 0.38
@@ -67,5 +116,15 @@ async function loadDatabase() {
     }
 }
 
-// Initialize database loading
-loadDatabase();
+// Initialize database loading and wait for it
+let databaseLoaded = false;
+window.loadDatabase().then(() => {
+    databaseLoaded = true;
+    console.log('🎯 Database loading completed, triggering UI update');
+    if (window.calculator) {
+        window.calculator.onDatabaseLoaded();
+    }
+}).catch(error => {
+    console.error('💥 Database loading failed:', error);
+    databaseLoaded = false;
+});

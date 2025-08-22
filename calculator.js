@@ -16,18 +16,43 @@ class DevelopmentCalculator {
     }
     
     waitForDatabase() {
+        let attempts = 0;
+        const maxAttempts = 30; // Wait up to 15 seconds
+        
         const checkDatabase = () => {
-            // Check if Rust backend is ready or JavaScript database is loaded
-            if (window.rustBridge?.isDatabaseReady() || Object.keys(filmDatabase).length > 0) {
+            attempts++;
+            const dbReady = window.rustBridge?.isDatabaseReady() || 
+                           Object.keys(filmDatabase).length > 0 ||
+                           Object.keys(window.filmDatabase || {}).length > 0;
+            
+            console.log(`🔍 Database check ${attempts}/${maxAttempts}:`, {
+                rustReady: window.rustBridge?.isDatabaseReady(),
+                filmDatabaseKeys: Object.keys(filmDatabase).length,
+                windowFilmDatabaseKeys: Object.keys(window.filmDatabase || {}).length,
+                dbReady
+            });
+            
+            if (dbReady) {
                 console.log('✅ Calculator: Database ready, populating UI');
+                // Ensure we're using the populated database
+                if (Object.keys(filmDatabase).length === 0 && Object.keys(window.filmDatabase || {}).length > 0) {
+                    console.log('🔄 Syncing window database to local variables');
+                    filmDatabase = window.filmDatabase;
+                    developerDatabase = window.developerDatabase;
+                }
                 this.populateFilmOptions();
                 this.updateFilmInfo();
                 this.updateDeveloperInfo();
+            } else if (attempts < maxAttempts) {
+                console.log(`⏳ Calculator: Waiting for database... (${attempts}/${maxAttempts})`);
+                setTimeout(checkDatabase, 500);
             } else {
-                console.log('⏳ Calculator: Waiting for database...');
-                setTimeout(checkDatabase, 100);
+                console.error('❌ Calculator: Database failed to load after maximum attempts');
+                this.filmSelect.innerHTML = '<option value="">Database failed to load</option>';
+                this.developerSelect.innerHTML = '<option value="">Database failed to load</option>';
             }
         };
+        
         checkDatabase();
     }
     
@@ -96,8 +121,19 @@ class DevelopmentCalculator {
     populateFilmOptions() {
         console.log('🎬 Populating film options...');
         
+        // Enable the dropdown
+        this.filmSelect.disabled = false;
+        
         // Clear existing options
         this.filmSelect.innerHTML = '<option value="">Select Film Stock...</option>';
+        
+        // Check if database is actually loaded
+        if (!filmDatabase || Object.keys(filmDatabase).length === 0) {
+            console.warn('⚠️ Film database is empty, cannot populate options');
+            this.filmSelect.innerHTML = '<option value="">Database not loaded</option>';
+            this.filmSelect.disabled = true;
+            return;
+        }
         
         // Group films by type
         const filmsByType = {
@@ -141,18 +177,27 @@ class DevelopmentCalculator {
             }
         });
         
-        console.log('✅ Film options populated');
+        console.log('✅ Film options populated and dropdown enabled');
     }
 
     updateFilmInfo() {
         const filmKey = this.filmSelect.value;
+        console.log('🎬 updateFilmInfo called with filmKey:', filmKey);
+        console.log('🎬 Current filmDatabase state:', {
+            keys: Object.keys(filmDatabase).length,
+            hasFilmKey: !!filmDatabase[filmKey],
+            filmDatabase: filmDatabase
+        });
+        
         if (!filmKey) {
+            console.log('🎬 No film key, clearing info');
             this.filmDetailsElement.textContent = 'Select a film stock to see details';
             this.updateDeveloperOptions([]);
             return;
         }
 
         const film = filmDatabase[filmKey];
+        console.log('🎬 Found film:', film ? film.name : 'NOT FOUND');
         this.filmDetailsElement.innerHTML = `
             <div class="info-card-content">
                 <div class="info-header">
@@ -209,6 +254,7 @@ class DevelopmentCalculator {
         
         // Update available developers
         const availableDevelopers = Object.keys(film.developers || {});
+        console.log('🎬 Available developers for', film.name, ':', availableDevelopers);
         this.updateDeveloperOptions(availableDevelopers);
     }
     
@@ -223,6 +269,9 @@ class DevelopmentCalculator {
     
     updateDeveloperOptions(availableDevelopers) {
         console.log('🧪 Updating developer options:', availableDevelopers);
+        
+        // Enable the dropdown
+        this.developerSelect.disabled = false;
         
         // Clear existing options
         this.developerSelect.innerHTML = '<option value="">Select Developer...</option>';
@@ -395,7 +444,18 @@ class DevelopmentCalculator {
         const pushPull = parseFloat(this.pushPullSelect.value);
         const volume = parseFloat(this.volumeInput.value);
 
+        console.log('🧮 Calculate called with:', {
+            filmKey, developerKey, temperature, pushPull, volume
+        });
+        console.log('🧮 Database state during calculate:', {
+            filmDatabaseKeys: Object.keys(filmDatabase).length,
+            developerDatabaseKeys: Object.keys(developerDatabase).length,
+            hasFilm: !!filmDatabase[filmKey],
+            hasDeveloper: !!developerDatabase[developerKey]
+        });
+
         if (!filmKey || !developerKey) {
+            console.log('❌ Missing film or developer selection');
             this.showError('Please select both film stock and developer');
             return;
         }
@@ -429,6 +489,13 @@ class DevelopmentCalculator {
         console.log('📜 Using JavaScript calculation engine');
 
         const film = filmDatabase[filmKey];
+        console.log('🧮 Film found:', film ? film.name : 'NOT FOUND');
+        
+        if (!film) {
+            console.log('❌ Film not found in database');
+            this.showError('Selected film not found in database');
+            return;
+        }
         
         // Fix developer lookup - try the same logic as in updateDeveloperOptions
         let developer = developerDatabase[developerKey];
@@ -441,12 +508,18 @@ class DevelopmentCalculator {
             }
             console.log('🔄 Calculate: Using base key:', baseKey, 'for developer:', developerKey);
         }
+        console.log('🧮 Developer found:', developer ? developer.name : 'NOT FOUND');
         
         // Check if this film/developer combination exists
-        if (!film.developers[developerKey]) {
+        if (!film.developers || !film.developers[developerKey]) {
+            console.log('❌ Film/developer combination not found:', {
+                filmDevelopers: Object.keys(film.developers || {}),
+                requestedDeveloper: developerKey
+            });
             this.showError('This film/developer combination is not in our database');
             return;
         }
+        console.log('✅ Film/developer combination found');
 
         const baseData = film.developers[developerKey];
         
