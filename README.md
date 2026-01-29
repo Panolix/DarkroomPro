@@ -3,7 +3,7 @@
 A professional desktop application for calculating **precise film development parameters** with scientifically accurate timing, temperature compensation, and dilution ratios for over 76 film/developer combinations.
 
 ![Platform Support](https://img.shields.io/badge/Platform-macOS%20%7C%20Windows%20%7C%20Linux-blue)
-![License](https://img.shields.io/badge/License-Proprietary-red)
+![License](https://img.shields.io/badge/License-CC_BY--NC--SA_4.0-blue)
 ![Built with](https://img.shields.io/badge/Built%20with-Rust%20%7C%20Tauri%20%7C%20JavaScript-orange)
 
 ## 📸 App Preview
@@ -207,7 +207,7 @@ The application includes a comprehensive database of film stocks and developers:
 
 ## 📄 **License**
 
-This project is proprietary software. All rights reserved.
+This project is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) - free for personal and educational use. Commercial use requires permission.
 
 ## 👨‍💻 **Author**
 
