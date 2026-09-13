@@ -55,6 +55,12 @@ jobs:
       - name: Build frontend
         run: npm run build
 
+      - name: Verify bundled font
+        run: node -e "if (!require('fs').existsSync('dist/fonts/InterVariable.woff2')) { console.error('Inter font missing from build'); process.exit(1); } console.log('Inter font bundled');"
+
+      - name: Test process step builder
+        run: npm run test:steps
+
       - name: Test Rust backend
         run: cargo test
         working-directory: src-tauri

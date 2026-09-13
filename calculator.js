@@ -536,14 +536,11 @@ class DevelopmentCalculator {
                     console.log('🦀 Using Rust calculation result');
                     rustResult.kitTemperature = this.getStandardTemperature();
                     this.updateResults(rustResult);
-                    
+
                     // Show timer section
                     this.timerSection.style.display = 'block';
-                    
-                    // Initialize timer with calculated time - ensure whole seconds only
-                    if (window.developmentTimer) {
-                        window.developmentTimer.setDuration(Math.round(rustResult.time * 60)); // Convert to seconds and round
-                    }
+
+                    this.updateProcessTimer(filmKey, developerKey, rustResult.time);
                     return;
                 }
             } catch (error) {
@@ -671,11 +668,23 @@ class DevelopmentCalculator {
         
         // Show timer section
         this.timerSection.style.display = 'block';
-        
-        // Initialize timer with calculated time - ensure whole seconds only
-        if (window.developmentTimer) {
-            window.developmentTimer.setDuration(Math.round(adjustedTime * 60)); // Convert to seconds and round
+
+        this.updateProcessTimer(filmKey, developerKey, adjustedTime);
+    }
+
+    updateProcessTimer(filmKey, developerKey, developerMinutes) {
+        if (!window.developmentTimer) return;
+
+        const film = filmDatabase[filmKey];
+        const combo = film && film.developers ? film.developers[developerKey] : null;
+
+        if (!film || !combo || !window.processSteps) {
+            window.developmentTimer.setDuration(Math.round(developerMinutes * 60));
+            return;
         }
+
+        const steps = window.processSteps.buildPresetSteps(film, combo, developerMinutes);
+        window.developmentTimer.setSteps(steps, { filmKey, developerKey });
     }
 
     getTemperatureCompensation(temperature) {

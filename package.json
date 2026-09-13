@@ -1,7 +1,7 @@
 {
   "name": "darkroom-pro",
   "private": true,
-  "version": "1.0.4",
+  "version": "1.0.5",
   "type": "module",
   "description": "Professional Film Development Calculator for Darkroom Enthusiasts",
   "scripts": {
@@ -9,6 +9,7 @@
     "prebuild": "npm run sync:db",
     "build": "vite build",
     "sync:db": "node scripts/sync-db.js",
+    "test:steps": "node scripts/test-steps.js",
     "preview": "vite preview",
     "tauri": "tauri",
     "tauri:dev": "tauri dev",

@@ -92,6 +92,32 @@ pub struct DeveloperData {
     pub push_2_stop_first_dev_time: Option<Decimal>,
     pub pull_1_stop_first_dev_time: Option<Decimal>,
     
+    // Multi-bath process steps
+    #[serde(default)]
+    pub reversal_time_minutes: Option<Decimal>,
+    #[serde(default)]
+    pub reversal_temp_c: Option<Decimal>,
+    #[serde(default)]
+    pub color_dev_time_minutes: Option<Decimal>,
+    #[serde(default)]
+    pub color_dev_temp_c: Option<Decimal>,
+    #[serde(default)]
+    pub bleach_time_minutes: Option<Decimal>,
+    #[serde(default)]
+    pub bleach_temp_c: Option<Decimal>,
+    #[serde(default)]
+    pub blix_time_minutes: Option<Decimal>,
+    #[serde(default)]
+    pub blix_temp_c: Option<Decimal>,
+    #[serde(default)]
+    pub fixer_time_minutes: Option<Decimal>,
+    #[serde(default)]
+    pub fixer_temp_c: Option<Decimal>,
+    #[serde(default)]
+    pub stabilizer_time_minutes: Option<Decimal>,
+    #[serde(default)]
+    pub stabilizer_temp_c: Option<Decimal>,
+    
     // Kit process temperatures
     #[serde(default)]
     pub developer_temp_c: Option<Decimal>,
@@ -155,6 +181,17 @@ pub struct CalculationRequest {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ProcessStep {
+    pub name: String,
+    #[serde(default)]
+    pub kind: String,
+    #[serde(default)]
+    pub time_minutes: Option<Decimal>,
+    #[serde(default)]
+    pub temperature_c: Option<Decimal>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CalculationResult {
     pub time_minutes: Decimal,
     pub time_formatted: String,
@@ -167,6 +204,8 @@ pub struct CalculationResult {
     pub film_name: String,
     pub developer_name: String,
     pub notes: Vec<String>,
+    #[serde(default)]
+    pub steps: Vec<ProcessStep>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

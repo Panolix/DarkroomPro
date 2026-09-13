@@ -75,26 +75,26 @@ A professional desktop application for calculating **precise film development pa
 > **Note:** Release builds are unsigned. On macOS, right-click the app and choose **Open** the first time you launch it; on Windows, SmartScreen may ask you to confirm.
 
 #### **macOS**
-1. Download `DarkroomPro_1.0.4_universal.dmg` from [Releases](../../releases)
+1. Download `DarkroomPro_1.0.5_universal.dmg` from [Releases](../../releases)
 2. Open the DMG file
 3. Drag DarkroomPro to Applications folder
 4. Launch from Applications or Launchpad
 
 #### **Windows**
-1. Download `DarkroomPro_1.0.4_x64_en-US.msi` from [Releases](../../releases)
+1. Download `DarkroomPro_1.0.5_x64_en-US.msi` from [Releases](../../releases)
 2. Run the installer
 3. Follow installation wizard
 4. Launch from Start Menu or Desktop
 
 #### **Linux**
-1. Download `DarkroomPro_1.0.4_amd64.deb` (Debian/Ubuntu), `DarkroomPro-1.0.4-1.x86_64.rpm` (RedHat/Fedora), or `DarkroomPro_1.0.4_amd64.AppImage` (portable)
+1. Download `DarkroomPro_1.0.5_amd64.deb` (Debian/Ubuntu), `DarkroomPro-1.0.5-1.x86_64.rpm` (RedHat/Fedora), or `DarkroomPro_1.0.5_amd64.AppImage` (portable)
 2. Install using your package manager:
    ```bash
    # Debian/Ubuntu
-   sudo dpkg -i DarkroomPro_1.0.4_amd64.deb
+   sudo dpkg -i DarkroomPro_1.0.5_amd64.deb
    
    # RedHat/Fedora
-   sudo rpm -i DarkroomPro-1.0.4-1.x86_64.rpm
+   sudo rpm -i DarkroomPro-1.0.5-1.x86_64.rpm
    ```
 3. Launch from applications menu
 
@@ -226,7 +226,7 @@ This project is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/lic
 - Film development data compiled from the [Massive Dev Chart](https://www.digitaltruth.com/devchart.php), manufacturer specifications (Kodak, Ilford, Fujifilm technical publications), the Film Photography Project, and community darkroom testing
 - Community testing and feedback from analog photography enthusiasts
 - Built with [Tauri](https://tauri.app/) - Rust-powered desktop apps
-- UI styled with [Inter](https://rsms.me/inter/) font family
+- UI styled with [Inter](https://rsms.me/inter/) font family, bundled with the app under the SIL Open Font License
 
 ---
 

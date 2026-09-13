@@ -1,4 +1,12 @@
 /* DarkroomPro Styles - City Frame Design Language */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('/fonts/InterVariable.woff2') format('woff2');
+}
+
 :root {
     /* City Frame Color Palette */
     --primary-color: #000000;
@@ -206,7 +214,7 @@ select:focus, input:focus {
 .timer-section {
     background: var(--surface);
     padding: 30px;
-    border-radius: 15px;
+    border-radius: 0;
     border: 1px solid var(--border);
 }
 
@@ -218,6 +226,7 @@ select:focus, input:focus {
     font-size: 4rem;
     font-weight: 700;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+    font-variant-numeric: tabular-nums;
     color: var(--accent-color);
     margin: 20px 0;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -233,7 +242,7 @@ select:focus, input:focus {
 .timer-btn {
     padding: 12px 24px;
     border: none;
-    border-radius: 8px;
+    border-radius: 0;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -274,6 +283,245 @@ select:focus, input:focus {
     background: linear-gradient(90deg, var(--success) 0%, var(--accent-color) 100%);
     width: 0%;
     transition: width 1s linear;
+}
+
+/* Multi-step timer */
+.timer-topline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+
+.timer-topline h3 {
+    margin: 0;
+    font-weight: 300;
+    color: var(--accent-color);
+    letter-spacing: 0.02em;
+}
+
+.timer-mode {
+    display: flex;
+    align-items: center;
+}
+
+.mode-btn {
+    background: transparent;
+    color: var(--dark-gray);
+    border: 1px solid var(--border);
+    padding: 8px 16px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: var(--fast-transition);
+}
+
+.mode-btn + .mode-btn {
+    border-left: none;
+}
+
+.mode-btn.active {
+    color: var(--film-amber);
+    border-color: var(--film-amber);
+}
+
+.mode-btn:hover {
+    color: var(--accent-color);
+}
+
+.buffer-seconds {
+    width: 70px !important;
+    padding: 8px 10px !important;
+    margin-left: 10px;
+    border: 1px solid var(--border) !important;
+    background: var(--input-bg) !important;
+    color: var(--accent-color) !important;
+}
+
+.timer-step-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--dark-gray);
+    margin-top: 6px;
+}
+
+.timer-step-name {
+    font-size: 1.1rem;
+    color: var(--accent-color);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    margin-top: 2px;
+}
+
+.timer-next {
+    min-height: 1.2em;
+    font-size: 0.9rem;
+    color: var(--dark-gray);
+    margin-top: 6px;
+}
+
+.timer-btn.ghost {
+    background: transparent;
+    color: var(--dark-gray);
+    border: 1px solid var(--border);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 300;
+    font-size: 0.85rem;
+}
+
+.timer-btn.ghost:hover {
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+    box-shadow: none;
+}
+
+.timer-btn.ghost.small {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+}
+
+.timer-btn.ghost.danger:hover {
+    color: var(--error);
+    border-color: var(--error);
+}
+
+.timer-stepper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin: 18px 0 12px;
+}
+
+.timer-step-chip {
+    padding: 8px 14px;
+    border: 1px solid var(--border);
+    color: var(--dark-gray);
+    font-size: 0.85rem;
+    letter-spacing: 0.03em;
+    transition: var(--fast-transition);
+}
+
+.timer-step-chip.done {
+    color: var(--success);
+    border-color: rgba(76, 175, 80, 0.5);
+}
+
+.timer-step-chip.active {
+    color: var(--film-amber);
+    border-color: var(--film-amber);
+    box-shadow: 0 0 12px rgba(255, 179, 102, 0.15);
+}
+
+.timer-step-chip.untimed {
+    font-style: italic;
+}
+
+.timer-progress-segments {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 10px;
+}
+
+.timer-segment {
+    flex: 1;
+    height: 6px;
+    background: var(--border);
+    overflow: hidden;
+}
+
+.timer-segment-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--success) 0%, var(--accent-color) 100%);
+    transition: width 0.5s linear;
+}
+
+.timer-segment.done .timer-segment-fill {
+    width: 100%;
+    background: var(--success);
+}
+
+.timer-segment.active .timer-segment-fill {
+    background: linear-gradient(90deg, var(--film-amber) 0%, var(--accent-color) 100%);
+}
+
+.timer-custom-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.custom-badge {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--film-amber);
+    border: 1px solid var(--film-amber);
+    padding: 4px 8px;
+}
+
+.timer-editor {
+    margin-top: 16px;
+    text-align: left;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+}
+
+.timer-editor-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.timer-editor-row {
+    display: grid;
+    grid-template-columns: minmax(140px, 1.6fr) 80px auto 80px auto auto auto;
+    gap: 8px;
+    align-items: center;
+}
+
+.editor-name,
+.editor-time,
+.editor-temp {
+    padding: 8px 10px !important;
+    background: var(--input-bg) !important;
+    border: 1px solid var(--border) !important;
+    color: var(--accent-color) !important;
+    font-size: 0.9rem !important;
+}
+
+.editor-untimed {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.75rem;
+    color: var(--dark-gray);
+    white-space: nowrap;
+}
+
+.editor-untimed input {
+    width: auto !important;
+}
+
+.timer-editor-add {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.timer-editor-add select {
+    width: auto !important;
+    padding: 10px 14px !important;
 }
 
 .info-section {
@@ -339,6 +587,14 @@ select:focus, input:focus {
     
     .timer-controls {
         flex-wrap: wrap;
+    }
+
+    .timer-topline {
+        justify-content: center;
+    }
+
+    .timer-editor-row {
+        grid-template-columns: 1fr 1fr;
     }
 }
 

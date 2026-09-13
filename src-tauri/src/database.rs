@@ -199,6 +199,40 @@ mod tests {
     }
 
     #[test]
+    fn kit_compositions_are_valid() {
+        let database = load_bundled_database();
+
+        for (film_key, film) in &database.films {
+            for (combo_key, combo) in &film.developers {
+                let has_blix = combo.blix_time_minutes.is_some();
+                let has_bleach = combo.bleach_time_minutes.is_some();
+                let has_fixer = combo.fixer_time_minutes.is_some();
+                let has_reversal = combo.reversal_time_minutes.is_some();
+                let has_stabilizer = combo.stabilizer_time_minutes.is_some();
+
+                match film.film_type {
+                    FilmType::BlackWhite => {}
+                    FilmType::ColorNegative => {
+                        assert!(combo.developer_time_minutes.is_some(), "{} / {} lacks a developer step", film_key, combo_key);
+                        assert!(has_stabilizer, "{} / {} lacks a stabilizer step", film_key, combo_key);
+                        let composition_ok = (has_blix && !has_bleach && !has_fixer)
+                            || (!has_blix && has_bleach && has_fixer);
+                        assert!(composition_ok, "{} / {} must use either blix or bleach+fixer", film_key, combo_key);
+                    }
+                    FilmType::Slide => {
+                        assert!(combo.first_dev_time_minutes.is_some(), "{} / {} lacks a first developer step", film_key, combo_key);
+                        assert!(combo.color_dev_time_minutes.is_some(), "{} / {} lacks a color developer step", film_key, combo_key);
+                        assert!(has_stabilizer, "{} / {} lacks a stabilizer step", film_key, combo_key);
+                        let six_bath = has_reversal && has_bleach && has_fixer && !has_blix;
+                        let three_bath = has_blix && !has_reversal && !has_bleach && !has_fixer;
+                        assert!(six_bath || three_bath, "{} / {} has an invalid E-6 bath layout", film_key, combo_key);
+                    }
+                }
+            }
+        }
+    }
+
+    #[test]
     fn black_and_white_times_are_consistent() {
         let database = load_bundled_database();
 

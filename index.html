@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DarkroomPro v1.0.4 - Professional Film Development Calculator</title>
+    <title>DarkroomPro v1.0.5 - Professional Film Development Calculator</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -89,16 +89,36 @@
 
             <div class="timer-section" id="timer-section" style="display: none;">
                 <div class="timer-card">
-                    <h3>⏰ Development Timer</h3>
+                    <div class="timer-topline">
+                        <h3>Development Timer</h3>
+                        <div class="timer-mode" id="timer-mode">
+                            <button class="mode-btn active" data-mode="auto" type="button">Auto</button>
+                            <button class="mode-btn" data-mode="buffer" type="button">Buffer</button>
+                            <button class="mode-btn" data-mode="manual" type="button">Manual</button>
+                            <input type="number" id="buffer-seconds" class="buffer-seconds" min="1" max="60" step="1" value="5" title="Buffer seconds" style="display: none;">
+                        </div>
+                    </div>
+                    <div class="timer-step-label" id="timer-step-label">No process loaded</div>
+                    <div class="timer-step-name" id="timer-step-name"></div>
                     <div class="timer-display" id="timer-display">00:00</div>
+                    <div class="timer-next" id="timer-next"></div>
                     <div class="timer-controls">
                         <button id="start-timer" class="timer-btn start">Start</button>
                         <button id="pause-timer" class="timer-btn pause">Pause</button>
                         <button id="reset-timer" class="timer-btn reset">Reset</button>
+                        <button id="skip-timer" class="timer-btn ghost">Skip</button>
+                        <button id="extend-timer" class="timer-btn ghost">+30s</button>
                     </div>
+                    <div class="timer-stepper" id="timer-stepper"></div>
+                    <div class="timer-progress-segments" id="timer-progress-segments"></div>
                     <div class="timer-progress">
                         <div class="progress-bar" id="progress-bar"></div>
                     </div>
+                    <div class="timer-custom-row">
+                        <button id="toggle-custom" class="timer-btn ghost" type="button">Customize Steps</button>
+                        <span id="custom-badge" class="custom-badge" style="display: none;">customized</span>
+                    </div>
+                    <div class="timer-editor" id="timer-editor" style="display: none;"></div>
                 </div>
             </div>
 
@@ -122,6 +142,7 @@
 
     <script type="module" src="rust-bridge.js"></script>
     <script type="module" src="data.js"></script>
+    <script type="module" src="steps.js"></script>
     <script type="module" src="calculator.js"></script>
     <script type="module" src="timer.js"></script>
     

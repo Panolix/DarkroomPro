@@ -98,6 +98,7 @@ impl CalculationEngine {
             film_name: film.name.clone(),
             developer_name: developer.name.clone(),
             notes,
+            steps: Vec::new(),
         })
     }
 
