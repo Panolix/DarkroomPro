@@ -102,6 +102,14 @@ pub struct DeveloperData {
     #[serde(default)]
     pub special_notes: Option<String>,
     
+    // Data provenance
+    #[serde(default)]
+    pub source: Option<String>,
+    #[serde(default)]
+    pub source_url: Option<String>,
+    #[serde(default)]
+    pub verified_date: Option<String>,
+    
     // Additional fields
     pub dilution_ratio: Option<String>,
 }

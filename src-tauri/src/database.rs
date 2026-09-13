@@ -117,21 +117,115 @@ pub struct DatabaseStats {
 mod tests {
     use super::*;
 
-    #[test]
-    fn parses_bundled_database() {
+    fn load_bundled_database() -> Database {
         let path = concat!(env!("CARGO_MANIFEST_DIR"), "/../complete_database.json");
         let content = fs::read_to_string(path).expect("bundled database should be readable");
-        let database: Database =
-            serde_json::from_str(&content).expect("bundled database should parse");
+        serde_json::from_str(&content).expect("bundled database should parse")
+    }
 
-        assert_eq!(database.films.len(), 36, "film count");
-        assert_eq!(database.developers.len(), 17, "developer count");
+    fn normalize_key(key: &str) -> String {
+        key.chars()
+            .filter(|c| c.is_ascii_alphanumeric())
+            .map(|c| c.to_ascii_lowercase())
+            .collect()
+    }
+
+    #[test]
+    fn parses_bundled_database() {
+        let database = load_bundled_database();
+
+        assert_eq!(database.films.len(), 46, "film count");
+        assert_eq!(database.developers.len(), 18, "developer count");
 
         let combinations: usize = database
             .films
             .values()
             .map(|film| film.developers.len())
             .sum();
-        assert_eq!(combinations, 162, "film/developer combinations");
+        assert_eq!(combinations, 366, "film/developer combinations");
+    }
+
+    #[test]
+    fn every_combo_resolves_to_a_developer() {
+        let database = load_bundled_database();
+
+        for (film_key, film) in &database.films {
+            for combo_key in film.developers.keys() {
+                let normalized = normalize_key(combo_key);
+                let resolved = database
+                    .developers
+                    .keys()
+                    .any(|master| normalized.starts_with(&normalize_key(master)));
+                assert!(
+                    resolved,
+                    "combo '{}' of film '{}' does not resolve to a developer",
+                    combo_key, film_key
+                );
+            }
+        }
+    }
+
+    #[test]
+    fn every_combo_has_a_source() {
+        let database = load_bundled_database();
+
+        for (film_key, film) in &database.films {
+            for (combo_key, combo) in &film.developers {
+                assert!(
+                    combo.source.as_deref().is_some_and(|s| !s.is_empty()),
+                    "combo '{}' of film '{}' has no source",
+                    combo_key, film_key
+                );
+            }
+        }
+    }
+
+    #[test]
+    fn color_combos_have_kit_temperature() {
+        let database = load_bundled_database();
+
+        for (film_key, film) in &database.films {
+            if matches!(film.film_type, FilmType::BlackWhite) {
+                continue;
+            }
+            for (combo_key, combo) in &film.developers {
+                assert!(
+                    combo.developer_temp_c.is_some() || combo.first_dev_temp_c.is_some(),
+                    "color combo '{}' of film '{}' has no kit temperature",
+                    combo_key, film_key
+                );
+            }
+        }
+    }
+
+    #[test]
+    fn black_and_white_times_are_consistent() {
+        let database = load_bundled_database();
+
+        for (film_key, film) in &database.films {
+            if !matches!(film.film_type, FilmType::BlackWhite) {
+                continue;
+            }
+            for (combo_key, combo) in &film.developers {
+                let base = combo.time_minutes.expect("B&W combo needs a base time");
+                assert!(base > rust_decimal::Decimal::ZERO, "{} / {} has a non-positive base time", film_key, combo_key);
+
+                if let Some(p1) = combo.push_1_stop_minutes {
+                    assert!(p1 > base, "{} / {} push 1 must exceed base", film_key, combo_key);
+                }
+                if let (Some(p1), Some(p2)) = (combo.push_1_stop_minutes, combo.push_2_stop_minutes) {
+                    assert!(p2 >= p1, "{} / {} push times must increase", film_key, combo_key);
+                }
+                if let (Some(p2), Some(p3)) = (combo.push_2_stop_minutes, combo.push_3_stop_minutes) {
+                    assert!(p3 >= p2, "{} / {} push times must increase", film_key, combo_key);
+                }
+                if let Some(pull1) = combo.pull_1_stop_minutes {
+                    assert!(pull1 < base, "{} / {} pull 1 must be below base", film_key, combo_key);
+                }
+                if let (Some(pull1), Some(pull2)) = (combo.pull_1_stop_minutes, combo.pull_2_stop_minutes) {
+                    assert!(pull2 <= pull1, "{} / {} pull times must decrease", film_key, combo_key);
+                }
+            }
+        }
     }
 }

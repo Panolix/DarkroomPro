@@ -3,6 +3,13 @@ use rust_decimal::Decimal;
 use std::collections::HashMap;
 use thiserror::Error;
 
+fn normalize_key(key: &str) -> String {
+    key.chars()
+        .filter(|c| c.is_ascii_alphanumeric())
+        .map(|c| c.to_ascii_lowercase())
+        .collect()
+}
+
 #[derive(Error, Debug)]
 pub enum CalculationError {
     #[error("Film not found: {0}")]
@@ -40,13 +47,13 @@ impl CalculationEngine {
 
     pub fn calculate_development(&self, request: CalculationRequest) -> Result<CalculationResult, CalculationError> {
         let database = self.get_database()?;
-        
-        // Validate inputs
-        self.validate_inputs(&request)?;
-        
+
         // Get film and developer
         let film = database.films.get(&request.film_key)
             .ok_or_else(|| CalculationError::FilmNotFound(request.film_key.clone()))?;
+
+        // Validate inputs (temperature range depends on the film type)
+        self.validate_inputs(&request, film)?;
         
         let developer = self.find_developer(&database.developers, &request.developer_key)?;
         
@@ -94,8 +101,12 @@ impl CalculationEngine {
         })
     }
 
-    fn validate_inputs(&self, request: &CalculationRequest) -> Result<(), CalculationError> {
-        if request.temperature < Decimal::from(15) || request.temperature > Decimal::from(30) {
+    fn validate_inputs(&self, request: &CalculationRequest, film: &Film) -> Result<(), CalculationError> {
+        // B&W development is temperature-compensated within 15-30°C.
+        // Color processes (C-41/E-6) run at their kit temperature (approx. 38°C).
+        if matches!(film.film_type, FilmType::BlackWhite)
+            && (request.temperature < Decimal::from(15) || request.temperature > Decimal::from(30))
+        {
             return Err(CalculationError::InvalidTemperature(request.temperature));
         }
         
@@ -115,26 +126,21 @@ impl CalculationEngine {
         if let Some(developer) = developers.get(developer_key) {
             return Ok(developer);
         }
-        
-        // Try removing common suffixes
-        let base_key = developer_key
-            .replace("_stock", "")
-            .replace("_kit", "");
-        
-        if let Some(developer) = developers.get(&base_key) {
-            return Ok(developer);
-        }
-        
-        // Try removing all suffixes with regex-like pattern
-        let parts: Vec<&str> = developer_key.split('_').collect();
-        if parts.len() >= 2 {
-            let simple_key = format!("{}_{}", parts[0], parts[1]);
-            if let Some(developer) = developers.get(&simple_key) {
-                return Ok(developer);
+
+        // Fall back to normalized prefix matching (handles dilution suffixes)
+        let normalized = normalize_key(developer_key);
+        let mut best_match: Option<&Developer> = None;
+        let mut best_length = 0;
+
+        for (key, developer) in developers {
+            let normalized_master = normalize_key(key);
+            if normalized.starts_with(&normalized_master) && normalized_master.len() > best_length {
+                best_match = Some(developer);
+                best_length = normalized_master.len();
             }
         }
-        
-        Err(CalculationError::DeveloperNotFound(developer_key.to_string()))
+
+        best_match.ok_or_else(|| CalculationError::DeveloperNotFound(developer_key.to_string()))
     }
 
     fn find_developer_data<'a>(&self, film: &'a Film, developer_key: &str) -> Result<&'a DeveloperData, CalculationError> {
@@ -142,14 +148,22 @@ impl CalculationEngine {
         if let Some(data) = film.developers.get(developer_key) {
             return Ok(data);
         }
-        
-        // Try removing _stock suffix
-        let base_key = developer_key.replace("_stock", "");
-        if let Some(data) = film.developers.get(&base_key) {
-            return Ok(data);
+
+        // Fall back to normalized matching (either direction may include suffixes)
+        let normalized = normalize_key(developer_key);
+        let mut best_match: Option<&DeveloperData> = None;
+        let mut best_length = 0;
+
+        for (key, data) in &film.developers {
+            let normalized_key = normalize_key(key);
+            let matches = normalized.starts_with(&normalized_key) || normalized_key.starts_with(&normalized);
+            if matches && normalized_key.len() > best_length {
+                best_match = Some(data);
+                best_length = normalized_key.len();
+            }
         }
-        
-        Err(CalculationError::CombinationNotSupported {
+
+        best_match.ok_or_else(|| CalculationError::CombinationNotSupported {
             film: film.name.clone(),
             developer: developer_key.to_string(),
         })

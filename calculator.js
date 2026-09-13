@@ -4,13 +4,39 @@ function cleanText(text) {
     return text.toString().replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
 }
 
+function normalizeDeveloperKey(key) {
+    return (key || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+function resolveDeveloper(developerKey) {
+    if (!developerKey) return null;
+    if (developerDatabase[developerKey]) return developerDatabase[developerKey];
+
+    const normalized = normalizeDeveloperKey(developerKey);
+    let bestMatch = null;
+    let bestLength = 0;
+
+    Object.entries(developerDatabase).forEach(([key, developer]) => {
+        const normalizedMaster = normalizeDeveloperKey(key);
+        if (normalized.startsWith(normalizedMaster) && normalizedMaster.length > bestLength) {
+            bestMatch = developer;
+            bestLength = normalizedMaster.length;
+        }
+    });
+
+    return bestMatch;
+}
+
 // DarkroomPro Calculator Engine - Enhanced with Complete Database
 class DevelopmentCalculator {
     constructor() {
         this.initializeElements();
         this.bindEvents();
         this.updateTemperatureDisplay();
-        
+
+        this.filmsPopulated = false;
+        this.populatedFilmCount = 0;
+
         // Wait for database to load
         this.waitForDatabase();
     }
@@ -119,16 +145,25 @@ class DevelopmentCalculator {
     }
     
     populateFilmOptions() {
+        const filmCount = Object.keys(filmDatabase || {}).length;
+
+        if (this.filmsPopulated && this.populatedFilmCount === filmCount) {
+            console.log('🎬 Film options already populated, keeping current selection');
+            return;
+        }
+
         console.log('🎬 Populating film options...');
-        
+
+        const previousSelection = this.filmSelect.value;
+
         // Enable the dropdown
         this.filmSelect.disabled = false;
-        
+
         // Clear existing options
         this.filmSelect.innerHTML = '<option value="">Select Film Stock...</option>';
-        
+
         // Check if database is actually loaded
-        if (!filmDatabase || Object.keys(filmDatabase).length === 0) {
+        if (!filmDatabase || filmCount === 0) {
             console.warn('⚠️ Film database is empty, cannot populate options');
             this.filmSelect.innerHTML = '<option value="">Database not loaded</option>';
             this.filmSelect.disabled = true;
@@ -177,6 +212,13 @@ class DevelopmentCalculator {
             }
         });
         
+        if (previousSelection && Array.from(this.filmSelect.options).some(option => option.value === previousSelection)) {
+            this.filmSelect.value = previousSelection;
+        }
+
+        this.filmsPopulated = true;
+        this.populatedFilmCount = filmCount;
+
         console.log('✅ Film options populated and dropdown enabled');
     }
 
@@ -256,6 +298,7 @@ class DevelopmentCalculator {
         const availableDevelopers = Object.keys(film.developers || {});
         console.log('🎬 Available developers for', film.name, ':', availableDevelopers);
         this.updateDeveloperOptions(availableDevelopers);
+        this.applyStandardTemperature();
     }
     
     getTypeDisplayName(type) {
@@ -269,62 +312,51 @@ class DevelopmentCalculator {
     
     updateDeveloperOptions(availableDevelopers) {
         console.log('🧪 Updating developer options:', availableDevelopers);
-        
+
+        const previousSelection = this.developerSelect.value;
+
         // Enable the dropdown
         this.developerSelect.disabled = false;
-        
+
         // Clear existing options
         this.developerSelect.innerHTML = '<option value="">Select Developer...</option>';
-        
+
         if (availableDevelopers.length === 0) {
             this.developerSelect.innerHTML = '<option value="">Select film first...</option>';
             return;
         }
-        
-        // Add available developers - prevent duplicates
-        const addedDevelopers = new Set();
-        
+
+        // Add available developers - keep every dilution variant
+        const film = filmDatabase[this.filmSelect.value];
+        const addedKeys = new Set();
+
         availableDevelopers.forEach(devKey => {
-            // Try exact match first
-            let developer = developerDatabase[devKey];
-            let displayKey = devKey;
-            
-            // If not found, try multiple base key patterns
-            if (!developer) {
-                // Try removing common suffixes
-                let baseKey = devKey.replace(/_stock|_\d+_\d+|_[a-z]$|_kit$/g, '');
-                developer = developerDatabase[baseKey];
-                displayKey = baseKey;
-                
-                // If still not found, try even simpler patterns
-                if (!developer) {
-                    baseKey = devKey.split('_').slice(0, 2).join('_'); // Take first two parts
-                    developer = developerDatabase[baseKey];
-                    displayKey = baseKey;
-                }
-                
-                console.log('🔄 Trying base key:', baseKey, 'for', devKey, developer ? '✅' : '❌');
-            }
-            
-            console.log('🔍 Checking developer:', devKey, '→', displayKey, developer ? '✅' : '❌');
-            if (developer && !addedDevelopers.has(developer.name)) {
+            const developer = resolveDeveloper(devKey);
+
+            console.log('🔍 Checking developer:', devKey, developer ? '✅' : '❌');
+            if (developer && !addedKeys.has(devKey)) {
+                const combo = film && film.developers ? film.developers[devKey] : null;
+                const dilution = combo && combo.dilution ? ` (${combo.dilution})` : '';
                 const option = document.createElement('option');
                 option.value = devKey; // Keep original key for calculation
-                option.textContent = developer.name;
+                option.textContent = `${developer.name}${dilution}`;
                 this.developerSelect.appendChild(option);
-                addedDevelopers.add(developer.name);
-                console.log('✅ Added developer option:', developer.name);
-            } else if (addedDevelopers.has(developer?.name)) {
-                console.log('⚠️ Skipping duplicate developer:', developer.name);
-            } else {
-                console.log('❌ Developer not found in database:', devKey, '(tried:', displayKey, ')');
+                addedKeys.add(devKey);
+                console.log('✅ Added developer option:', option.textContent);
+            } else if (!developer) {
+                console.log('❌ Developer not found in database:', devKey);
             }
         });
-        
+
+        if (previousSelection && Array.from(this.developerSelect.options).some(option => option.value === previousSelection)) {
+            this.developerSelect.value = previousSelection;
+        }
+
         console.log('📊 Total developer options added:', this.developerSelect.options.length - 1);
     }
 
     updateDeveloperInfo() {
+        this.applyStandardTemperature();
         const developerKey = this.developerSelect.value;
         if (!developerKey) {
             this.developerDetailsElement.textContent = 'Select a developer to see details';
@@ -332,31 +364,14 @@ class DevelopmentCalculator {
         }
 
         // Enhanced lookup logic for developer info
-        let developer = developerDatabase[developerKey];
-        console.log('🔍 Looking for developer:', developerKey, 'Direct match:', !!developer);
-        
+        const developer = resolveDeveloper(developerKey);
+        console.log('🔍 Looking for developer:', developerKey, 'Found:', developer ? developer.name : 'NOT FOUND');
+
         if (!developer) {
-            // Try removing _stock suffix
-            let baseKey = developerKey.replace('_stock', '');
-            developer = developerDatabase[baseKey];
-            console.log('🔄 Trying without _stock:', baseKey, !!developer);
-            
-            if (!developer) {
-                // Try removing all suffixes
-                baseKey = developerKey.replace(/_stock|_\d+_\d+|_[a-z]$|_kit$/g, '');
-                developer = developerDatabase[baseKey];
-                console.log('🔄 Trying base key:', baseKey, !!developer);
-                
-                if (!developer) {
-                    // Try just first two parts
-                    baseKey = developerKey.split('_').slice(0, 2).join('_');
-                    developer = developerDatabase[baseKey];
-                    console.log('🔄 Trying first two parts:', baseKey, !!developer);
-                }
-            }
+            this.developerDetailsElement.textContent = 'Developer information not available';
+            return;
         }
-        
-        console.log('🎯 Final developer result:', developer ? developer.name : 'NOT FOUND');
+
         const dilutionList = developer.dilutions
             ? Object.values(developer.dilutions)
                 .map(d => (typeof d === 'string' ? d : d.ratio))
@@ -429,7 +444,19 @@ class DevelopmentCalculator {
     updateTemperatureDisplay() {
         const temp = parseFloat(this.temperatureInput.value);
         this.tempDisplayElement.textContent = `${temp}°C`;
-        
+
+        const kitTemp = this.getStandardTemperature();
+        if (kitTemp !== null) {
+            if (Math.round(temp) === Math.round(kitTemp)) {
+                this.tempNoteElement.textContent = `Kit standard (${kitTemp}°C)`;
+                this.tempNoteElement.style.color = 'var(--success)';
+            } else {
+                this.tempNoteElement.textContent = `Kit standard is ${kitTemp}°C`;
+                this.tempNoteElement.style.color = 'var(--warning)';
+            }
+            return;
+        }
+
         if (temp === 20) {
             this.tempNoteElement.textContent = 'Standard temperature';
             this.tempNoteElement.style.color = 'var(--success)';
@@ -440,6 +467,39 @@ class DevelopmentCalculator {
             this.tempNoteElement.textContent = `${temp - 20}°C above standard`;
             this.tempNoteElement.style.color = 'var(--warning)';
         }
+    }
+
+    getStandardTemperature() {
+        const film = filmDatabase[this.filmSelect.value];
+        if (!film || film.type === 'black_white') return null;
+
+        const developerKey = this.developerSelect.value;
+        const combo = developerKey && film.developers ? film.developers[developerKey] : null;
+        if (combo) {
+            const kitTemp = combo.developer_temp_c || combo.first_dev_temp_c;
+            if (kitTemp) return kitTemp;
+        }
+
+        return 37.8;
+    }
+
+    applyStandardTemperature() {
+        const kitTemp = this.getStandardTemperature();
+
+        if (kitTemp !== null) {
+            this.temperatureInput.min = '20';
+            this.temperatureInput.max = '45';
+            this.temperatureInput.value = String(Math.round(kitTemp));
+        } else {
+            this.temperatureInput.min = '15';
+            this.temperatureInput.max = '30';
+            const current = parseFloat(this.temperatureInput.value);
+            if (!(current >= 15 && current <= 30)) {
+                this.temperatureInput.value = '20';
+            }
+        }
+
+        this.updateTemperatureDisplay();
     }
 
     async calculate() {
@@ -474,6 +534,7 @@ class DevelopmentCalculator {
                 
                 if (rustResult) {
                     console.log('🦀 Using Rust calculation result');
+                    rustResult.kitTemperature = this.getStandardTemperature();
                     this.updateResults(rustResult);
                     
                     // Show timer section
@@ -503,16 +564,7 @@ class DevelopmentCalculator {
         }
         
         // Fix developer lookup - try the same logic as in updateDeveloperOptions
-        let developer = developerDatabase[developerKey];
-        if (!developer) {
-            let baseKey = developerKey.replace(/_stock|_\d+_\d+|_[a-z]$|_kit$/g, '');
-            developer = developerDatabase[baseKey];
-            if (!developer) {
-                baseKey = developerKey.split('_').slice(0, 2).join('_');
-                developer = developerDatabase[baseKey];
-            }
-            console.log('🔄 Calculate: Using base key:', baseKey, 'for developer:', developerKey);
-        }
+        const developer = resolveDeveloper(developerKey);
         console.log('🧮 Developer found:', developer ? developer.name : 'NOT FOUND');
         
         // Check if this film/developer combination exists
@@ -613,7 +665,8 @@ class DevelopmentCalculator {
             pushPull: pushPull,
             filmType: film.type,
             filmName: film.name,
-            developerName: developer.name
+            developerName: developer.name,
+            kitTemperature: this.getStandardTemperature()
         });
         
         // Show timer section
@@ -668,9 +721,9 @@ class DevelopmentCalculator {
         // Update time note based on film type and adjustments
         let timeNote = `${results.filmName} in ${results.developerName}`;
         if (results.filmType === 'color_negative') {
-            timeNote += ' (C-41 Developer)';
+            timeNote += ` (C-41 Developer @ ${results.kitTemperature || 37.8}°C)`;
         } else if (results.filmType === 'slide') {
-            timeNote += ' (E-6 First Developer)';
+            timeNote += ` (E-6 First Developer @ ${results.kitTemperature || 37.8}°C)`;
         }
         
         const tempApplies = results.filmType === 'black_white';

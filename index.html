@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DarkroomPro v1.0.3 - Professional Film Development Calculator</title>
+    <title>DarkroomPro v1.0.4 - Professional Film Development Calculator</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -144,12 +144,6 @@
                     if (typeof window.loadDatabase === 'function') {
                         await window.loadDatabase();
                     }
-                }
-                
-                // Force calculator refresh
-                if (window.calculator) {
-                    console.log('🔄 Forcing calculator refresh...');
-                    window.calculator.populateFilmOptions();
                 }
             }, 2000);
         });
