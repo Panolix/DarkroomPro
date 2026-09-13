@@ -112,3 +112,26 @@ pub struct DatabaseStats {
     pub version: String,
     pub last_updated: String,
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn parses_bundled_database() {
+        let path = concat!(env!("CARGO_MANIFEST_DIR"), "/../complete_database.json");
+        let content = fs::read_to_string(path).expect("bundled database should be readable");
+        let database: Database =
+            serde_json::from_str(&content).expect("bundled database should parse");
+
+        assert_eq!(database.films.len(), 36, "film count");
+        assert_eq!(database.developers.len(), 17, "developer count");
+
+        let combinations: usize = database
+            .films
+            .values()
+            .map(|film| film.developers.len())
+            .sum();
+        assert_eq!(combinations, 162, "film/developer combinations");
+    }
+}

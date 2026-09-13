@@ -357,6 +357,11 @@ class DevelopmentCalculator {
         }
         
         console.log('🎯 Final developer result:', developer ? developer.name : 'NOT FOUND');
+        const dilutionList = developer.dilutions
+            ? Object.values(developer.dilutions)
+                .map(d => (typeof d === 'string' ? d : d.ratio))
+                .filter(Boolean)
+            : [];
         this.developerDetailsElement.innerHTML = `
             <div class="info-card-content">
                 <div class="info-header">
@@ -392,10 +397,10 @@ class DevelopmentCalculator {
                         <span class="char-label">Characteristics:</span>
                         <span class="char-value">${cleanText(developer.characteristics) || 'N/A'}</span>
                     </div>
-                    ${developer.dilutions && developer.dilutions.length > 0 ? `
+                    ${dilutionList.length > 0 ? `
                         <div class="char-item">
                             <span class="char-label">Dilutions:</span>
-                            <span class="char-value">${developer.dilutions.join(', ')}</span>
+                            <span class="char-value">${dilutionList.join(', ')}</span>
                         </div>
                     ` : ''}
                     <div class="char-item">
@@ -564,8 +569,10 @@ class DevelopmentCalculator {
             }
         }
         
-        // Calculate development time with temperature compensation
-        const tempCompensation = this.getTemperatureCompensation(temperature);
+        // Calculate development time with temperature compensation (B&W only)
+        const tempCompensation = film.type === 'black_white'
+            ? this.getTemperatureCompensation(temperature)
+            : 1.0;
         const adjustedTime = baseTime * tempCompensation;
         
         // Calculate dilution amounts - fix the data structure mismatch
@@ -666,9 +673,10 @@ class DevelopmentCalculator {
             timeNote += ' (E-6 First Developer)';
         }
         
-        if (results.temperature !== 20 || results.pushPull !== 0) {
+        const tempApplies = results.filmType === 'black_white';
+        if ((tempApplies && results.temperature !== 20) || results.pushPull !== 0) {
             const adjustments = [];
-            if (results.temperature !== 20) {
+            if (tempApplies && results.temperature !== 20) {
                 adjustments.push(`${results.temperature}°C`);
             }
             if (results.pushPull !== 0) {
@@ -720,6 +728,7 @@ class DevelopmentCalculator {
             );
             
             console.log('✅ Export successful:', result);
+            alert(result);
             
             // Show success message
             const originalText = this.exportBtn.textContent;

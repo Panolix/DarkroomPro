@@ -1,10 +1,10 @@
 {
   "productName": "DarkroomPro",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "identifier": "com.panolix.darkroompro",
   "build": {
-    "beforeBuildCommand": "",
-    "beforeDevCommand": "",
+    "beforeBuildCommand": "npm run build",
+    "beforeDevCommand": "npm run dev",
     "devUrl": "http://localhost:1420",
     "frontendDist": "../dist"
   },
@@ -33,7 +33,7 @@
     "active": true,
     "targets": "all",
     "category": "Photography",
-    "copyright": "Copyright © 2025 Panagiotis Smponias. All rights reserved.",
+    "copyright": "Copyright © 2025-2026 Panagiotis Smponias. Licensed under CC BY-NC-SA 4.0.",
     "shortDescription": "Professional Film Development Calculator",
     "longDescription": "A precision calculator for film photographers and darkroom enthusiasts. Calculate exact development times, dilution ratios, and temperature compensations for any film stock and developer combination.",
     "icon": [
@@ -52,7 +52,7 @@
     },
     "macOS": {
       "frameworks": [],
-      "minimumSystemVersion": "10.13",
+      "minimumSystemVersion": "10.15",
       "exceptionDomain": ""
     },
     "windows": {

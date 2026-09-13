@@ -29,8 +29,7 @@ export default defineConfig(async () => ({
     rollupOptions: {
       input: {
         main: 'index.html'
-      },
-      external: ['@tauri-apps/api/tauri', '@tauri-apps/api/fs', '@tauri-apps/api/path']
+      }
     },
     // Copy additional assets
     copyPublicDir: true,

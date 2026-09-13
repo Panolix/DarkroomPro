@@ -56,13 +56,19 @@ impl CalculationEngine {
         // Calculate base time
         let base_time = self.get_base_time(film, dev_data, request.push_pull)?;
         
-        // Apply temperature compensation
-        let temp_compensation = self.get_temperature_compensation(&database.temperature_compensation, request.temperature);
+        // Apply temperature compensation (B&W only - color runs at fixed kit temperatures)
+        let temp_compensation = match film.film_type {
+            FilmType::BlackWhite => {
+                self.get_temperature_compensation(&database.temperature_compensation, request.temperature)
+            },
+            _ => Decimal::from(1),
+        };
         let adjusted_time = base_time * temp_compensation;
         
         // Calculate dilution
+        let dilution_str = dev_data.dilution.clone().unwrap_or_else(|| "stock".to_string());
         let (dilution_string, developer_amount, water_amount) = self.calculate_dilution(
-            &dev_data.dilution,
+            &dilution_str,
             request.volume,
             &film.film_type,
         )?;
@@ -71,7 +77,7 @@ impl CalculationEngine {
         let time_formatted = self.format_time(adjusted_time);
         
         // Generate notes
-        let notes = self.generate_notes(film, developer, request.temperature, request.push_pull);
+        let notes = self.generate_notes(film, developer, dev_data, request.temperature, request.push_pull);
         
         Ok(CalculationResult {
             time_minutes: adjusted_time,
@@ -273,18 +279,28 @@ impl CalculationEngine {
         format!("{}:{:02}", minutes.floor(), seconds)
     }
 
-    fn generate_notes(&self, film: &Film, developer: &Developer, temperature: Decimal, push_pull: i32) -> Vec<String> {
+    fn generate_notes(&self, film: &Film, developer: &Developer, dev_data: &DeveloperData, temperature: Decimal, push_pull: i32) -> Vec<String> {
         let mut notes = Vec::new();
         
         // Film type note
         match film.film_type {
-            FilmType::ColorNegative => notes.push("C-41 Developer".to_string()),
-            FilmType::Slide => notes.push("E-6 First Developer".to_string()),
+            FilmType::ColorNegative => {
+                notes.push("C-41 Developer".to_string());
+                if let Some(kit_temp) = dev_data.developer_temp_c {
+                    notes.push(format!("Kit temperature: {}°C", kit_temp));
+                }
+            },
+            FilmType::Slide => {
+                notes.push("E-6 First Developer".to_string());
+                if let Some(kit_temp) = dev_data.first_dev_temp_c {
+                    notes.push(format!("Kit temperature: {}°C", kit_temp));
+                }
+            },
             _ => {},
         }
         
-        // Temperature note
-        if temperature != Decimal::from(20) {
+        // Temperature note (B&W only - color runs at fixed kit temperatures)
+        if matches!(film.film_type, FilmType::BlackWhite) && temperature != Decimal::from(20) {
             notes.push(format!("Temperature adjusted for {}°C", temperature));
         }
         

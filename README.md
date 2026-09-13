@@ -16,11 +16,11 @@ A professional desktop application for calculating **precise film development pa
 
 - **36+ Film Stocks** - Comprehensive database of B&W, color negative, and slide films
 - **17+ Developers** - Popular developers with precise dilution ratios  
-- **76+ Combinations** - Tested film/developer pairings with accurate data
+- **162 Combinations** - Tested film/developer pairings with accurate data
 - **Temperature Compensation** - Automatic time adjustments (15-30°C)
 - **Push/Pull Processing** - Accurate calculations for ±3 stops
 - **Built-in Timer** - Integrated countdown with audio alerts
-- **Export Functionality** - Save calculations as JSON, CSV, or Text Report
+- **Export Functionality** - Save calculations as JSON, CSV, or PDF
 - **Cross-Platform** - Native apps for macOS, Windows, and Linux
 
 ## ✨ Features
@@ -28,7 +28,7 @@ A professional desktop application for calculating **precise film development pa
 ### 📊 **Comprehensive Database**
 - **36+ Film Stocks**: Complete database of B&W, color negative, and slide films
 - **17+ Developers**: Popular developers with precise dilution ratios
-- **76+ Combinations**: Tested film/developer pairings with accurate data
+- **162 Combinations**: Tested film/developer pairings with accurate data
 - **Manufacturer Grouping**: Films organized by brand for easy selection
 
 ### 🧮 **Advanced Calculations**
@@ -44,7 +44,7 @@ A professional desktop application for calculating **precise film development pa
 - **Visual Feedback**: Color-coded timer states (normal, warning, complete)
 
 ### 📤 **Export & Sharing**
-- **Multiple Formats**: Export calculations as JSON, CSV, or Text reports
+- **Multiple Formats**: Export calculations as JSON, CSV, or PDF reports
 - **Timestamped Reports**: Professional calculation summaries
 - **Database Export**: Complete film/developer database summaries
 
@@ -72,27 +72,29 @@ A professional desktop application for calculating **precise film development pa
 
 ### **Desktop Apps (Recommended)**
 
+> **Note:** Release builds are unsigned. On macOS, right-click the app and choose **Open** the first time you launch it; on Windows, SmartScreen may ask you to confirm.
+
 #### **macOS**
-1. Download `DarkroomPro_1.0.2_universal.dmg` from [Releases](../../releases)
+1. Download `DarkroomPro_1.0.3_universal.dmg` from [Releases](../../releases)
 2. Open the DMG file
 3. Drag DarkroomPro to Applications folder
 4. Launch from Applications or Launchpad
 
 #### **Windows**
-1. Download `DarkroomPro_1.0.2_x64_en-US.msi` from [Releases](../../releases)
+1. Download `DarkroomPro_1.0.3_x64_en-US.msi` from [Releases](../../releases)
 2. Run the installer
 3. Follow installation wizard
 4. Launch from Start Menu or Desktop
 
 #### **Linux**
-1. Download `darkroom-pro_1.0.2_amd64.deb` (Debian/Ubuntu) or `darkroom-pro-1.0.2-1.x86_64.rpm` (RedHat/Fedora)
+1. Download `darkroom-pro_1.0.3_amd64.deb` (Debian/Ubuntu) or `darkroom-pro-1.0.3-1.x86_64.rpm` (RedHat/Fedora)
 2. Install using your package manager:
    ```bash
    # Debian/Ubuntu
-   sudo dpkg -i darkroom-pro_1.0.2_amd64.deb
+   sudo dpkg -i darkroom-pro_1.0.3_amd64.deb
    
    # RedHat/Fedora
-   sudo rpm -i darkroom-pro-1.0.2-1.x86_64.rpm
+   sudo rpm -i darkroom-pro-1.0.3-1.x86_64.rpm
    ```
 3. Launch from applications menu
 
@@ -218,7 +220,7 @@ This project is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/lic
 
 ## 🙏 **Acknowledgments**
 
-- Film development data sourced from manufacturer specifications
+- Film development data compiled from the [Massive Dev Chart](https://www.digitaltruth.com/devchart.php), manufacturer specifications (Kodak, Ilford, Fujifilm technical publications), the Film Photography Project, and community darkroom testing
 - Community testing and feedback from analog photography enthusiasts
 - Built with [Tauri](https://tauri.app/) - Rust-powered desktop apps
 - UI styled with [Inter](https://rsms.me/inter/) font family

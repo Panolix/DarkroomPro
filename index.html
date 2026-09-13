@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DarkroomPro v1.0.2 - Professional Film Development Calculator</title>
+    <title>DarkroomPro v1.0.3 - Professional Film Development Calculator</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -58,7 +58,7 @@
                     <select id="export-format" class="export-format-select">
                         <option value="json">JSON</option>
                         <option value="csv">CSV</option>
-                        <option value="txt">Text Report</option>
+                        <option value="pdf">PDF</option>
                     </select>
                     <button id="export" class="export-btn">Export Results</button>
                 </div>
@@ -120,8 +120,8 @@
         </footer>
     </div>
 
-    <script type="module" src="data.js"></script>
     <script type="module" src="rust-bridge.js"></script>
+    <script type="module" src="data.js"></script>
     <script type="module" src="calculator.js"></script>
     <script type="module" src="timer.js"></script>
     
@@ -132,16 +132,17 @@
             
             // Wait a bit for modules to load
             setTimeout(async () => {
+                const database = window.filmDatabase || {};
                 console.log('🔍 Checking if database loaded:', {
-                    filmDatabase: typeof filmDatabase !== 'undefined' ? Object.keys(filmDatabase).length : 'undefined',
+                    filmDatabase: Object.keys(database).length,
                     calculator: !!window.calculator
                 });
                 
                 // Force database reload if empty
-                if (typeof filmDatabase !== 'undefined' && Object.keys(filmDatabase).length === 0) {
+                if (Object.keys(database).length === 0) {
                     console.log('🔄 Database empty, forcing reload...');
-                    if (typeof loadDatabase === 'function') {
-                        await loadDatabase();
+                    if (typeof window.loadDatabase === 'function') {
+                        await window.loadDatabase();
                     }
                 }
                 

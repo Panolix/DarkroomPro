@@ -7,6 +7,8 @@ mod database;
 mod export;
 
 use tauri::{Manager, State};
+use std::collections::HashMap;
+use std::path::{Path, PathBuf};
 use std::sync::Mutex;
 use models::*;
 use calculator::CalculationEngine;
@@ -16,61 +18,43 @@ use export::ExportManager;
 // Global state for the calculation engine
 type CalculationEngineState = Mutex<CalculationEngine>;
 
-// Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-#[tauri::command]
-fn greet(name: &str) -> String {
-    format!("Hello, {}! You've been greeted from Rust!", name)
-}
-
 // Command to load the film database
 #[tauri::command]
 async fn load_database(
     engine_state: State<'_, CalculationEngineState>,
     app_handle: tauri::AppHandle,
-) -> Result<serde_json::Value, String> {
+) -> Result<Database, String> {
     let mut db_manager = DatabaseManager::new();
-    
-    // Try to load from the bundled database file
+
+    // Load from the bundled database file
     let resource_path = app_handle
         .path()
         .resolve("complete_database.json", tauri::path::BaseDirectory::Resource)
         .map_err(|e| format!("Failed to resolve resource path: {}", e))?;
-    
+
     db_manager.load_from_file(&resource_path)
         .map_err(|e| format!("Failed to load database: {}", e))?;
-    
+
     let database = db_manager.take_database()
         .ok_or("Failed to extract database")?;
-    
-    let stats = database.metadata.clone();
-    
+
     // Load into calculation engine
     let mut engine = engine_state.lock().unwrap();
-    engine.load_database(database);
-    
-    Ok(serde_json::json!({
-        "status": "success",
-        "message": "Database loaded successfully",
-        "stats": {
-            "film_count": stats.film_count,
-            "developer_count": stats.developer_count,
-            "total_combinations": stats.total_combinations,
-            "version": stats.version,
-            "last_updated": stats.last_updated
-        }
-    }))
+    engine.load_database(database.clone());
+
+    Ok(database)
 }
 
 // Command to get all available films
 #[tauri::command]
 async fn get_films(
     engine_state: State<'_, CalculationEngineState>,
-) -> Result<Vec<Film>, String> {
+) -> Result<HashMap<String, Film>, String> {
     let engine = engine_state.lock().unwrap();
-    let films = engine.get_available_films()
+    let database = engine.get_database()
         .map_err(|e| format!("Failed to get films: {}", e))?;
-    
-    Ok(films.into_iter().cloned().collect())
+
+    Ok(database.films.clone())
 }
 
 // Command to get available developers for a specific film
@@ -93,7 +77,7 @@ async fn get_film_info(
     let engine = engine_state.lock().unwrap();
     let film = engine.get_film_info(&film_key)
         .map_err(|e| format!("Failed to get film info: {}", e))?;
-    
+
     Ok(film.clone())
 }
 
@@ -106,7 +90,7 @@ async fn get_developer_info(
     let engine = engine_state.lock().unwrap();
     let developer = engine.get_developer_info(&developer_key)
         .map_err(|e| format!("Failed to get developer info: {}", e))?;
-    
+
     Ok(developer.clone())
 }
 
@@ -121,24 +105,56 @@ async fn calculate_development(
         .map_err(|e| format!("Calculation failed: {}", e))
 }
 
-// Command to save user preferences
-#[tauri::command]
-async fn save_preferences(preferences: serde_json::Value) -> Result<String, String> {
-    // TODO: Implement local storage for user preferences
-    println!("Saving preferences: {}", preferences);
-    Ok("Preferences saved successfully".to_string())
-}
-
 // Command to export calculation results
 #[tauri::command]
 async fn export_calculation(
+    app_handle: tauri::AppHandle,
     calculation: CalculationResult,
     format: ExportFormat,
     file_path: Option<String>,
 ) -> Result<String, String> {
+    let output_path = resolve_export_path(&app_handle, &format, file_path.as_deref());
     let export_manager = ExportManager::new();
-    export_manager.export_calculation(&calculation, format, file_path)
+    export_manager.export_calculation(&calculation, format, &output_path)
         .map_err(|e| format!("Export failed: {}", e))
+}
+
+fn export_extension(format: &ExportFormat) -> &'static str {
+    match format {
+        ExportFormat::Json => "json",
+        ExportFormat::Csv => "csv",
+        ExportFormat::Pdf => "pdf",
+    }
+}
+
+// Resolve a safe export destination for user-generated files
+fn resolve_export_path(
+    app_handle: &tauri::AppHandle,
+    format: &ExportFormat,
+    file_path: Option<&str>,
+) -> PathBuf {
+    let directory = app_handle
+        .path()
+        .download_dir()
+        .or_else(|_| app_handle.path().document_dir())
+        .or_else(|_| app_handle.path().home_dir())
+        .unwrap_or_else(|_| std::env::temp_dir());
+
+    let _ = std::fs::create_dir_all(&directory);
+
+    let file_name = file_path
+        .and_then(|path| Path::new(path).file_name())
+        .map(PathBuf::from)
+        .unwrap_or_else(|| {
+            let timestamp = chrono::Utc::now().format("%Y%m%d-%H%M%S");
+            PathBuf::from(format!(
+                "darkroom-calculation-{}.{}",
+                timestamp,
+                export_extension(format)
+            ))
+        });
+
+    directory.join(file_name)
 }
 
 fn main() {
@@ -146,14 +162,12 @@ fn main() {
         .plugin(tauri_plugin_shell::init())
         .manage(CalculationEngineState::new(CalculationEngine::new()))
         .invoke_handler(tauri::generate_handler![
-            greet,
             load_database,
             get_films,
             get_developers_for_film,
             get_film_info,
             get_developer_info,
             calculate_development,
-            save_preferences,
             export_calculation
         ])
         .setup(|_app| {

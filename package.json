@@ -1,12 +1,14 @@
 {
   "name": "darkroom-pro",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.3",
   "type": "module",
   "description": "Professional Film Development Calculator for Darkroom Enthusiasts",
   "scripts": {
     "dev": "vite",
+    "prebuild": "npm run sync:db",
     "build": "vite build",
+    "sync:db": "node scripts/sync-db.js",
     "preview": "vite preview",
     "tauri": "tauri",
     "tauri:dev": "tauri dev",
@@ -26,7 +28,7 @@
     "desktop-app"
   ],
   "author": "Panagiotis Smponias <info@cityframe-photography.com>",
-  "license": "Proprietary",
+  "license": "CC-BY-NC-SA-4.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/Panolix/DarkroomPro"
@@ -36,11 +38,12 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
-    "@tauri-apps/api": "^2.8.0",
-    "@tauri-apps/plugin-shell": "^2.3.0"
+    "@tauri-apps/api": "^2.11.1",
+    "@tauri-apps/plugin-shell": "^2.3.6",
+    "jspdf": "^4.2.1"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^2.4.0",
+    "@tauri-apps/cli": "^2.11.4",
     "vite": "^5.0.0"
   }
 }
