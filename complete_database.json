@@ -3197,12 +3197,6 @@
         "kodak_flexicolor_c41": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "bleach_time_minutes": 6.5,
-          "bleach_temp_c": 37.8,
-          "fixer_time_minutes": 6.5,
-          "fixer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -3218,8 +3212,6 @@
         "tetenal_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -3230,15 +3222,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "Tetenal Colortec C-41 kit instructions",
           "source_url": "https://www.tetenal.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "unicolor_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -3249,15 +3237,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "Unicolor C-41 powder kit instructions",
           "source_url": "https://www.unicolorphoto.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "cinestill_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -3268,15 +3252,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "CineStill CS41 developing kit instructions",
           "source_url": "https://cinestillfilm.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "bellini_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -3286,9 +3266,7 @@
           "agitation_frequency_minutes": 0.5,
           "source": "Bellini C41-RA kit instructions (standard C-41 process)",
           "source_url": "https://www.bellinifoto.it/en/shop/Kit-Pellicola-Negativa-Colore-C41-RA-con-Sviluppo-in-Monoparte-p841644583",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         }
       }
     },
@@ -3317,12 +3295,6 @@
         "kodak_flexicolor_c41": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "bleach_time_minutes": 6.5,
-          "bleach_temp_c": 37.8,
-          "fixer_time_minutes": 6.5,
-          "fixer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -3338,8 +3310,6 @@
         "tetenal_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -3350,15 +3320,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "Tetenal Colortec C-41 kit instructions",
           "source_url": "https://www.tetenal.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "unicolor_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -3369,15 +3335,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "Unicolor C-41 powder kit instructions",
           "source_url": "https://www.unicolorphoto.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "cinestill_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -3388,15 +3350,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "CineStill CS41 developing kit instructions",
           "source_url": "https://cinestillfilm.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "bellini_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -3406,9 +3364,7 @@
           "agitation_frequency_minutes": 0.5,
           "source": "Bellini C41-RA kit instructions (standard C-41 process)",
           "source_url": "https://www.bellinifoto.it/en/shop/Kit-Pellicola-Negativa-Colore-C41-RA-con-Sviluppo-in-Monoparte-p841644583",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         }
       }
     },
@@ -3437,12 +3393,6 @@
         "kodak_flexicolor_c41": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "bleach_time_minutes": 6.5,
-          "bleach_temp_c": 37.8,
-          "fixer_time_minutes": 6.5,
-          "fixer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -3458,8 +3408,6 @@
         "tetenal_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -3470,15 +3418,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "Tetenal Colortec C-41 kit instructions",
           "source_url": "https://www.tetenal.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "unicolor_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -3489,15 +3433,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "Unicolor C-41 powder kit instructions",
           "source_url": "https://www.unicolorphoto.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "cinestill_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -3508,15 +3448,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "CineStill CS41 developing kit instructions",
           "source_url": "https://cinestillfilm.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "bellini_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -3526,9 +3462,7 @@
           "agitation_frequency_minutes": 0.5,
           "source": "Bellini C41-RA kit instructions (standard C-41 process)",
           "source_url": "https://www.bellinifoto.it/en/shop/Kit-Pellicola-Negativa-Colore-C41-RA-con-Sviluppo-in-Monoparte-p841644583",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         }
       }
     },
@@ -3557,12 +3491,6 @@
         "kodak_flexicolor_c41": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "bleach_time_minutes": 6.5,
-          "bleach_temp_c": 37.8,
-          "fixer_time_minutes": 6.5,
-          "fixer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -3578,8 +3506,6 @@
         "tetenal_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -3590,15 +3516,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "Tetenal Colortec C-41 kit instructions",
           "source_url": "https://www.tetenal.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "unicolor_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -3609,15 +3531,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "Unicolor C-41 powder kit instructions",
           "source_url": "https://www.unicolorphoto.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "cinestill_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -3628,15 +3546,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "CineStill CS41 developing kit instructions",
           "source_url": "https://cinestillfilm.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "bellini_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -3646,9 +3560,7 @@
           "agitation_frequency_minutes": 0.5,
           "source": "Bellini C41-RA kit instructions (standard C-41 process)",
           "source_url": "https://www.bellinifoto.it/en/shop/Kit-Pellicola-Negativa-Colore-C41-RA-con-Sviluppo-in-Monoparte-p841644583",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         }
       }
     },
@@ -3677,12 +3589,6 @@
         "kodak_flexicolor_c41": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "bleach_time_minutes": 6.5,
-          "bleach_temp_c": 37.8,
-          "fixer_time_minutes": 6.5,
-          "fixer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -3698,8 +3604,6 @@
         "tetenal_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -3710,15 +3614,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "Tetenal Colortec C-41 kit instructions",
           "source_url": "https://www.tetenal.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "unicolor_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -3729,15 +3629,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "Unicolor C-41 powder kit instructions",
           "source_url": "https://www.unicolorphoto.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "cinestill_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -3748,15 +3644,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "CineStill CS41 developing kit instructions",
           "source_url": "https://cinestillfilm.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "bellini_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -3766,9 +3658,7 @@
           "agitation_frequency_minutes": 0.5,
           "source": "Bellini C41-RA kit instructions (standard C-41 process)",
           "source_url": "https://www.bellinifoto.it/en/shop/Kit-Pellicola-Negativa-Colore-C41-RA-con-Sviluppo-in-Monoparte-p841644583",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         }
       }
     },
@@ -3797,12 +3687,6 @@
         "kodak_flexicolor_c41": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "bleach_time_minutes": 6.5,
-          "bleach_temp_c": 37.8,
-          "fixer_time_minutes": 6.5,
-          "fixer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -3818,8 +3702,6 @@
         "tetenal_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -3830,15 +3712,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "Tetenal Colortec C-41 kit instructions",
           "source_url": "https://www.tetenal.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "unicolor_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -3849,15 +3727,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "Unicolor C-41 powder kit instructions",
           "source_url": "https://www.unicolorphoto.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "cinestill_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -3868,15 +3742,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "CineStill CS41 developing kit instructions",
           "source_url": "https://cinestillfilm.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "bellini_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -3886,9 +3756,7 @@
           "agitation_frequency_minutes": 0.5,
           "source": "Bellini C41-RA kit instructions (standard C-41 process)",
           "source_url": "https://www.bellinifoto.it/en/shop/Kit-Pellicola-Negativa-Colore-C41-RA-con-Sviluppo-in-Monoparte-p841644583",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         }
       }
     },
@@ -3918,12 +3786,6 @@
         "kodak_flexicolor_c41": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "bleach_time_minutes": 6.5,
-          "bleach_temp_c": 37.8,
-          "fixer_time_minutes": 6.5,
-          "fixer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -3939,8 +3801,6 @@
         "tetenal_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -3951,15 +3811,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "Tetenal Colortec C-41 kit instructions",
           "source_url": "https://www.tetenal.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "unicolor_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -3970,15 +3826,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "Unicolor C-41 powder kit instructions",
           "source_url": "https://www.unicolorphoto.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "cinestill_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -3989,15 +3841,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "CineStill CS41 developing kit instructions",
           "source_url": "https://cinestillfilm.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "bellini_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4007,9 +3855,7 @@
           "agitation_frequency_minutes": 0.5,
           "source": "Bellini C41-RA kit instructions (standard C-41 process)",
           "source_url": "https://www.bellinifoto.it/en/shop/Kit-Pellicola-Negativa-Colore-C41-RA-con-Sviluppo-in-Monoparte-p841644583",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         }
       }
     },
@@ -4039,12 +3885,6 @@
         "kodak_flexicolor_c41": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "bleach_time_minutes": 6.5,
-          "bleach_temp_c": 37.8,
-          "fixer_time_minutes": 6.5,
-          "fixer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4060,8 +3900,6 @@
         "tetenal_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4072,15 +3910,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "Tetenal Colortec C-41 kit instructions",
           "source_url": "https://www.tetenal.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "unicolor_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4091,15 +3925,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "Unicolor C-41 powder kit instructions",
           "source_url": "https://www.unicolorphoto.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "cinestill_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4110,15 +3940,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "CineStill CS41 developing kit instructions",
           "source_url": "https://cinestillfilm.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "bellini_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4128,9 +3954,7 @@
           "agitation_frequency_minutes": 0.5,
           "source": "Bellini C41-RA kit instructions (standard C-41 process)",
           "source_url": "https://www.bellinifoto.it/en/shop/Kit-Pellicola-Negativa-Colore-C41-RA-con-Sviluppo-in-Monoparte-p841644583",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         }
       }
     },
@@ -4159,12 +3983,6 @@
         "kodak_flexicolor_c41": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "bleach_time_minutes": 6.5,
-          "bleach_temp_c": 37.8,
-          "fixer_time_minutes": 6.5,
-          "fixer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4180,8 +3998,6 @@
         "tetenal_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4192,15 +4008,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "Tetenal Colortec C-41 kit instructions",
           "source_url": "https://www.tetenal.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "unicolor_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4211,15 +4023,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "Unicolor C-41 powder kit instructions",
           "source_url": "https://www.unicolorphoto.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "cinestill_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4230,15 +4038,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "CineStill CS41 developing kit instructions",
           "source_url": "https://cinestillfilm.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "bellini_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4248,9 +4052,7 @@
           "agitation_frequency_minutes": 0.5,
           "source": "Bellini C41-RA kit instructions (standard C-41 process)",
           "source_url": "https://www.bellinifoto.it/en/shop/Kit-Pellicola-Negativa-Colore-C41-RA-con-Sviluppo-in-Monoparte-p841644583",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         }
       }
     },
@@ -4279,12 +4081,6 @@
         "kodak_flexicolor_c41": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "bleach_time_minutes": 6.5,
-          "bleach_temp_c": 37.8,
-          "fixer_time_minutes": 6.5,
-          "fixer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4300,8 +4096,6 @@
         "tetenal_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4312,15 +4106,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "Tetenal Colortec C-41 kit instructions",
           "source_url": "https://www.tetenal.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "unicolor_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4331,15 +4121,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "Unicolor C-41 powder kit instructions",
           "source_url": "https://www.unicolorphoto.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "cinestill_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4350,15 +4136,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "CineStill CS41 developing kit instructions",
           "source_url": "https://cinestillfilm.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "bellini_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4368,9 +4150,7 @@
           "agitation_frequency_minutes": 0.5,
           "source": "Bellini C41-RA kit instructions (standard C-41 process)",
           "source_url": "https://www.bellinifoto.it/en/shop/Kit-Pellicola-Negativa-Colore-C41-RA-con-Sviluppo-in-Monoparte-p841644583",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         }
       }
     },
@@ -4399,12 +4179,6 @@
         "kodak_flexicolor_c41": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "bleach_time_minutes": 6.5,
-          "bleach_temp_c": 37.8,
-          "fixer_time_minutes": 6.5,
-          "fixer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4420,8 +4194,6 @@
         "tetenal_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4432,15 +4204,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "Tetenal Colortec C-41 kit instructions",
           "source_url": "https://www.tetenal.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "unicolor_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4451,15 +4219,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "Unicolor C-41 powder kit instructions",
           "source_url": "https://www.unicolorphoto.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "cinestill_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4470,15 +4234,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "CineStill CS41 developing kit instructions",
           "source_url": "https://cinestillfilm.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "bellini_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4488,9 +4248,7 @@
           "agitation_frequency_minutes": 0.5,
           "source": "Bellini C41-RA kit instructions (standard C-41 process)",
           "source_url": "https://www.bellinifoto.it/en/shop/Kit-Pellicola-Negativa-Colore-C41-RA-con-Sviluppo-in-Monoparte-p841644583",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         }
       }
     },
@@ -4520,12 +4278,6 @@
         "kodak_flexicolor_c41": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "bleach_time_minutes": 6.5,
-          "bleach_temp_c": 37.8,
-          "fixer_time_minutes": 6.5,
-          "fixer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4541,8 +4293,6 @@
         "tetenal_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4553,15 +4303,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "Tetenal Colortec C-41 kit instructions",
           "source_url": "https://www.tetenal.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "unicolor_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4572,15 +4318,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "Unicolor C-41 powder kit instructions",
           "source_url": "https://www.unicolorphoto.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "cinestill_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4591,15 +4333,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "CineStill CS41 developing kit instructions",
           "source_url": "https://cinestillfilm.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "bellini_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4609,9 +4347,7 @@
           "agitation_frequency_minutes": 0.5,
           "source": "Bellini C41-RA kit instructions (standard C-41 process)",
           "source_url": "https://www.bellinifoto.it/en/shop/Kit-Pellicola-Negativa-Colore-C41-RA-con-Sviluppo-in-Monoparte-p841644583",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         }
       }
     },
@@ -4641,12 +4377,6 @@
         "kodak_flexicolor_c41": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "bleach_time_minutes": 6.5,
-          "bleach_temp_c": 37.8,
-          "fixer_time_minutes": 6.5,
-          "fixer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4662,8 +4392,6 @@
         "tetenal_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4674,15 +4402,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "Tetenal Colortec C-41 kit instructions",
           "source_url": "https://www.tetenal.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "unicolor_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4693,15 +4417,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "Unicolor C-41 powder kit instructions",
           "source_url": "https://www.unicolorphoto.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "cinestill_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4712,15 +4432,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "CineStill CS41 developing kit instructions",
           "source_url": "https://cinestillfilm.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "bellini_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4730,9 +4446,7 @@
           "agitation_frequency_minutes": 0.5,
           "source": "Bellini C41-RA kit instructions (standard C-41 process)",
           "source_url": "https://www.bellinifoto.it/en/shop/Kit-Pellicola-Negativa-Colore-C41-RA-con-Sviluppo-in-Monoparte-p841644583",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         }
       }
     },
@@ -4762,12 +4476,6 @@
         "kodak_flexicolor_c41": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "bleach_time_minutes": 6.5,
-          "bleach_temp_c": 37.8,
-          "fixer_time_minutes": 6.5,
-          "fixer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4783,8 +4491,6 @@
         "tetenal_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4795,15 +4501,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "Tetenal Colortec C-41 kit instructions",
           "source_url": "https://www.tetenal.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "unicolor_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4814,15 +4516,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "Unicolor C-41 powder kit instructions",
           "source_url": "https://www.unicolorphoto.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "cinestill_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4833,15 +4531,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "CineStill CS41 developing kit instructions",
           "source_url": "https://cinestillfilm.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "bellini_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4851,9 +4545,7 @@
           "agitation_frequency_minutes": 0.5,
           "source": "Bellini C41-RA kit instructions (standard C-41 process)",
           "source_url": "https://www.bellinifoto.it/en/shop/Kit-Pellicola-Negativa-Colore-C41-RA-con-Sviluppo-in-Monoparte-p841644583",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         }
       }
     },
@@ -4883,12 +4575,6 @@
         "kodak_flexicolor_c41": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "bleach_time_minutes": 6.5,
-          "bleach_temp_c": 37.8,
-          "fixer_time_minutes": 6.5,
-          "fixer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4904,8 +4590,6 @@
         "tetenal_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4916,15 +4600,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "Tetenal Colortec C-41 kit instructions",
           "source_url": "https://www.tetenal.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "unicolor_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4935,15 +4615,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "Unicolor C-41 powder kit instructions",
           "source_url": "https://www.unicolorphoto.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "cinestill_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4954,15 +4630,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "CineStill CS41 developing kit instructions",
           "source_url": "https://cinestillfilm.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "bellini_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -4972,9 +4644,7 @@
           "agitation_frequency_minutes": 0.5,
           "source": "Bellini C41-RA kit instructions (standard C-41 process)",
           "source_url": "https://www.bellinifoto.it/en/shop/Kit-Pellicola-Negativa-Colore-C41-RA-con-Sviluppo-in-Monoparte-p841644583",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         }
       }
     },
@@ -5002,12 +4672,6 @@
         "kodak_flexicolor_c41": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "bleach_time_minutes": 6.5,
-          "bleach_temp_c": 37.8,
-          "fixer_time_minutes": 6.5,
-          "fixer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -5023,8 +4687,6 @@
         "tetenal_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -5035,15 +4697,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "Tetenal Colortec C-41 kit instructions",
           "source_url": "https://www.tetenal.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "unicolor_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -5054,15 +4712,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "Unicolor C-41 powder kit instructions",
           "source_url": "https://www.unicolorphoto.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "cinestill_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -5073,15 +4727,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "CineStill CS41 developing kit instructions",
           "source_url": "https://cinestillfilm.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "bellini_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -5091,9 +4741,7 @@
           "agitation_frequency_minutes": 0.5,
           "source": "Bellini C41-RA kit instructions (standard C-41 process)",
           "source_url": "https://www.bellinifoto.it/en/shop/Kit-Pellicola-Negativa-Colore-C41-RA-con-Sviluppo-in-Monoparte-p841644583",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         }
       }
     },
@@ -5121,12 +4769,6 @@
         "kodak_flexicolor_c41": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "bleach_time_minutes": 6.5,
-          "bleach_temp_c": 37.8,
-          "fixer_time_minutes": 6.5,
-          "fixer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -5142,8 +4784,6 @@
         "tetenal_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -5154,15 +4794,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "Tetenal Colortec C-41 kit instructions",
           "source_url": "https://www.tetenal.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "unicolor_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -5173,15 +4809,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "Unicolor C-41 powder kit instructions",
           "source_url": "https://www.unicolorphoto.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "cinestill_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -5192,15 +4824,11 @@
           "special_notes": "Cinema film stock - may require careful handling",
           "source": "CineStill CS41 developing kit instructions",
           "source_url": "https://cinestillfilm.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "bellini_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -5210,9 +4838,7 @@
           "agitation_frequency_minutes": 0.5,
           "source": "Bellini C41-RA kit instructions (standard C-41 process)",
           "source_url": "https://www.bellinifoto.it/en/shop/Kit-Pellicola-Negativa-Colore-C41-RA-con-Sviluppo-in-Monoparte-p841644583",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         }
       }
     },
@@ -5242,16 +4868,6 @@
         "kodak_e6_kit": {
           "first_dev_time_minutes": 6,
           "first_dev_temp_c": 37.8,
-          "reversal_time_minutes": 2,
-          "reversal_temp_c": 37.8,
-          "color_dev_time_minutes": 6,
-          "color_dev_temp_c": 37.8,
-          "bleach_time_minutes": 6,
-          "bleach_temp_c": 37.8,
-          "fixer_time_minutes": 4,
-          "fixer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_first_dev_time": 7.5,
           "push_2_stop_first_dev_time": 9.5,
           "pull_1_stop_first_dev_time": 4.5,
@@ -5267,10 +4883,6 @@
         "tetenal_e6_kit": {
           "first_dev_time_minutes": 6,
           "first_dev_temp_c": 37.8,
-          "color_dev_time_minutes": 6,
-          "color_dev_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_first_dev_time": 7.5,
           "push_2_stop_first_dev_time": 9.5,
           "pull_1_stop_first_dev_time": 4.5,
@@ -5281,17 +4893,11 @@
           "special_notes": "Conservative push processing recommended - Velvia can shift colors with excessive pushing",
           "source": "Tetenal Colortec E-6 kit instructions",
           "source_url": "https://www.tetenal.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "unicolor_e6_kit": {
           "first_dev_time_minutes": 6,
           "first_dev_temp_c": 37.8,
-          "color_dev_time_minutes": 6,
-          "color_dev_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_first_dev_time": 7.5,
           "push_2_stop_first_dev_time": 9.5,
           "pull_1_stop_first_dev_time": 4.5,
@@ -5302,9 +4908,7 @@
           "special_notes": "Conservative push processing recommended - Velvia can shift colors with excessive pushing",
           "source": "Unicolor E-6 kit instructions",
           "source_url": "https://www.unicolorphoto.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         }
       }
     },
@@ -5334,16 +4938,6 @@
         "kodak_e6_kit": {
           "first_dev_time_minutes": 6,
           "first_dev_temp_c": 37.8,
-          "reversal_time_minutes": 2,
-          "reversal_temp_c": 37.8,
-          "color_dev_time_minutes": 6,
-          "color_dev_temp_c": 37.8,
-          "bleach_time_minutes": 6,
-          "bleach_temp_c": 37.8,
-          "fixer_time_minutes": 4,
-          "fixer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_first_dev_time": 7.5,
           "push_2_stop_first_dev_time": 9.5,
           "pull_1_stop_first_dev_time": 4.5,
@@ -5359,10 +4953,6 @@
         "tetenal_e6_kit": {
           "first_dev_time_minutes": 6,
           "first_dev_temp_c": 37.8,
-          "color_dev_time_minutes": 6,
-          "color_dev_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_first_dev_time": 7.5,
           "push_2_stop_first_dev_time": 9.5,
           "pull_1_stop_first_dev_time": 4.5,
@@ -5373,17 +4963,11 @@
           "special_notes": "Conservative push processing recommended - Velvia can shift colors with excessive pushing",
           "source": "Tetenal Colortec E-6 kit instructions",
           "source_url": "https://www.tetenal.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "unicolor_e6_kit": {
           "first_dev_time_minutes": 6,
           "first_dev_temp_c": 37.8,
-          "color_dev_time_minutes": 6,
-          "color_dev_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_first_dev_time": 7.5,
           "push_2_stop_first_dev_time": 9.5,
           "pull_1_stop_first_dev_time": 4.5,
@@ -5394,9 +4978,7 @@
           "special_notes": "Conservative push processing recommended - Velvia can shift colors with excessive pushing",
           "source": "Unicolor E-6 kit instructions",
           "source_url": "https://www.unicolorphoto.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         }
       }
     },
@@ -5426,16 +5008,6 @@
         "kodak_e6_kit": {
           "first_dev_time_minutes": 6,
           "first_dev_temp_c": 37.8,
-          "reversal_time_minutes": 2,
-          "reversal_temp_c": 37.8,
-          "color_dev_time_minutes": 6,
-          "color_dev_temp_c": 37.8,
-          "bleach_time_minutes": 6,
-          "bleach_temp_c": 37.8,
-          "fixer_time_minutes": 4,
-          "fixer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_first_dev_time": 7.5,
           "push_2_stop_first_dev_time": 9.5,
           "pull_1_stop_first_dev_time": 4.5,
@@ -5451,10 +5023,6 @@
         "tetenal_e6_kit": {
           "first_dev_time_minutes": 6,
           "first_dev_temp_c": 37.8,
-          "color_dev_time_minutes": 6,
-          "color_dev_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_first_dev_time": 7.5,
           "push_2_stop_first_dev_time": 9.5,
           "pull_1_stop_first_dev_time": 4.5,
@@ -5465,17 +5033,11 @@
           "special_notes": "Conservative push processing recommended - Velvia can shift colors with excessive pushing",
           "source": "Tetenal Colortec E-6 kit instructions",
           "source_url": "https://www.tetenal.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "unicolor_e6_kit": {
           "first_dev_time_minutes": 6,
           "first_dev_temp_c": 37.8,
-          "color_dev_time_minutes": 6,
-          "color_dev_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_first_dev_time": 7.5,
           "push_2_stop_first_dev_time": 9.5,
           "pull_1_stop_first_dev_time": 4.5,
@@ -5486,9 +5048,7 @@
           "special_notes": "Conservative push processing recommended - Velvia can shift colors with excessive pushing",
           "source": "Unicolor E-6 kit instructions",
           "source_url": "https://www.unicolorphoto.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         }
       }
     },
@@ -5518,16 +5078,6 @@
         "kodak_e6_kit": {
           "first_dev_time_minutes": 6,
           "first_dev_temp_c": 37.8,
-          "reversal_time_minutes": 2,
-          "reversal_temp_c": 37.8,
-          "color_dev_time_minutes": 6,
-          "color_dev_temp_c": 37.8,
-          "bleach_time_minutes": 6,
-          "bleach_temp_c": 37.8,
-          "fixer_time_minutes": 4,
-          "fixer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_first_dev_time": 7.5,
           "push_2_stop_first_dev_time": 9.5,
           "pull_1_stop_first_dev_time": 4.5,
@@ -5543,10 +5093,6 @@
         "tetenal_e6_kit": {
           "first_dev_time_minutes": 6,
           "first_dev_temp_c": 37.8,
-          "color_dev_time_minutes": 6,
-          "color_dev_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_first_dev_time": 7.5,
           "push_2_stop_first_dev_time": 9.5,
           "pull_1_stop_first_dev_time": 4.5,
@@ -5557,17 +5103,11 @@
           "special_notes": "Conservative push processing recommended - Velvia can shift colors with excessive pushing",
           "source": "Tetenal Colortec E-6 kit instructions",
           "source_url": "https://www.tetenal.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "unicolor_e6_kit": {
           "first_dev_time_minutes": 6,
           "first_dev_temp_c": 37.8,
-          "color_dev_time_minutes": 6,
-          "color_dev_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_first_dev_time": 7.5,
           "push_2_stop_first_dev_time": 9.5,
           "pull_1_stop_first_dev_time": 4.5,
@@ -5578,9 +5118,7 @@
           "special_notes": "Conservative push processing recommended - Velvia can shift colors with excessive pushing",
           "source": "Unicolor E-6 kit instructions",
           "source_url": "https://www.unicolorphoto.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         }
       }
     },
@@ -5610,16 +5148,6 @@
         "kodak_e6_kit": {
           "first_dev_time_minutes": 6,
           "first_dev_temp_c": 37.8,
-          "reversal_time_minutes": 2,
-          "reversal_temp_c": 37.8,
-          "color_dev_time_minutes": 6,
-          "color_dev_temp_c": 37.8,
-          "bleach_time_minutes": 6,
-          "bleach_temp_c": 37.8,
-          "fixer_time_minutes": 4,
-          "fixer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_first_dev_time": 7.5,
           "push_2_stop_first_dev_time": 9.5,
           "pull_1_stop_first_dev_time": 4.5,
@@ -5635,10 +5163,6 @@
         "tetenal_e6_kit": {
           "first_dev_time_minutes": 6,
           "first_dev_temp_c": 37.8,
-          "color_dev_time_minutes": 6,
-          "color_dev_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_first_dev_time": 7.5,
           "push_2_stop_first_dev_time": 9.5,
           "pull_1_stop_first_dev_time": 4.5,
@@ -5649,17 +5173,11 @@
           "special_notes": "Conservative push processing recommended - Velvia can shift colors with excessive pushing",
           "source": "Tetenal Colortec E-6 kit instructions",
           "source_url": "https://www.tetenal.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "unicolor_e6_kit": {
           "first_dev_time_minutes": 6,
           "first_dev_temp_c": 37.8,
-          "color_dev_time_minutes": 6,
-          "color_dev_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_first_dev_time": 7.5,
           "push_2_stop_first_dev_time": 9.5,
           "pull_1_stop_first_dev_time": 4.5,
@@ -5670,9 +5188,7 @@
           "special_notes": "Conservative push processing recommended - Velvia can shift colors with excessive pushing",
           "source": "Unicolor E-6 kit instructions",
           "source_url": "https://www.unicolorphoto.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         }
       }
     },
@@ -5702,16 +5218,6 @@
         "kodak_e6_kit": {
           "first_dev_time_minutes": 6,
           "first_dev_temp_c": 37.8,
-          "reversal_time_minutes": 2,
-          "reversal_temp_c": 37.8,
-          "color_dev_time_minutes": 6,
-          "color_dev_temp_c": 37.8,
-          "bleach_time_minutes": 6,
-          "bleach_temp_c": 37.8,
-          "fixer_time_minutes": 4,
-          "fixer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_first_dev_time": 7.5,
           "push_2_stop_first_dev_time": 9.5,
           "pull_1_stop_first_dev_time": 4.5,
@@ -5727,10 +5233,6 @@
         "tetenal_e6_kit": {
           "first_dev_time_minutes": 6,
           "first_dev_temp_c": 37.8,
-          "color_dev_time_minutes": 6,
-          "color_dev_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_first_dev_time": 7.5,
           "push_2_stop_first_dev_time": 9.5,
           "pull_1_stop_first_dev_time": 4.5,
@@ -5741,17 +5243,11 @@
           "special_notes": "Conservative push processing recommended - Velvia can shift colors with excessive pushing",
           "source": "Tetenal Colortec E-6 kit instructions",
           "source_url": "https://www.tetenal.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "unicolor_e6_kit": {
           "first_dev_time_minutes": 6,
           "first_dev_temp_c": 37.8,
-          "color_dev_time_minutes": 6,
-          "color_dev_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_first_dev_time": 7.5,
           "push_2_stop_first_dev_time": 9.5,
           "pull_1_stop_first_dev_time": 4.5,
@@ -5762,9 +5258,7 @@
           "special_notes": "Conservative push processing recommended - Velvia can shift colors with excessive pushing",
           "source": "Unicolor E-6 kit instructions",
           "source_url": "https://www.unicolorphoto.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         }
       }
     },
@@ -6972,12 +6466,6 @@
         "kodak_flexicolor_c41": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "bleach_time_minutes": 6.5,
-          "bleach_temp_c": 37.8,
-          "fixer_time_minutes": 6.5,
-          "fixer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -6992,8 +6480,6 @@
         "tetenal_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -7003,15 +6489,11 @@
           "agitation_frequency_minutes": 0.5,
           "source": "Tetenal Colortec C-41 kit instructions",
           "source_url": "https://www.tetenal.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "unicolor_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -7021,15 +6503,11 @@
           "agitation_frequency_minutes": 0.5,
           "source": "Unicolor C-41 powder kit instructions",
           "source_url": "https://www.unicolorphoto.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "cinestill_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -7039,15 +6517,11 @@
           "agitation_frequency_minutes": 0.5,
           "source": "CineStill CS41 developing kit instructions",
           "source_url": "https://cinestillfilm.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "bellini_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -7057,9 +6531,7 @@
           "agitation_frequency_minutes": 0.5,
           "source": "Bellini C41-RA kit instructions (standard C-41 process)",
           "source_url": "https://www.bellinifoto.it/en/shop/Kit-Pellicola-Negativa-Colore-C41-RA-con-Sviluppo-in-Monoparte-p841644583",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         }
       }
     },
@@ -7086,12 +6558,6 @@
         "kodak_flexicolor_c41": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "bleach_time_minutes": 6.5,
-          "bleach_temp_c": 37.8,
-          "fixer_time_minutes": 6.5,
-          "fixer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -7106,8 +6572,6 @@
         "tetenal_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -7117,15 +6581,11 @@
           "agitation_frequency_minutes": 0.5,
           "source": "Tetenal Colortec C-41 kit instructions",
           "source_url": "https://www.tetenal.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "unicolor_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -7135,15 +6595,11 @@
           "agitation_frequency_minutes": 0.5,
           "source": "Unicolor C-41 powder kit instructions",
           "source_url": "https://www.unicolorphoto.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "cinestill_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -7153,15 +6609,11 @@
           "agitation_frequency_minutes": 0.5,
           "source": "CineStill CS41 developing kit instructions",
           "source_url": "https://cinestillfilm.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "bellini_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -7171,9 +6623,7 @@
           "agitation_frequency_minutes": 0.5,
           "source": "Bellini C41-RA kit instructions (standard C-41 process)",
           "source_url": "https://www.bellinifoto.it/en/shop/Kit-Pellicola-Negativa-Colore-C41-RA-con-Sviluppo-in-Monoparte-p841644583",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         }
       }
     },
@@ -7201,12 +6651,6 @@
         "kodak_flexicolor_c41": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "bleach_time_minutes": 6.5,
-          "bleach_temp_c": 37.8,
-          "fixer_time_minutes": 6.5,
-          "fixer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -7221,8 +6665,6 @@
         "tetenal_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -7232,15 +6674,11 @@
           "agitation_frequency_minutes": 0.5,
           "source": "Tetenal Colortec C-41 kit instructions",
           "source_url": "https://www.tetenal.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "unicolor_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -7250,15 +6688,11 @@
           "agitation_frequency_minutes": 0.5,
           "source": "Unicolor C-41 powder kit instructions",
           "source_url": "https://www.unicolorphoto.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "cinestill_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -7268,15 +6702,11 @@
           "agitation_frequency_minutes": 0.5,
           "source": "CineStill CS41 developing kit instructions",
           "source_url": "https://cinestillfilm.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "bellini_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -7286,9 +6716,7 @@
           "agitation_frequency_minutes": 0.5,
           "source": "Bellini C41-RA kit instructions (standard C-41 process)",
           "source_url": "https://www.bellinifoto.it/en/shop/Kit-Pellicola-Negativa-Colore-C41-RA-con-Sviluppo-in-Monoparte-p841644583",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         }
       }
     },
@@ -7315,12 +6743,6 @@
         "kodak_flexicolor_c41": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "bleach_time_minutes": 6.5,
-          "bleach_temp_c": 37.8,
-          "fixer_time_minutes": 6.5,
-          "fixer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -7335,8 +6757,6 @@
         "tetenal_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -7346,15 +6766,11 @@
           "agitation_frequency_minutes": 0.5,
           "source": "Tetenal Colortec C-41 kit instructions",
           "source_url": "https://www.tetenal.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "unicolor_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -7364,15 +6780,11 @@
           "agitation_frequency_minutes": 0.5,
           "source": "Unicolor C-41 powder kit instructions",
           "source_url": "https://www.unicolorphoto.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "cinestill_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -7382,15 +6794,11 @@
           "agitation_frequency_minutes": 0.5,
           "source": "CineStill CS41 developing kit instructions",
           "source_url": "https://cinestillfilm.com/",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         },
         "bellini_c41_kit": {
           "developer_time_minutes": 3.25,
           "developer_temp_c": 37.8,
-          "stabilizer_time_minutes": 1,
-          "stabilizer_temp_c": 37.8,
           "push_1_stop_dev_time": 4.75,
           "push_2_stop_dev_time": 7,
           "pull_1_stop_dev_time": 2.5,
@@ -7400,9 +6808,7 @@
           "agitation_frequency_minutes": 0.5,
           "source": "Bellini C41-RA kit instructions (standard C-41 process)",
           "source_url": "https://www.bellinifoto.it/en/shop/Kit-Pellicola-Negativa-Colore-C41-RA-con-Sviluppo-in-Monoparte-p841644583",
-          "verified_date": "2026-09-13",
-          "blix_time_minutes": 6.5,
-          "blix_temp_c": 37.8
+          "verified_date": "2026-09-13"
         }
       }
     }
@@ -7448,7 +6854,26 @@
           "ratio": "1:3",
           "description": "Diluted for economy and increased acutance"
         }
-      }
+      },
+      "temperature_compensation": {
+        "15": 1.58,
+        "16": 1.44,
+        "17": 1.31,
+        "18": 1.2,
+        "19": 1.1,
+        "20": 1,
+        "21": 0.91,
+        "22": 0.83,
+        "23": 0.76,
+        "24": 0.69,
+        "25": 0.63,
+        "26": 0.58,
+        "27": 0.53,
+        "28": 0.48,
+        "29": 0.44,
+        "30": 0.4
+      },
+      "temperature_compensation_source": "Kodak Alaris F-4017 temperature tables (small tank), exponential fit"
     },
     "kodak_hc110": {
       "name": "Kodak HC-110",
@@ -7490,7 +6915,26 @@
           "ratio": "1:63",
           "description": "Lower contrast, longer development times"
         }
-      }
+      },
+      "temperature_compensation": {
+        "15": 1.66,
+        "16": 1.5,
+        "17": 1.36,
+        "18": 1.23,
+        "19": 1.11,
+        "20": 1,
+        "21": 0.9,
+        "22": 0.82,
+        "23": 0.74,
+        "24": 0.67,
+        "25": 0.6,
+        "26": 0.54,
+        "27": 0.49,
+        "28": 0.44,
+        "29": 0.4,
+        "30": 0.36
+      },
+      "temperature_compensation_source": "Kodak Alaris F-4017 temperature tables (small tank), exponential fit"
     },
     "kodak_xtol": {
       "name": "Kodak XTOL",
@@ -7535,7 +6979,26 @@
           "ratio": "1:3",
           "description": "Extended dilution for economy"
         }
-      }
+      },
+      "temperature_compensation": {
+        "15": 1.61,
+        "16": 1.46,
+        "17": 1.33,
+        "18": 1.21,
+        "19": 1.1,
+        "20": 1,
+        "21": 0.91,
+        "22": 0.83,
+        "23": 0.75,
+        "24": 0.68,
+        "25": 0.62,
+        "26": 0.56,
+        "27": 0.51,
+        "28": 0.47,
+        "29": 0.42,
+        "30": 0.39
+      },
+      "temperature_compensation_source": "Kodak Alaris F-4017 temperature tables (small tank), exponential fit"
     },
     "kodak_tmax_developer": {
       "name": "Kodak T-Max Developer",
@@ -7569,7 +7032,26 @@
           "ratio": "1:4",
           "description": "Standard dilution for T-Max films"
         }
-      }
+      },
+      "temperature_compensation": {
+        "15": 1.32,
+        "16": 1.25,
+        "17": 1.18,
+        "18": 1.12,
+        "19": 1.06,
+        "20": 1,
+        "21": 0.95,
+        "22": 0.89,
+        "23": 0.85,
+        "24": 0.8,
+        "25": 0.76,
+        "26": 0.72,
+        "27": 0.68,
+        "28": 0.64,
+        "29": 0.6,
+        "30": 0.57
+      },
+      "temperature_compensation_source": "Kodak Alaris F-4017 temperature tables (small tank), exponential fit"
     },
     "ilford_id11": {
       "name": "Ilford ID-11",
@@ -7611,7 +7093,26 @@
           "ratio": "1:3",
           "description": "Diluted for economy and increased acutance"
         }
-      }
+      },
+      "temperature_compensation": {
+        "15": 1.64,
+        "16": 1.49,
+        "17": 1.35,
+        "18": 1.22,
+        "19": 1.1,
+        "20": 1,
+        "21": 0.91,
+        "22": 0.82,
+        "23": 0.74,
+        "24": 0.67,
+        "25": 0.61,
+        "26": 0.55,
+        "27": 0.5,
+        "28": 0.45,
+        "29": 0.41,
+        "30": 0.37
+      },
+      "temperature_compensation_source": "Ilford technical information temperature conversion chart"
     },
     "ilford_ddx": {
       "name": "Ilford DD-X",
@@ -7649,7 +7150,26 @@
           "ratio": "1:4",
           "description": "Standard working dilution"
         }
-      }
+      },
+      "temperature_compensation": {
+        "15": 1.64,
+        "16": 1.49,
+        "17": 1.35,
+        "18": 1.22,
+        "19": 1.1,
+        "20": 1,
+        "21": 0.91,
+        "22": 0.82,
+        "23": 0.74,
+        "24": 0.67,
+        "25": 0.61,
+        "26": 0.55,
+        "27": 0.5,
+        "28": 0.45,
+        "29": 0.41,
+        "30": 0.37
+      },
+      "temperature_compensation_source": "Ilford technical information temperature conversion chart"
     },
     "ilford_ilfosol_3": {
       "name": "Ilford Ilfosol 3",
@@ -7687,7 +7207,26 @@
           "ratio": "1:14",
           "description": "Weaker dilution for softer contrast"
         }
-      }
+      },
+      "temperature_compensation": {
+        "15": 1.64,
+        "16": 1.49,
+        "17": 1.35,
+        "18": 1.22,
+        "19": 1.1,
+        "20": 1,
+        "21": 0.91,
+        "22": 0.82,
+        "23": 0.74,
+        "24": 0.67,
+        "25": 0.61,
+        "26": 0.55,
+        "27": 0.5,
+        "28": 0.45,
+        "29": 0.41,
+        "30": 0.37
+      },
+      "temperature_compensation_source": "Ilford technical information temperature conversion chart"
     },
     "ilford_microphen": {
       "name": "Ilford Microphen",
@@ -7728,7 +7267,26 @@
           "ratio": "1:3",
           "description": "Diluted for economy"
         }
-      }
+      },
+      "temperature_compensation": {
+        "15": 1.64,
+        "16": 1.49,
+        "17": 1.35,
+        "18": 1.22,
+        "19": 1.1,
+        "20": 1,
+        "21": 0.91,
+        "22": 0.82,
+        "23": 0.74,
+        "24": 0.67,
+        "25": 0.61,
+        "26": 0.55,
+        "27": 0.5,
+        "28": 0.45,
+        "29": 0.41,
+        "30": 0.37
+      },
+      "temperature_compensation_source": "Ilford technical information temperature conversion chart"
     },
     "ilford_perceptol": {
       "name": "Ilford Perceptol",
@@ -7771,7 +7329,26 @@
           "ratio": "1:3",
           "description": "Diluted for finer grain"
         }
-      }
+      },
+      "temperature_compensation": {
+        "15": 1.64,
+        "16": 1.49,
+        "17": 1.35,
+        "18": 1.22,
+        "19": 1.1,
+        "20": 1,
+        "21": 0.91,
+        "22": 0.82,
+        "23": 0.74,
+        "24": 0.67,
+        "25": 0.61,
+        "26": 0.55,
+        "27": 0.5,
+        "28": 0.45,
+        "29": 0.41,
+        "30": 0.37
+      },
+      "temperature_compensation_source": "Ilford technical information temperature conversion chart"
     },
     "adox_rodinal": {
       "name": "Adox Rodinal",
@@ -7813,7 +7390,26 @@
           "ratio": "1:100",
           "description": "Stand development dilution"
         }
-      }
+      },
+      "temperature_compensation": {
+        "15": 1.64,
+        "16": 1.49,
+        "17": 1.35,
+        "18": 1.22,
+        "19": 1.1,
+        "20": 1,
+        "21": 0.91,
+        "22": 0.82,
+        "23": 0.74,
+        "24": 0.67,
+        "25": 0.61,
+        "26": 0.55,
+        "27": 0.5,
+        "28": 0.45,
+        "29": 0.41,
+        "30": 0.37
+      },
+      "temperature_compensation_source": "Standard temperature conversion (no manufacturer chart published)"
     },
     "kodak_flexicolor_c41": {
       "name": "Kodak Flexicolor C-41",
@@ -8174,22 +7770,22 @@
     }
   },
   "temperature_compensation": {
-    "15": 1.9,
-    "16": 1.6,
-    "17": 1.45,
-    "18": 1.3,
-    "19": 1.15,
+    "15": 1.64,
+    "16": 1.49,
+    "17": 1.35,
+    "18": 1.22,
+    "19": 1.1,
     "20": 1,
-    "21": 0.9,
-    "22": 0.8,
-    "23": 0.72,
-    "24": 0.65,
-    "25": 0.6,
+    "21": 0.91,
+    "22": 0.82,
+    "23": 0.74,
+    "24": 0.67,
+    "25": 0.61,
     "26": 0.55,
     "27": 0.5,
-    "28": 0.46,
-    "29": 0.42,
-    "30": 0.38
+    "28": 0.45,
+    "29": 0.41,
+    "30": 0.37
   },
   "agitation_patterns": {
     "normal": {
@@ -8294,6 +7890,7 @@
     },
     "film_count": 46,
     "developer_count": 18,
-    "total_combinations": 366
+    "total_combinations": 366,
+    "temperature_compensation_source": "Ilford technical information temperature conversion chart"
   }
 }

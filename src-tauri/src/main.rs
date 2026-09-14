@@ -17,6 +17,7 @@ use export::ExportManager;
 
 // Global state for the calculation engine
 type CalculationEngineState = Mutex<CalculationEngine>;
+type SleepBlockState = Mutex<Option<keepawake::AwakeHandle>>;
 
 // Command to load the film database
 #[tauri::command]
@@ -157,10 +158,49 @@ fn resolve_export_path(
     directory.join(file_name)
 }
 
+// Command to prevent or allow display/idle sleep while the timer runs
+#[tauri::command]
+async fn set_sleep_block(
+    state: State<'_, SleepBlockState>,
+    enabled: bool,
+) -> Result<(), String> {
+    let mut guard = state.lock().unwrap();
+    if enabled {
+        if guard.is_none() {
+            let keep_awake = keepawake::Builder::default()
+                .display(true)
+                .idle(true)
+                .reason("Development timer running")
+                .app_name("DarkroomPro")
+                .app_reverse_domain("com.panolix.darkroompro")
+                .create()
+                .map_err(|e| e.to_string())?;
+            *guard = Some(keep_awake);
+        }
+    } else {
+        *guard = None;
+    }
+    Ok(())
+}
+
+// Command to toggle fullscreen on the main window (darkroom focus mode)
+#[tauri::command]
+async fn set_fullscreen(
+    app_handle: tauri::AppHandle,
+    enabled: bool,
+) -> Result<(), String> {
+    let window = app_handle
+        .get_webview_window("main")
+        .or_else(|| app_handle.webview_windows().values().next().cloned())
+        .ok_or("Main window not found")?;
+    window.set_fullscreen(enabled).map_err(|e| e.to_string())
+}
+
 fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_shell::init())
         .manage(CalculationEngineState::new(CalculationEngine::new()))
+        .manage(SleepBlockState::new(None))
         .invoke_handler(tauri::generate_handler![
             load_database,
             get_films,
@@ -168,7 +208,9 @@ fn main() {
             get_film_info,
             get_developer_info,
             calculate_development,
-            export_calculation
+            export_calculation,
+            set_sleep_block,
+            set_fullscreen
         ])
         .setup(|_app| {
             Ok(())

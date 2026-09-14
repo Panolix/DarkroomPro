@@ -59,6 +59,10 @@ pub struct Developer {
     pub best_for: Vec<String>,
     #[serde(default)]
     pub safety_notes: Option<String>,
+    #[serde(default)]
+    pub temperature_compensation: HashMap<String, Decimal>,
+    #[serde(default)]
+    pub temperature_compensation_source: Option<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -189,6 +193,8 @@ pub struct ProcessStep {
     pub time_minutes: Option<Decimal>,
     #[serde(default)]
     pub temperature_c: Option<Decimal>,
+    #[serde(default)]
+    pub note: Option<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

@@ -116,6 +116,7 @@ pub struct DatabaseStats {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use rust_decimal::Decimal;
 
     fn load_bundled_database() -> Database {
         let path = concat!(env!("CARGO_MANIFEST_DIR"), "/../complete_database.json");
@@ -199,37 +200,59 @@ mod tests {
     }
 
     #[test]
-    fn kit_compositions_are_valid() {
+    fn non_developer_times_are_empty() {
         let database = load_bundled_database();
 
         for (film_key, film) in &database.films {
             for (combo_key, combo) in &film.developers {
-                let has_blix = combo.blix_time_minutes.is_some();
-                let has_bleach = combo.bleach_time_minutes.is_some();
-                let has_fixer = combo.fixer_time_minutes.is_some();
-                let has_reversal = combo.reversal_time_minutes.is_some();
-                let has_stabilizer = combo.stabilizer_time_minutes.is_some();
-
-                match film.film_type {
-                    FilmType::BlackWhite => {}
-                    FilmType::ColorNegative => {
-                        assert!(combo.developer_time_minutes.is_some(), "{} / {} lacks a developer step", film_key, combo_key);
-                        assert!(has_stabilizer, "{} / {} lacks a stabilizer step", film_key, combo_key);
-                        let composition_ok = (has_blix && !has_bleach && !has_fixer)
-                            || (!has_blix && has_bleach && has_fixer);
-                        assert!(composition_ok, "{} / {} must use either blix or bleach+fixer", film_key, combo_key);
-                    }
-                    FilmType::Slide => {
-                        assert!(combo.first_dev_time_minutes.is_some(), "{} / {} lacks a first developer step", film_key, combo_key);
-                        assert!(combo.color_dev_time_minutes.is_some(), "{} / {} lacks a color developer step", film_key, combo_key);
-                        assert!(has_stabilizer, "{} / {} lacks a stabilizer step", film_key, combo_key);
-                        let six_bath = has_reversal && has_bleach && has_fixer && !has_blix;
-                        let three_bath = has_blix && !has_reversal && !has_bleach && !has_fixer;
-                        assert!(six_bath || three_bath, "{} / {} has an invalid E-6 bath layout", film_key, combo_key);
-                    }
-                }
+                assert!(combo.bleach_time_minutes.is_none(), "{} / {} must not pre-fill bleach time", film_key, combo_key);
+                assert!(combo.blix_time_minutes.is_none(), "{} / {} must not pre-fill blix time", film_key, combo_key);
+                assert!(combo.fixer_time_minutes.is_none(), "{} / {} must not pre-fill fixer time", film_key, combo_key);
+                assert!(combo.stabilizer_time_minutes.is_none(), "{} / {} must not pre-fill stabilizer time", film_key, combo_key);
+                assert!(combo.reversal_time_minutes.is_none(), "{} / {} must not pre-fill reversal time", film_key, combo_key);
+                assert!(combo.color_dev_time_minutes.is_none(), "{} / {} must not pre-fill color developer time", film_key, combo_key);
             }
         }
+    }
+
+    #[test]
+    fn black_and_white_developers_have_sourced_temperature_tables() {
+        let database = load_bundled_database();
+        let mut checked = 0;
+
+        for (key, developer) in &database.developers {
+            if !developer.film_types.iter().any(|t| t == "black_white") {
+                continue;
+            }
+            checked += 1;
+            assert!(
+                developer.temperature_compensation.len() >= 15,
+                "developer '{}' has an incomplete temperature table",
+                key
+            );
+            assert!(
+                developer.temperature_compensation_source.as_deref().is_some_and(|s| !s.is_empty()),
+                "developer '{}' has no temperature compensation source",
+                key
+            );
+
+            let mut previous = Decimal::MAX;
+            for temp in 15..=30 {
+                let factor = *developer.temperature_compensation
+                    .get(&temp.to_string())
+                    .unwrap_or_else(|| panic!("developer '{}' missing {}C", key, temp));
+                assert!(factor > Decimal::ZERO, "{}C factor must be positive", temp);
+                assert!(factor < previous, "developer '{}' table must decrease with temperature", key);
+                previous = factor;
+            }
+
+            let low = *developer.temperature_compensation.get("15").unwrap();
+            let high = *developer.temperature_compensation.get("30").unwrap();
+            assert!(low >= Decimal::new(12, 1) && low <= Decimal::from(2), "developer '{}' 15C factor out of range", key);
+            assert!(high >= Decimal::new(25, 2) && high <= Decimal::new(6, 1), "developer '{}' 30C factor out of range", key);
+        }
+
+        assert!(checked >= 10, "expected at least 10 black & white developers, found {}", checked);
     }
 
     #[test]

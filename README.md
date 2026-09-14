@@ -17,8 +17,11 @@ A professional desktop application for calculating **precise film development pa
 - **46 Film Stocks** - Comprehensive database of B&W, color negative, and slide films
 - **18+ Developers** - Popular developers with precise dilution ratios  
 - **366 Combinations** - Tested film/developer pairings with accurate data
-- **Temperature Compensation** - Automatic time adjustments (15-30°C)
+- **Temperature Compensation** - Per-developer curves sourced from manufacturer charts (15-30°C)
 - **Push/Pull Processing** - Accurate calculations for ±3 stops
+- **Multi-Step Timer** - Auto, Buffer and Manual step transitions with a customizable step editor
+- **Agitation Reminders** - Chimes and prompts for the published agitation schedule
+- **Darkroom Mode** - Safelight theme, focus display, agitation chimes and screen wake-lock in one toggle
 - **Built-in Timer** - Integrated countdown with audio alerts
 - **Export Functionality** - Save calculations as JSON, CSV, or PDF
 - **Cross-Platform** - Native apps for macOS, Windows, and Linux
@@ -32,16 +35,18 @@ A professional desktop application for calculating **precise film development pa
 - **Manufacturer Grouping**: Films organized by brand for easy selection
 
 ### 🧮 **Advanced Calculations**
-- **Temperature Compensation**: Automatic time adjustments for any temperature (15-30°C)
+- **Temperature Compensation**: Per-developer curves for all B&W developers, derived from Kodak and Ilford temperature charts, with a sourced global fallback
 - **Push/Pull Processing**: Accurate calculations for ±3 stops exposure compensation
 - **Dilution Calculator**: Optimal developer-to-water ratios with precise measurements
 - **Type-Safe Calculations**: Rust-powered calculation engine for guaranteed accuracy
 
 ### ⏱️ **Professional Timer**
-- **Built-in Development Timer**: Integrated countdown timer with visual progress
-- **Audio Alerts**: Warning sounds at 30s and 10s remaining
-- **Clean Display**: Whole seconds only (no decimal places)
-- **Visual Feedback**: Color-coded timer states (normal, warning, complete)
+- **Multi-Step Process Timer**: The developer step is timed from the calculation; add your own bleach, blix, fixer, stabilizer or rinse steps and enter their times from your kit instructions
+- **Transition Modes**: Auto-advance, Buffer (custom 1-60s prep window) or Manual start
+- **Agitation Reminders**: Cue chimes and on-screen prompts from each combination's agitation schedule
+- **Step Editor**: Add, reorder, remove or retime steps per film/developer; times are saved automatically
+- **Darkroom Mode**: One toggle for the red safelight theme, fullscreen focus display, wake-lock and chimes
+- **Audio Alerts**: Step changes, agitation cues and completion tones
 
 ### 📤 **Export & Sharing**
 - **Multiple Formats**: Export calculations as JSON, CSV, or PDF reports
@@ -75,26 +80,26 @@ A professional desktop application for calculating **precise film development pa
 > **Note:** Release builds are unsigned. On macOS, right-click the app and choose **Open** the first time you launch it; on Windows, SmartScreen may ask you to confirm.
 
 #### **macOS**
-1. Download `DarkroomPro_1.0.5_universal.dmg` from [Releases](../../releases)
+1. Download `DarkroomPro_1.1.0_universal.dmg` from [Releases](../../releases)
 2. Open the DMG file
 3. Drag DarkroomPro to Applications folder
 4. Launch from Applications or Launchpad
 
 #### **Windows**
-1. Download `DarkroomPro_1.0.5_x64_en-US.msi` from [Releases](../../releases)
+1. Download `DarkroomPro_1.1.0_x64_en-US.msi` from [Releases](../../releases)
 2. Run the installer
 3. Follow installation wizard
 4. Launch from Start Menu or Desktop
 
 #### **Linux**
-1. Download `DarkroomPro_1.0.5_amd64.deb` (Debian/Ubuntu), `DarkroomPro-1.0.5-1.x86_64.rpm` (RedHat/Fedora), or `DarkroomPro_1.0.5_amd64.AppImage` (portable)
+1. Download `DarkroomPro_1.1.0_amd64.deb` (Debian/Ubuntu), `DarkroomPro-1.1.0-1.x86_64.rpm` (RedHat/Fedora), or `DarkroomPro_1.1.0_amd64.AppImage` (portable)
 2. Install using your package manager:
    ```bash
    # Debian/Ubuntu
-   sudo dpkg -i DarkroomPro_1.0.5_amd64.deb
+   sudo dpkg -i DarkroomPro_1.1.0_amd64.deb
    
    # RedHat/Fedora
-   sudo rpm -i DarkroomPro-1.0.5-1.x86_64.rpm
+   sudo rpm -i DarkroomPro-1.1.0-1.x86_64.rpm
    ```
 3. Launch from applications menu
 

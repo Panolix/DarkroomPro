@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DarkroomPro v1.0.5 - Professional Film Development Calculator</title>
+    <title>DarkroomPro v1.1.0 - Professional Film Development Calculator</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -118,6 +118,14 @@
                         <button id="toggle-custom" class="timer-btn ghost" type="button">Customize Steps</button>
                         <span id="custom-badge" class="custom-badge" style="display: none;">customized</span>
                     </div>
+                    <div class="darkroom-row">
+                        <button id="darkroom-toggle" class="timer-btn ghost darkroom-toggle" type="button">Darkroom Mode</button>
+                        <span id="darkroom-options" class="darkroom-options" style="display: none;">
+                            <button id="darkroom-focus" class="timer-btn ghost small" type="button">Focus</button>
+                            <button id="darkroom-chimes" class="timer-btn ghost small" type="button">Chimes</button>
+                            <button id="darkroom-sleep" class="timer-btn ghost small" type="button">No Sleep</button>
+                        </span>
+                    </div>
                     <div class="timer-editor" id="timer-editor" style="display: none;"></div>
                 </div>
             </div>
@@ -138,6 +146,18 @@
         <footer class="footer">
             <p><strong>DarkroomPro</strong> - Professional Film Development Calculator</p>
         </footer>
+    </div>
+
+    <div class="focus-overlay" id="focus-overlay" style="display: none;">
+        <div class="focus-step-label" id="focus-step-label">Step 1 of 1</div>
+        <div class="focus-step-name" id="focus-step-name">Developer</div>
+        <div class="focus-time" id="focus-time">00:00</div>
+        <div class="focus-next" id="focus-next"></div>
+        <div class="focus-controls">
+            <button id="focus-pause" class="timer-btn pause" type="button">Pause</button>
+            <button id="focus-skip" class="timer-btn ghost" type="button">Skip</button>
+            <button id="focus-exit" class="timer-btn ghost" type="button">Exit</button>
+        </div>
     </div>
 
     <script type="module" src="rust-bridge.js"></script>

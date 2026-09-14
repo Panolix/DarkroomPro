@@ -418,6 +418,12 @@ class DevelopmentCalculator {
                             <span class="char-value">${dilutionList.join(', ')}</span>
                         </div>
                     ` : ''}
+                    ${developer.temperature_compensation_source ? `
+                        <div class="char-item">
+                            <span class="char-label">Temp compensation:</span>
+                            <span class="char-value">${developer.temperature_compensation_source}</span>
+                        </div>
+                    ` : ''}
                     <div class="char-item">
                         <span class="char-label">Shelf Life:</span>
                         <span class="char-value">Stock: ${developer.stock_life_months || 'N/A'} months, Working: ${developer.working_life_hours || 'N/A'} hours</span>
@@ -620,7 +626,7 @@ class DevelopmentCalculator {
         
         // Calculate development time with temperature compensation (B&W only)
         const tempCompensation = film.type === 'black_white'
-            ? this.getTemperatureCompensation(temperature)
+            ? this.getTemperatureCompensation(temperature, developer)
             : 1.0;
         const adjustedTime = baseTime * tempCompensation;
         
@@ -684,26 +690,31 @@ class DevelopmentCalculator {
         }
 
         const steps = window.processSteps.buildPresetSteps(film, combo, developerMinutes);
-        window.developmentTimer.setSteps(steps, { filmKey, developerKey });
+        const temperature = this.getStandardTemperature();
+        window.developmentTimer.setSteps(steps, { filmKey, developerKey, temperature: temperature != null ? temperature : 20 });
     }
 
-    getTemperatureCompensation(temperature) {
+    getTemperatureCompensation(temperature, developer) {
+        const table = (developer && developer.temperature_compensation && Object.keys(developer.temperature_compensation).length > 0)
+            ? developer.temperature_compensation
+            : temperatureCompensation;
+
         // Round to nearest 0.5 degree for lookup
         const roundedTemp = Math.round(temperature * 2) / 2;
         
         // If exact temperature exists, use it
-        if (temperatureCompensation[roundedTemp]) {
-            return temperatureCompensation[roundedTemp];
+        if (table[roundedTemp]) {
+            return table[roundedTemp];
         }
         
         // Otherwise interpolate between nearest values
         const lowerTemp = Math.floor(roundedTemp);
         const upperTemp = Math.ceil(roundedTemp);
         
-        if (temperatureCompensation[lowerTemp] && temperatureCompensation[upperTemp]) {
+        if (table[lowerTemp] && table[upperTemp]) {
             const factor = roundedTemp - lowerTemp;
-            return temperatureCompensation[lowerTemp] + 
-                   (temperatureCompensation[upperTemp] - temperatureCompensation[lowerTemp]) * factor;
+            return table[lowerTemp] + 
+                   (table[upperTemp] - table[lowerTemp]) * factor;
         }
         
         // Fallback to 1.0 if temperature is out of range

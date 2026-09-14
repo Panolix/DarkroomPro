@@ -1,6 +1,6 @@
 [package]
 name = "darkroom-pro"
-version = "1.0.5"
+version = "1.1.0"
 description = "Professional Film Development Calculator for Darkroom Enthusiasts"
 authors = ["Panagiotis Smponias <info@cityframe-photography.com>"]
 license = "CC-BY-NC-SA-4.0"
@@ -21,6 +21,7 @@ chrono = { version = "0.4", features = ["serde"] }
 thiserror = "1.0"
 rust_decimal = { version = "1.32", features = ["serde", "serde-float"] }
 printpdf = "0.7"
+keepawake = "0.4"
 
 [features]
 # This feature is used for production builds or when `devPath` points to the filesystem

@@ -1,4 +1,4 @@
-import { STEP_LIBRARY, buildPresetSteps, createStep, summarizeSteps } from '../steps.js';
+import { STEP_LIBRARY, buildPresetSteps, createStep, summarizeSteps, buildAgitationCues, describeAgitation } from '../steps.js';
 
 let failures = 0;
 
@@ -11,78 +11,65 @@ function check(name, condition, detail) {
     }
 }
 
-const bwFilm = { type: 'black_white' };
-const bwCombo = { time_minutes: 7.5 };
-
-const blixCombo = {
-    developer_time_minutes: 3.25, developer_temp_c: 37.8,
-    blix_time_minutes: 6.5, blix_temp_c: 37.8,
-    stabilizer_time_minutes: 1, stabilizer_temp_c: 37.8,
-};
-const separateCombo = {
-    developer_time_minutes: 3.25, developer_temp_c: 37.8,
-    bleach_time_minutes: 6.5, bleach_temp_c: 37.8,
-    fixer_time_minutes: 6.5, fixer_temp_c: 37.8,
-    stabilizer_time_minutes: 1, stabilizer_temp_c: 37.8,
-};
+const bwCombo = { temperature_c: 20, agitation_initial_seconds: 30, agitation_interval_seconds: 10, agitation_frequency_minutes: 1 };
+const c41Combo = { developer_temp_c: 37.8, agitation_initial_seconds: 30, agitation_interval_seconds: 15, agitation_frequency_minutes: 0.5 };
+const e6Combo = { first_dev_temp_c: 37.8, agitation_initial_seconds: 15, agitation_interval_seconds: 15, agitation_frequency_minutes: 0.5 };
 
 console.log('B&W preset');
-const bwSteps = buildPresetSteps(bwFilm, bwCombo, 7.5);
-check('single developer step', bwSteps.length === 1);
+const bwSteps = buildPresetSteps({ type: 'black_white' }, bwCombo, 7.5);
+check('single developer step', bwSteps.length === 1, JSON.stringify(bwSteps.map(s => s.name)));
 check('developer time applied', bwSteps[0].time_minutes === 7.5);
 check('developer temp 20C', bwSteps[0].temperature_c === 20);
 
-console.log('C-41 blix kit');
-const blixSteps = buildPresetSteps({ type: 'color_negative' }, blixCombo, 3.5);
-check('step count', blixSteps.length === 5, JSON.stringify(blixSteps.map(s => s.name)));
-check('order', blixSteps.map(s => s.name).join(' > ') === 'Developer > Rinse > Blix > Rinse > Stabilizer');
-check('developer uses calculated time', blixSteps[0].time_minutes === 3.5);
-check('rinse untimed', blixSteps[1].time_minutes === null && blixSteps[1].kind === 'wash');
-check('no bleach/fixer steps', !blixSteps.some(s => s.kind === 'bleach' || s.kind === 'fixer'));
+console.log('C-41 preset');
+const c41Steps = buildPresetSteps({ type: 'color_negative' }, c41Combo, 3.25);
+check('single developer step', c41Steps.length === 1, JSON.stringify(c41Steps.map(s => s.name)));
+check('developer uses calculated time', c41Steps[0].time_minutes === 3.25);
+check('developer temp 37.8C', c41Steps[0].temperature_c === 37.8);
+check('no bath steps preset', !c41Steps.some(s => s.kind !== 'developer'));
 
-console.log('C-41 separate baths');
-const sepSteps = buildPresetSteps({ type: 'color_negative' }, separateCombo, 3.25);
-check('step count', sepSteps.length === 6, JSON.stringify(sepSteps.map(s => s.name)));
-check('order', sepSteps.map(s => s.name).join(' > ') === 'Developer > Bleach > Rinse > Fixer > Rinse > Stabilizer');
-check('no blix', !sepSteps.some(s => s.kind === 'blix'));
+console.log('E-6 preset');
+const e6Steps = buildPresetSteps({ type: 'slide' }, e6Combo, 6);
+check('single first developer step', e6Steps.length === 1 && e6Steps[0].name === 'First Developer', JSON.stringify(e6Steps.map(s => s.name)));
+check('first dev temp 37.8C', e6Steps[0].temperature_c === 37.8);
 
-console.log('E-6 six-bath');
-const sixBath = {
-    first_dev_time_minutes: 6, first_dev_temp_c: 37.8,
-    reversal_time_minutes: 2, reversal_temp_c: 37.8,
-    color_dev_time_minutes: 6, color_dev_temp_c: 37.8,
-    bleach_time_minutes: 6, bleach_temp_c: 37.8,
-    fixer_time_minutes: 4, fixer_temp_c: 37.8,
-    stabilizer_time_minutes: 1, stabilizer_temp_c: 37.8,
-};
-const sixSteps = buildPresetSteps({ type: 'slide' }, sixBath, 6);
-check('step count', sixSteps.length === 11, JSON.stringify(sixSteps.map(s => s.name)));
-check('first step first developer', sixSteps[0].name === 'First Developer');
-check('has reversal and color dev', sixSteps.some(s => s.kind === 'reversal') && sixSteps.some(s => s.name === 'Color Developer'));
-check('ends with stabilizer', sixSteps[sixSteps.length - 1].name === 'Stabilizer');
+console.log('Step library');
+check('all library times are empty', Object.values(STEP_LIBRARY).every(entry => entry.time == null), JSON.stringify(Object.entries(STEP_LIBRARY).filter(([, v]) => v.time != null)));
+check('generic step types only', Object.keys(STEP_LIBRARY).join(',') === 'developer,first_dev,stop,reversal,color_dev,bleach,blix,fixer,wash,stabilizer,custom');
+check('stop has no default time', createStep('stop').time_minutes === null);
+check('fixer has no default time', createStep('fixer').time_minutes === null);
+check('stabilizer has no default time', createStep('stabilizer').time_minutes === null);
+check('custom has no default time', createStep('custom').time_minutes === null);
+check('custom developer step gets default agitation', !!createStep('developer').agitation);
+check('custom fixer has no agitation', !createStep('fixer').agitation);
+check('overrides apply', createStep('fixer', { time_minutes: 3, temperature_c: 20 }).time_minutes === 3);
+check('new step temperature default applies', createStep('fixer', { temperature_c: 37.8 }).temperature_c === 37.8);
 
-console.log('E-6 three-bath');
-const threeBath = {
-    first_dev_time_minutes: 6, first_dev_temp_c: 37.8,
-    color_dev_time_minutes: 6, color_dev_temp_c: 37.8,
-    blix_time_minutes: 6, blix_temp_c: 37.8,
-    stabilizer_time_minutes: 1, stabilizer_temp_c: 37.8,
-};
-const threeSteps = buildPresetSteps({ type: 'slide' }, threeBath, 6);
-check('step count', threeSteps.length === 7, JSON.stringify(threeSteps.map(s => s.name)));
-check('order', threeSteps.map(s => s.name).join(' > ') === 'First Developer > Rinse > Color Developer > Rinse > Blix > Rinse > Stabilizer');
+console.log('Agitation cues');
+const agitationSteps = buildPresetSteps({ type: 'black_white' }, bwCombo, 7.5);
+check('preset step has agitation', !!agitationSteps[0].agitation && agitationSteps[0].agitation.initialSeconds === 30);
 
-console.log('Custom library');
-check('stop default 0:30', createStep('stop').time_minutes === 0.5);
-check('fixer default 5:00', createStep('fixer').time_minutes === 5);
-check('stabilizer default 1:00', createStep('stabilizer').time_minutes === 1);
-check('typical flagged', createStep('fixer').typical === true);
-check('overrides apply', createStep('fixer', { time_minutes: 3 }).time_minutes === 3);
+const cues = buildAgitationCues(agitationSteps[0]);
+check('cue count for 7.5 min at 1/min', cues.length === 8, JSON.stringify(cues));
+check('first cue starts at 0', cues[0].startSeconds === 0 && cues[0].durationSeconds === 10);
+check('second cue at 60s', cues[1].startSeconds === 60);
+check('no cues without agitation', buildAgitationCues({ name: 'Fixer', kind: 'fixer', time_minutes: 5 }).length === 0);
+check('no cues for untimed step', buildAgitationCues({ name: 'Rinse', kind: 'wash', time_minutes: null, agitation: { initialSeconds: 10, intervalSeconds: 5, frequencyMinutes: 1 } }).length === 0);
+
+const rapidCues = buildAgitationCues({ name: 'Developer', kind: 'developer', time_minutes: 1, agitation: { initialSeconds: 5, intervalSeconds: 5, frequencyMinutes: 0.5 } });
+check('cues every 30s give 2 entries', rapidCues.length === 2, JSON.stringify(rapidCues));
+check('agitation description', describeAgitation({ initialSeconds: 30, intervalSeconds: 10, frequencyMinutes: 1 }).includes('Agitate 30s'));
 
 console.log('Summary');
-const summary = summarizeSteps(blixSteps);
-check('count', summary.count === 5);
-check('timed seconds', summary.timedSeconds === Math.round((3.5 + 6.5 + 1) * 60));
+const userSteps = [
+    createStep('developer', { time_minutes: 3.25 }),
+    createStep('blix', { time_minutes: 6.5 }),
+    createStep('wash'),
+    createStep('stabilizer'),
+];
+const summary = summarizeSteps(userSteps);
+check('count', summary.count === 4);
+check('timed seconds', summary.timedSeconds === Math.round((3.25 + 6.5) * 60));
 check('has untimed', summary.hasUntimed === true);
 
 if (failures > 0) {

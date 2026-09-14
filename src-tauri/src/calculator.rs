@@ -66,7 +66,12 @@ impl CalculationEngine {
         // Apply temperature compensation (B&W only - color runs at fixed kit temperatures)
         let temp_compensation = match film.film_type {
             FilmType::BlackWhite => {
-                self.get_temperature_compensation(&database.temperature_compensation, request.temperature)
+                let table = if developer.temperature_compensation.is_empty() {
+                    &database.temperature_compensation
+                } else {
+                    &developer.temperature_compensation
+                };
+                self.get_temperature_compensation(table, request.temperature)
             },
             _ => Decimal::from(1),
         };
@@ -317,6 +322,9 @@ impl CalculationEngine {
         // Temperature note (B&W only - color runs at fixed kit temperatures)
         if matches!(film.film_type, FilmType::BlackWhite) && temperature != Decimal::from(20) {
             notes.push(format!("Temperature adjusted for {}°C", temperature));
+            if let Some(source) = &developer.temperature_compensation_source {
+                notes.push(format!("Temperature compensation: {}", source));
+            }
         }
         
         // Push/pull note

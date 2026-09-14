@@ -15,9 +15,22 @@ class DevelopmentTimer {
         this.transitionMode = this.loadSetting('darkroompro.timer.mode', 'auto');
         this.bufferSeconds = this.clampBuffer(parseInt(this.loadSetting('darkroompro.timer.buffer', '5'), 10));
 
+        this.darkroom = {
+            enabled: this.loadSetting('darkroompro.darkroom', 'off') === 'on',
+            focus: this.loadSetting('darkroompro.darkroom.focus', 'on') === 'on',
+            chimes: this.loadSetting('darkroompro.darkroom.chimes', 'on') === 'on',
+            sleep: this.loadSetting('darkroompro.darkroom.sleep', 'on') === 'on',
+        };
+        this.cues = [];
+        this.firedCues = new Set();
+        this.activeCue = null;
+        this.focusVisible = false;
+        this.sleepBlocked = false;
+
         this.initializeElements();
         this.bindEvents();
         this.applyModeUI();
+        this.applyDarkroomUI();
         this.render();
     }
 
@@ -39,6 +52,20 @@ class DevelopmentTimer {
         this.toggleCustomBtn = document.getElementById('toggle-custom');
         this.customBadge = document.getElementById('custom-badge');
         this.editorElement = document.getElementById('timer-editor');
+        this.timerCardElement = document.querySelector('.timer-card');
+        this.darkroomToggle = document.getElementById('darkroom-toggle');
+        this.darkroomOptions = document.getElementById('darkroom-options');
+        this.darkroomFocusBtn = document.getElementById('darkroom-focus');
+        this.darkroomChimesBtn = document.getElementById('darkroom-chimes');
+        this.darkroomSleepBtn = document.getElementById('darkroom-sleep');
+        this.focusOverlay = document.getElementById('focus-overlay');
+        this.focusStepLabel = document.getElementById('focus-step-label');
+        this.focusStepName = document.getElementById('focus-step-name');
+        this.focusTime = document.getElementById('focus-time');
+        this.focusNext = document.getElementById('focus-next');
+        this.focusPauseBtn = document.getElementById('focus-pause');
+        this.focusSkipBtn = document.getElementById('focus-skip');
+        this.focusExitBtn = document.getElementById('focus-exit');
         this.editorOpen = false;
     }
 
@@ -60,6 +87,19 @@ class DevelopmentTimer {
         });
 
         this.toggleCustomBtn.addEventListener('click', () => this.toggleEditor());
+
+        this.darkroomToggle.addEventListener('click', () => this.toggleDarkroom());
+        this.darkroomFocusBtn.addEventListener('click', () => this.toggleDarkroomOption('focus'));
+        this.darkroomChimesBtn.addEventListener('click', () => this.toggleDarkroomOption('chimes'));
+        this.darkroomSleepBtn.addEventListener('click', () => this.toggleDarkroomOption('sleep'));
+
+        this.focusPauseBtn.addEventListener('click', () => this.focusPrimary());
+        this.focusSkipBtn.addEventListener('click', () => this.skip());
+        this.focusExitBtn.addEventListener('click', () => this.hideFocus());
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && this.focusVisible) this.hideFocus();
+        });
     }
 
     // --- Settings ---
@@ -101,6 +141,127 @@ class DevelopmentTimer {
         }
     }
 
+    // --- Darkroom mode ---
+    toggleDarkroom() {
+        this.darkroom.enabled = !this.darkroom.enabled;
+        this.saveSetting('darkroompro.darkroom', this.darkroom.enabled ? 'on' : 'off');
+        this.applyDarkroomUI();
+        if (this.darkroom.enabled) {
+            this.showFocus();
+            this.playSound('start');
+        } else {
+            this.hideFocus();
+            this.playSound('reset');
+        }
+    }
+
+    toggleDarkroomOption(option) {
+        this.darkroom[option] = !this.darkroom[option];
+        this.saveSetting(`darkroompro.darkroom.${option}`, this.darkroom[option] ? 'on' : 'off');
+        this.applyDarkroomUI();
+    }
+
+    applyDarkroomUI() {
+        document.body.classList.toggle('darkroom', this.darkroom.enabled);
+        if (this.darkroomToggle) this.darkroomToggle.classList.toggle('active', this.darkroom.enabled);
+        if (this.darkroomOptions) this.darkroomOptions.style.display = this.darkroom.enabled ? 'inline-flex' : 'none';
+        if (this.darkroomFocusBtn) this.darkroomFocusBtn.classList.toggle('active', this.darkroom.focus);
+        if (this.darkroomChimesBtn) this.darkroomChimesBtn.classList.toggle('active', this.darkroom.chimes);
+        if (this.darkroomSleepBtn) this.darkroomSleepBtn.classList.toggle('active', this.darkroom.sleep);
+        this.updateSleepBlock();
+    }
+
+    updateSleepBlock() {
+        const active = this.state === 'running' || this.state === 'buffering' || this.state === 'awaiting' || !!this.pendingResume;
+        const shouldBlock = this.darkroom.enabled && this.darkroom.sleep && active;
+        if (shouldBlock === this.sleepBlocked) return;
+        this.sleepBlocked = shouldBlock;
+        if (window.rustBridge && window.rustBridge.setSleepBlock) {
+            window.rustBridge.setSleepBlock(shouldBlock);
+        }
+    }
+
+    // --- Focus display ---
+    showFocus() {
+        this.focusVisible = true;
+        document.body.classList.add('focus-open');
+        if (this.focusOverlay) this.focusOverlay.style.display = 'flex';
+        if (window.rustBridge && window.rustBridge.setFullscreen) {
+            window.rustBridge.setFullscreen(true);
+        }
+        this.updateFocusOverlay();
+    }
+
+    hideFocus() {
+        this.focusVisible = false;
+        document.body.classList.remove('focus-open');
+        if (this.focusOverlay) this.focusOverlay.style.display = 'none';
+        if (window.rustBridge && window.rustBridge.setFullscreen) {
+            window.rustBridge.setFullscreen(false);
+        }
+    }
+
+    updateFocusOverlay() {
+        if (!this.focusOverlay || !this.focusVisible) return;
+        const step = this.steps[this.currentIndex];
+        this.focusStepLabel.textContent = this.stepLabelElement ? this.stepLabelElement.textContent : '';
+        this.focusStepName.textContent = step ? step.name : '';
+        this.focusTime.textContent = this.displayElement ? this.displayElement.textContent : '00:00';
+        this.focusNext.textContent = this.nextElement ? this.nextElement.textContent : '';
+
+        if (this.state === 'running' || this.state === 'buffering') {
+            this.focusPauseBtn.textContent = 'Pause';
+        } else if (this.state === 'awaiting') {
+            this.focusPauseBtn.textContent = 'Start Next Step';
+        } else if (this.pendingResume) {
+            this.focusPauseBtn.textContent = 'Resume';
+        } else {
+            this.focusPauseBtn.textContent = 'Start';
+        }
+    }
+
+    focusPrimary() {
+        if (this.state === 'idle' && !this.pendingResume && this.steps.length > 0) {
+            this.start();
+        } else {
+            this.pause();
+        }
+    }
+
+    // --- Agitation cues ---
+    prepareCues() {
+        this.firedCues = new Set();
+        this.activeCue = null;
+        const step = this.steps[this.currentIndex];
+        this.cues = (window.processSteps && step && step.agitation && step.time_minutes != null)
+            ? window.processSteps.buildAgitationCues(step)
+            : [];
+    }
+
+    updateCueState() {
+        if (this.state !== 'running' || this.cues.length === 0) {
+            this.activeCue = null;
+            return;
+        }
+
+        const duration = this.currentStepDuration();
+        const elapsed = Math.max(0, duration - this.remaining);
+
+        for (const cue of this.cues) {
+            if (!this.firedCues.has(cue.startSeconds) && elapsed >= cue.startSeconds) {
+                this.firedCues.add(cue.startSeconds);
+                if (this.darkroom.enabled && this.darkroom.chimes) {
+                    this.playSound('agitate');
+                }
+            }
+        }
+
+        this.activeCue = this.cues.find(cue => elapsed >= cue.startSeconds && elapsed < cue.startSeconds + cue.durationSeconds) || null;
+        if (this.timerCardElement) {
+            this.timerCardElement.classList.toggle('agitating', !!this.activeCue);
+        }
+    }
+
     // --- Steps ---
     setSteps(steps, context) {
         this.presetSteps = (steps || []).map(step => ({ ...step }));
@@ -127,6 +288,7 @@ class DevelopmentTimer {
         this.state = 'idle';
         this.currentIndex = 0;
         this.remaining = this.stepDuration(0);
+        this.prepareCues();
         this.render();
     }
 
@@ -168,6 +330,7 @@ class DevelopmentTimer {
 
         if (this.state === 'idle' || this.state === 'done') {
             if (this.state === 'done') this.reset();
+            if (!this.pendingResume && this.darkroom.enabled && this.darkroom.focus) this.showFocus();
             this.beginStep();
         } else if (this.state === 'running' || this.state === 'buffering') {
             return;
@@ -206,6 +369,8 @@ class DevelopmentTimer {
         this.currentIndex = 0;
         this.pendingResume = false;
         this.remaining = this.stepDuration(0);
+        this.prepareCues();
+        this.hideFocus();
         this.render();
         this.playSound('reset');
     }
@@ -218,6 +383,7 @@ class DevelopmentTimer {
                 this.currentIndex++;
                 this.remaining = this.stepDuration(this.currentIndex);
                 this.pendingResume = false;
+                this.prepareCues();
                 this.render();
             } else {
                 this.complete();
@@ -240,9 +406,10 @@ class DevelopmentTimer {
         this.updateDisplay();
     }
 
-    beginStep() {
+    beginStep(resume = false) {
         this.pendingResume = false;
         this.state = 'running';
+        if (!resume) this.prepareCues();
         this.remaining = this.remaining > 0 ? this.remaining : this.stepDuration(this.currentIndex);
         this.deadline = Date.now() + this.remaining * 1000;
         this.startTicking();
@@ -252,7 +419,7 @@ class DevelopmentTimer {
     }
 
     resumeStep() {
-        this.beginStep();
+        this.beginStep(true);
     }
 
     startTicking() {
@@ -272,6 +439,7 @@ class DevelopmentTimer {
         const previous = this.remaining;
         this.remaining = Math.max(0, Math.ceil((this.deadline - now) / 1000));
 
+        this.updateCueState();
         this.updateDisplay();
         this.updateProgress();
 
@@ -435,6 +603,7 @@ class DevelopmentTimer {
                     this.pendingResume = false;
                     this.currentIndex = index;
                     this.remaining = this.stepDuration(index);
+                    this.prepareCues();
                     this.render();
                 });
             }
@@ -515,6 +684,13 @@ class DevelopmentTimer {
             this.stepLabelElement.textContent = `Step ${this.currentIndex + 1} of ${this.steps.length}${step && step.temperature_c != null ? ` · ${step.temperature_c}°C` : ''}`;
         }
 
+        if (this.activeCue) {
+            const duration = this.currentStepDuration();
+            const elapsed = Math.max(0, duration - this.remaining);
+            const left = Math.max(1, Math.ceil(this.activeCue.startSeconds + this.activeCue.durationSeconds - elapsed));
+            if (this.nextElement) this.nextElement.textContent = `Agitate now — ${left}s`;
+        }
+
         if (this.state === 'buffering') {
             this.displayElement.style.color = 'var(--film-amber)';
         } else if (wholeSeconds <= 0 && this.state !== 'idle') {
@@ -524,6 +700,8 @@ class DevelopmentTimer {
         } else {
             this.displayElement.style.color = 'var(--accent-color)';
         }
+
+        this.updateFocusOverlay();
     }
 
     updateProgress() {
@@ -566,6 +744,9 @@ class DevelopmentTimer {
 
         this.skipBtn.style.display = hasSteps && this.state !== 'done' ? 'inline-block' : 'none';
         this.extendBtn.style.display = hasSteps ? 'inline-block' : 'none';
+
+        this.updateSleepBlock();
+        this.updateFocusOverlay();
     }
 
     showAutoPrompt(label) {
@@ -637,26 +818,10 @@ class DevelopmentTimer {
             time.step = '0.25';
             time.placeholder = 'min';
             time.value = step.time_minutes != null ? step.time_minutes : '';
-            time.disabled = step.time_minutes == null;
             time.addEventListener('input', () => {
                 step.time_minutes = time.value === '' ? null : parseFloat(time.value);
-                step.typical = false;
                 this.onCustomEdit();
             });
-
-            const untimed = document.createElement('label');
-            untimed.className = 'editor-untimed';
-            const untimedBox = document.createElement('input');
-            untimedBox.type = 'checkbox';
-            untimedBox.checked = step.time_minutes == null;
-            untimedBox.addEventListener('change', () => {
-                step.time_minutes = untimedBox.checked ? null : (time.value !== '' ? parseFloat(time.value) : 1);
-                step.typical = false;
-                this.onCustomEdit();
-                this.renderEditor();
-            });
-            untimed.appendChild(untimedBox);
-            untimed.appendChild(document.createTextNode(' untimed'));
 
             const temp = document.createElement('input');
             temp.type = 'number';
@@ -691,7 +856,6 @@ class DevelopmentTimer {
 
             row.appendChild(name);
             row.appendChild(time);
-            row.appendChild(untimed);
             row.appendChild(temp);
             row.appendChild(up);
             row.appendChild(down);
@@ -729,7 +893,8 @@ class DevelopmentTimer {
     }
 
     addStep(kind) {
-        const step = window.processSteps.createStep(kind);
+        const defaultTemperature = this.context && this.context.temperature != null ? this.context.temperature : 20;
+        const step = window.processSteps.createStep(kind, { temperature_c: defaultTemperature });
         this.steps.push(step);
         this.customized = true;
         this.persistCustom();
@@ -769,11 +934,23 @@ class DevelopmentTimer {
 
     onCustomEdit() {
         this.customized = true;
-        this.persistCustom();
-        this.updateCustomUI();
+        this.scheduleCustomPersist();
+        if (this.customBadge) {
+            this.customBadge.style.display = 'inline-block';
+        }
         this.renderStepper();
         this.renderSegments();
         this.updateDisplay();
+    }
+
+    scheduleCustomPersist() {
+        if (this.persistTimeout) {
+            clearTimeout(this.persistTimeout);
+        }
+        this.persistTimeout = setTimeout(() => {
+            this.persistTimeout = null;
+            this.persistCustom();
+        }, 300);
     }
 
     applyCustomChange() {
@@ -782,6 +959,7 @@ class DevelopmentTimer {
         this.pendingResume = false;
         this.currentIndex = 0;
         this.remaining = this.stepDuration(0);
+        this.prepareCues();
         this.render();
     }
 
@@ -793,6 +971,8 @@ class DevelopmentTimer {
             warning: 1000,
             step: 950,
             lowstep: 700,
+            agitate: 880,
+            agitateHigh: 1180,
             complete: 1200
         };
 
@@ -825,6 +1005,9 @@ class DevelopmentTimer {
 
         if (type === 'step') {
             setTimeout(() => beep(frequencies.lowstep), 220);
+        } else if (type === 'agitate') {
+            setTimeout(() => beep(frequencies.agitateHigh), 140);
+            setTimeout(() => beep(frequencies.agitate), 280);
         } else if (type === 'complete') {
             setTimeout(() => beep(frequencies.warning), 300);
             setTimeout(() => beep(frequencies.warning), 600);

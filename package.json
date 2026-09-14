@@ -1,7 +1,7 @@
 {
   "name": "darkroom-pro",
   "private": true,
-  "version": "1.0.5",
+  "version": "1.1.0",
   "type": "module",
   "description": "Professional Film Development Calculator for Darkroom Enthusiasts",
   "scripts": {
