@@ -80,26 +80,26 @@ A professional desktop application for calculating **precise film development pa
 > **Note:** Release builds are unsigned. On macOS, right-click the app and choose **Open** the first time you launch it; on Windows, SmartScreen may ask you to confirm.
 
 #### **macOS**
-1. Download `DarkroomPro_1.1.0_universal.dmg` from [Releases](../../releases)
+1. Download `DarkroomPro_1.1.1_universal.dmg` from [Releases](../../releases)
 2. Open the DMG file
 3. Drag DarkroomPro to Applications folder
 4. Launch from Applications or Launchpad
 
 #### **Windows**
-1. Download `DarkroomPro_1.1.0_x64_en-US.msi` from [Releases](../../releases)
+1. Download `DarkroomPro_1.1.1_x64_en-US.msi` from [Releases](../../releases)
 2. Run the installer
 3. Follow installation wizard
 4. Launch from Start Menu or Desktop
 
 #### **Linux**
-1. Download `DarkroomPro_1.1.0_amd64.deb` (Debian/Ubuntu), `DarkroomPro-1.1.0-1.x86_64.rpm` (RedHat/Fedora), or `DarkroomPro_1.1.0_amd64.AppImage` (portable)
+1. Download `DarkroomPro_1.1.1_amd64.deb` (Debian/Ubuntu), `DarkroomPro-1.1.1-1.x86_64.rpm` (RedHat/Fedora), or `DarkroomPro_1.1.1_amd64.AppImage` (portable)
 2. Install using your package manager:
    ```bash
    # Debian/Ubuntu
-   sudo dpkg -i DarkroomPro_1.1.0_amd64.deb
+   sudo dpkg -i DarkroomPro_1.1.1_amd64.deb
    
    # RedHat/Fedora
-   sudo rpm -i DarkroomPro-1.1.0-1.x86_64.rpm
+   sudo rpm -i DarkroomPro-1.1.1-1.x86_64.rpm
    ```
 3. Launch from applications menu
 

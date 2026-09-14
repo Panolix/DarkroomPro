@@ -1,6 +1,6 @@
 {
   "productName": "DarkroomPro",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "identifier": "com.panolix.darkroompro",
   "build": {
     "beforeBuildCommand": "npm run build",

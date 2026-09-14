@@ -1,6 +1,6 @@
 [package]
 name = "darkroom-pro"
-version = "1.1.0"
+version = "1.1.1"
 description = "Professional Film Development Calculator for Darkroom Enthusiasts"
 authors = ["Panagiotis Smponias <info@cityframe-photography.com>"]
 license = "CC-BY-NC-SA-4.0"

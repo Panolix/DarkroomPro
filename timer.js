@@ -16,11 +16,16 @@ class DevelopmentTimer {
         this.bufferSeconds = this.clampBuffer(parseInt(this.loadSetting('darkroompro.timer.buffer', '5'), 10));
 
         this.darkroom = {
-            enabled: this.loadSetting('darkroompro.darkroom', 'off') === 'on',
+            enabled: false,
             focus: this.loadSetting('darkroompro.darkroom.focus', 'on') === 'on',
             chimes: this.loadSetting('darkroompro.darkroom.chimes', 'on') === 'on',
             sleep: this.loadSetting('darkroompro.darkroom.sleep', 'on') === 'on',
         };
+        try {
+            localStorage.removeItem('darkroompro.darkroom');
+        } catch (error) {
+            console.warn('Unable to clear stored darkroom setting', error);
+        }
         this.cues = [];
         this.firedCues = new Set();
         this.activeCue = null;
@@ -144,7 +149,6 @@ class DevelopmentTimer {
     // --- Darkroom mode ---
     toggleDarkroom() {
         this.darkroom.enabled = !this.darkroom.enabled;
-        this.saveSetting('darkroompro.darkroom', this.darkroom.enabled ? 'on' : 'off');
         this.applyDarkroomUI();
         if (this.darkroom.enabled) {
             this.showFocus();
