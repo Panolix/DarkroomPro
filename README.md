@@ -1,6 +1,6 @@
 # 🧪 DarkroomPro
 
-A professional desktop application for calculating **precise film development parameters** with scientifically accurate timing, temperature compensation, and dilution ratios for over 366 film/developer combinations.
+A professional desktop application for calculating **precise film development parameters** with scientifically accurate timing, temperature compensation, and dilution ratios for over 428 film/developer combinations.
 
 ![Platform Support](https://img.shields.io/badge/Platform-macOS%20%7C%20Windows%20%7C%20Linux-blue)
 ![License](https://img.shields.io/badge/License-CC_BY--NC--SA_4.0-blue)
@@ -16,7 +16,7 @@ A professional desktop application for calculating **precise film development pa
 
 - **46 Film Stocks** - Comprehensive database of B&W, color negative, and slide films
 - **18+ Developers** - Popular developers with precise dilution ratios  
-- **366 Combinations** - Tested film/developer pairings with accurate data
+- **428 Combinations** - Tested film/developer pairings with accurate data
 - **Temperature Compensation** - Per-developer curves sourced from manufacturer charts (15-30°C)
 - **Push/Pull Processing** - Accurate calculations for ±3 stops
 - **Multi-Step Timer** - Auto, Buffer and Manual step transitions with a customizable step editor
@@ -31,7 +31,7 @@ A professional desktop application for calculating **precise film development pa
 ### 📊 **Comprehensive Database**
 - **46 Film Stocks**: Complete database of B&W, color negative, and slide films
 - **18+ Developers**: Popular developers with precise dilution ratios
-- **366 Combinations**: Tested film/developer pairings with accurate data
+- **428 Combinations**: Tested film/developer pairings with accurate data
 - **Manufacturer Grouping**: Films organized by brand for easy selection
 
 ### 🧮 **Advanced Calculations**
@@ -80,26 +80,26 @@ A professional desktop application for calculating **precise film development pa
 > **Note:** Release builds are unsigned. On macOS, right-click the app and choose **Open** the first time you launch it; on Windows, SmartScreen may ask you to confirm.
 
 #### **macOS**
-1. Download `DarkroomPro_1.1.1_universal.dmg` from [Releases](../../releases)
+1. Download `DarkroomPro_1.2.0_universal.dmg` from [Releases](../../releases)
 2. Open the DMG file
 3. Drag DarkroomPro to Applications folder
 4. Launch from Applications or Launchpad
 
 #### **Windows**
-1. Download `DarkroomPro_1.1.1_x64_en-US.msi` from [Releases](../../releases)
+1. Download `DarkroomPro_1.2.0_x64_en-US.msi` from [Releases](../../releases)
 2. Run the installer
 3. Follow installation wizard
 4. Launch from Start Menu or Desktop
 
 #### **Linux**
-1. Download `DarkroomPro_1.1.1_amd64.deb` (Debian/Ubuntu), `DarkroomPro-1.1.1-1.x86_64.rpm` (RedHat/Fedora), or `DarkroomPro_1.1.1_amd64.AppImage` (portable)
+1. Download `DarkroomPro_1.2.0_amd64.deb` (Debian/Ubuntu), `DarkroomPro-1.2.0-1.x86_64.rpm` (RedHat/Fedora), or `DarkroomPro_1.2.0_amd64.AppImage` (portable)
 2. Install using your package manager:
    ```bash
    # Debian/Ubuntu
-   sudo dpkg -i DarkroomPro_1.1.1_amd64.deb
+   sudo dpkg -i DarkroomPro_1.2.0_amd64.deb
    
    # RedHat/Fedora
-   sudo rpm -i DarkroomPro-1.1.1-1.x86_64.rpm
+   sudo rpm -i DarkroomPro-1.2.0-1.x86_64.rpm
    ```
 3. Launch from applications menu
 
@@ -107,7 +107,7 @@ A professional desktop application for calculating **precise film development pa
 
 1. **Select your film stock** from the categorized dropdown
 2. **Choose your developer** (filtered based on film compatibility)
-3. **Set your temperature** (15-30°C with automatic compensation)
+3. **Set your temperature** (B&W: 15-30°C with automatic compensation; colour kits with a published time/temperature table — Tetenal, CineStill, Unicolor — can be run at lower temperatures, otherwise use the fixed kit temperature)
 4. **Adjust push/pull** if needed (±3 stops)
 5. **Set solution volume** (100-2000ml)
 6. **Calculate** and get precise development time and dilution
@@ -122,7 +122,7 @@ A professional desktop application for calculating **precise film development pa
 - **Platform-specific tools**:
   - **macOS**: Xcode Command Line Tools
   - **Windows**: Microsoft C++ Build Tools
-  - **Linux**: `build-essential`, `libwebkit2gtk-4.0-dev`, `libssl-dev`
+  - **Linux**: `build-essential`, `libwebkit2gtk-4.1-dev`, `libssl-dev`
 
 ### **Setup**
 ```bash
@@ -199,7 +199,7 @@ The application includes a comprehensive database of film stocks and developers:
 - **Specialized**: Push/pull optimized formulations
 
 ### **Data Provenance**
-Every film/developer combination carries a `source`, `source_url`, and `verified_date` field. Development times are verified against manufacturer technical publications (Ilford technical information sheets, Kodak F-4017) where available, with the Massive Dev Chart used for cross-manufacturer combinations. Push/pull times come from the manufacturer's published exposure-index tables when available; otherwise they are calculated with the standard compensation multipliers. The database is validated by automated tests (`cargo test`) that check key resolution, source coverage, and time monotonicity.
+Every film/developer combination carries a `source`, `source_url`, and `verified_date` field. Black & white base times and push/pull values are researched from the Massive Dev Chart (which aggregates manufacturer-published times and curated user data); where a combination was re-sourced, the `source_url` points at the exact chart query used. Push/pull values are taken from the chart's published exposure-index rows for that film/dilution; when no reliable row exists the field is left empty and the app falls back to the Massive Dev Chart push guideline (separate factors for standard developers, compensating developers and T-Max films), so no values are fabricated. Color (C-41/E-6) push and pull times follow the process tables in the database. The database is validated by automated tests (`cargo test`) that check key resolution, source coverage, and time monotonicity.
 
 ## 🤝 **Contributing**
 

@@ -14,14 +14,13 @@ let pushPullCompensation = window.pushPullCompensation;
 let agitationPatterns = window.agitationPatterns;
 let processes = window.processes;
 
-// Set up push/pull compensation
+// Set up push/pull compensation (Massive Dev Chart guideline multipliers, used
+// only when the database has no published EI row for a combination).
 pushPullCompensation = window.pushPullCompensation = {
-    '-2': 0.5,   // Pull 2 stops
-    '-1': 0.7,   // Pull 1 stop
-    '0': 1.0,    // Normal
-    '1': 1.4,    // Push 1 stop
-    '2': 2.0,    // Push 2 stops
-    '3': 2.8     // Push 3 stops
+    standard_developer: { '1': 1.5, '2': 2.25, '3': 4.5 },
+    compensating_developer: { '1': 1.4, '2': 1.85, '3': 2.5 },
+    tmax_film: { '1': 1.0, '2': 1.33, '3': 1.66 },
+    pull: { '1': 0.7, '2': 0.5 }
 };
 
 const FALLBACK_TEMPERATURE_COMPENSATION = {

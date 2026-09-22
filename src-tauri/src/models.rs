@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use rust_decimal::Decimal;
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct Film {
     pub name: String,
     pub manufacturer: String,
@@ -17,6 +17,8 @@ pub struct Film {
     pub description: String,
     pub grain: String,
     pub contrast: String,
+    #[serde(default)]
+    pub iso_note: Option<String>,
     pub best_uses: Vec<String>,
     pub developers: HashMap<String, DeveloperData>,
 }
@@ -27,7 +29,7 @@ pub struct DilutionInfo {
     pub description: String,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct Developer {
     pub name: String,
     pub manufacturer: String,
@@ -65,7 +67,7 @@ pub struct Developer {
     pub temperature_compensation_source: Option<String>,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct DeveloperData {
     #[serde(default)]
     pub dilution: Option<String>,
@@ -88,13 +90,21 @@ pub struct DeveloperData {
     pub developer_time_minutes: Option<Decimal>,
     pub push_1_stop_dev_time: Option<Decimal>,
     pub push_2_stop_dev_time: Option<Decimal>,
+    #[serde(default)]
+    pub push_3_stop_dev_time: Option<Decimal>,
     pub pull_1_stop_dev_time: Option<Decimal>,
+    #[serde(default)]
+    pub pull_2_stop_dev_time: Option<Decimal>,
     
     // Slide film specific
     pub first_dev_time_minutes: Option<Decimal>,
     pub push_1_stop_first_dev_time: Option<Decimal>,
     pub push_2_stop_first_dev_time: Option<Decimal>,
+    #[serde(default)]
+    pub push_3_stop_first_dev_time: Option<Decimal>,
     pub pull_1_stop_first_dev_time: Option<Decimal>,
+    #[serde(default)]
+    pub pull_2_stop_first_dev_time: Option<Decimal>,
     
     // Multi-bath process steps
     #[serde(default)]
@@ -144,9 +154,10 @@ pub struct DeveloperData {
     pub dilution_ratio: Option<String>,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 #[serde(rename_all = "snake_case")]
 pub enum FilmType {
+    #[default]
     BlackWhite,
     ColorNegative,
     Slide,

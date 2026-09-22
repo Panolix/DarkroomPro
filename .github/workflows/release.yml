@@ -83,30 +83,39 @@ jobs:
           tagName: ${{ github.ref_name }}
           releaseName: 'DarkroomPro ${{ github.ref_name }}'
           releaseBody: |
-            ## 🧪 DarkroomPro ${{ github.ref_name }}
-            
-            Professional Film Development Calculator with Rust-powered precision.
-            
-            ### 📥 Downloads
-            - **macOS**: Download the `.dmg` file for your architecture
-            - **Windows**: Download the `.msi` installer
-            - **Linux**: Download the `.deb` or `.rpm` package
-            
-            ### ✨ Features
-            - 46 film stocks with comprehensive database
-            - 18 developers with precise dilution ratios
-            - Temperature compensation (15-30°C)
-            - Push/pull processing (±3 stops)
-            - Built-in development timer
-            - Export functionality (JSON, CSV, PDF)
-            - Cross-platform desktop apps
-            
-            ### 🔧 Technical
-            - Rust-powered calculation engine
-            - Type-safe data handling
-            - Decimal precision arithmetic
-            - Graceful web fallback
-            
+            ## DarkroomPro ${{ github.ref_name }}
+
+            Data overhaul, accurate push/pull, colour temperature compensation and a batch of reliability fixes.
+
+            ### Data
+            - 428 film/developer combinations (up from 366)
+            - B&W times and push/pull re-sourced from the Massive Dev Chart and manufacturer datasheets (Ilford, Kodak F-4016/F-4017, Fujifilm, Foma, CineStill)
+            - Push/pull uses manufacturer exposure-index tables where published; otherwise the documented Massive Dev Chart push guideline (standard / compensating / T-Max film factors)
+            - HC-110 Dilution E corrected to 1:47; added missing Rodinal and manufacturer-supported combinations
+            - Corrected film release years and added native-ISO notes for pushed films
+
+            ### C-41 / E-6
+            - Per-kit developer times, temperatures, tolerances, agitation and push/pull (Kodak, Tetenal, CineStill, Unicolor, Bellini)
+            - Temperature compensation for kits with published time/temperature tables (Tetenal, CineStill, Unicolor): lower-temperature processing is now supported
+            - Corrected C-41 and E-6 process templates
+
+            ### Fixes
+            - Colour/slide Push 3 and Pull 2 now apply correctly
+            - Desktop app now loads the Rust calculation engine (database resource path fix)
+            - Half-degree temperature interpolation is consistent across engines
+            - Timer audio no longer stops after a few cues
+            - Agitation cue now uses the correct initial duration
+            - Development time no longer displays ":60"
+            - Film panel shows production status and native-ISO notes
+            - Warning-free build (dead code removed)
+
+            ### Downloads
+            - **macOS**: `.dmg` (universal)
+            - **Windows**: `.msi` installer
+            - **Linux**: `.deb`, `.rpm` or `.AppImage`
+
+            > Release builds are unsigned. On macOS right-click and choose Open the first time; on Windows SmartScreen may prompt.
+
             See the [README](https://github.com/Panolix/DarkroomPro/blob/main/README.md) for installation instructions.
           releaseDraft: false
           prerelease: false

@@ -10,6 +10,25 @@ fn normalize_key(key: &str) -> String {
         .collect()
 }
 
+// Massive Dev Chart push guideline, used when a combination has no published EI
+// row. Compensating developers = Microphen / T-Max developer; T-Max films use
+// Kodak's reduced push increments. Returns (push1, push2, push3, pull1, pull2).
+fn push_pull_factors(film: &Film, developer: &Developer) -> (Decimal, Decimal, Decimal, Decimal, Decimal) {
+    let film_name = film.name.to_lowercase();
+    let dev_name = developer.name.to_lowercase();
+    let is_tmax_film = film_name.contains("t-max") || film_name.contains("tmax");
+    let is_compensating = dev_name.contains("microphen") || dev_name.contains("t-max");
+
+    let (p1, p2, p3) = if is_tmax_film {
+        (Decimal::from(1), Decimal::new(133, 2), Decimal::new(166, 2))
+    } else if is_compensating {
+        (Decimal::new(14, 1), Decimal::new(185, 2), Decimal::new(25, 1))
+    } else {
+        (Decimal::new(15, 1), Decimal::new(225, 2), Decimal::new(45, 1))
+    };
+    (p1, p2, p3, Decimal::new(7, 1), Decimal::new(5, 1))
+}
+
 #[derive(Error, Debug)]
 pub enum CalculationError {
     #[error("Film not found: {0}")]
@@ -61,19 +80,22 @@ impl CalculationEngine {
         let dev_data = self.find_developer_data(film, &request.developer_key)?;
         
         // Calculate base time
-        let base_time = self.get_base_time(film, dev_data, request.push_pull)?;
+        let base_time = self.get_base_time(film, developer, dev_data, request.push_pull)?;
         
-        // Apply temperature compensation (B&W only - color runs at fixed kit temperatures)
-        let temp_compensation = match film.film_type {
-            FilmType::BlackWhite => {
-                let table = if developer.temperature_compensation.is_empty() {
-                    &database.temperature_compensation
-                } else {
-                    &developer.temperature_compensation
-                };
-                self.get_temperature_compensation(table, request.temperature)
-            },
-            _ => Decimal::from(1),
+        // Temperature compensation: B&W always; colour kits only when the kit
+        // publishes a time/temperature table (stored on the developer).
+        let temp_compensation = {
+            let table = if !developer.temperature_compensation.is_empty() {
+                Some(&developer.temperature_compensation)
+            } else if matches!(film.film_type, FilmType::BlackWhite) {
+                Some(&database.temperature_compensation)
+            } else {
+                None
+            };
+            match table {
+                Some(table) => self.get_temperature_compensation(table, request.temperature),
+                None => Decimal::from(1),
+            }
         };
         let adjusted_time = base_time * temp_compensation;
         
@@ -89,7 +111,7 @@ impl CalculationEngine {
         let time_formatted = self.format_time(adjusted_time);
         
         // Generate notes
-        let notes = self.generate_notes(film, developer, dev_data, request.temperature, request.push_pull);
+        let notes = self.generate_notes(film, developer, request.temperature, request.push_pull);
         
         Ok(CalculationResult {
             time_minutes: adjusted_time,
@@ -175,7 +197,7 @@ impl CalculationEngine {
         })
     }
 
-    fn get_base_time(&self, film: &Film, dev_data: &DeveloperData, push_pull: i32) -> Result<Decimal, CalculationError> {
+    fn get_base_time(&self, film: &Film, developer: &Developer, dev_data: &DeveloperData, push_pull: i32) -> Result<Decimal, CalculationError> {
         let mut base_time = match film.film_type {
             FilmType::BlackWhite => {
                 dev_data.time_minutes
@@ -196,12 +218,13 @@ impl CalculationEngine {
         if push_pull != 0 {
             base_time = match film.film_type {
                 FilmType::BlackWhite => {
+                    let (p1, p2, p3, q1, q2) = push_pull_factors(film, developer);
                     match push_pull {
-                        1 => dev_data.push_1_stop_minutes.unwrap_or(base_time * Decimal::new(14, 1)), // 1.4
-                        2 => dev_data.push_2_stop_minutes.unwrap_or(base_time * Decimal::from(2)),
-                        3 => dev_data.push_3_stop_minutes.unwrap_or(base_time * Decimal::new(28, 1)), // 2.8
-                        -1 => dev_data.pull_1_stop_minutes.unwrap_or(base_time * Decimal::new(7, 1)), // 0.7
-                        -2 => dev_data.pull_2_stop_minutes.unwrap_or(base_time * Decimal::new(5, 1)), // 0.5
+                        1 => dev_data.push_1_stop_minutes.unwrap_or(base_time * p1),
+                        2 => dev_data.push_2_stop_minutes.unwrap_or(base_time * p2),
+                        3 => dev_data.push_3_stop_minutes.unwrap_or(base_time * p3),
+                        -1 => dev_data.pull_1_stop_minutes.unwrap_or(base_time * q1),
+                        -2 => dev_data.pull_2_stop_minutes.unwrap_or(base_time * q2),
                         _ => base_time,
                     }
                 },
@@ -209,7 +232,9 @@ impl CalculationEngine {
                     match push_pull {
                         1 => dev_data.push_1_stop_dev_time.unwrap_or(Decimal::new(45, 1)), // 4.5
                         2 => dev_data.push_2_stop_dev_time.unwrap_or(Decimal::new(65, 1)), // 6.5
+                        3 => dev_data.push_3_stop_dev_time.unwrap_or(Decimal::from(9)), // 9.0
                         -1 => dev_data.pull_1_stop_dev_time.unwrap_or(Decimal::new(25, 1)), // 2.5
+                        -2 => dev_data.pull_2_stop_dev_time.unwrap_or(Decimal::from(2)), // 2.0
                         _ => base_time,
                     }
                 },
@@ -217,7 +242,9 @@ impl CalculationEngine {
                     match push_pull {
                         1 => dev_data.push_1_stop_first_dev_time.unwrap_or(Decimal::from(8)),
                         2 => dev_data.push_2_stop_first_dev_time.unwrap_or(Decimal::from(10)),
+                        3 => dev_data.push_3_stop_first_dev_time.unwrap_or(Decimal::from(12)),
                         -1 => dev_data.pull_1_stop_first_dev_time.unwrap_or(Decimal::new(45, 1)), // 4.5
+                        -2 => dev_data.pull_2_stop_first_dev_time.unwrap_or(Decimal::new(35, 1)), // 3.5
                         _ => base_time,
                     }
                 },
@@ -228,36 +255,45 @@ impl CalculationEngine {
     }
 
     fn get_temperature_compensation(&self, temp_comp: &HashMap<String, Decimal>, temperature: Decimal) -> Decimal {
-        // Round to nearest 0.5 degree for lookup
+        if temp_comp.is_empty() {
+            return Decimal::from(1);
+        }
+
+        // Round to nearest 0.5 degree
         let rounded_temp = (temperature * Decimal::from(2)).round() / Decimal::from(2);
-        let temp_key = rounded_temp.to_string();
-        
-        // Try exact match
-        if let Some(compensation) = temp_comp.get(&temp_key) {
-            return *compensation;
+
+        // Collect numeric keys so tables with integer OR half-degree keys work.
+        let mut keys: Vec<Decimal> = temp_comp
+            .keys()
+            .filter_map(|key| key.parse::<Decimal>().ok())
+            .collect();
+        if keys.is_empty() {
+            return Decimal::from(1);
         }
-        
-        // Try integer lookup
-        let int_temp = rounded_temp.floor();
-        let int_key = int_temp.to_string();
-        if let Some(compensation) = temp_comp.get(&int_key) {
-            return *compensation;
+        keys.sort();
+
+        // Exact match first
+        if let Some(exact) = keys.iter().find(|key| **key == rounded_temp) {
+            if let Some(compensation) = temp_comp.get(&exact.to_string()) {
+                return *compensation;
+            }
         }
-        
-        // Fallback interpolation between known values
-        let lower_temp = int_temp;
-        let upper_temp = int_temp + Decimal::from(1);
-        
-        let lower_key = lower_temp.to_string();
-        let upper_key = upper_temp.to_string();
-        
-        if let (Some(lower_comp), Some(upper_comp)) = (temp_comp.get(&lower_key), temp_comp.get(&upper_key)) {
-            let factor = rounded_temp - lower_temp;
-            return lower_comp + (upper_comp - lower_comp) * factor;
+
+        // Interpolate between the surrounding keys; clamp at the table edges.
+        let lower = keys.iter().rev().find(|key| **key < rounded_temp).copied();
+        let upper = keys.iter().find(|key| **key > rounded_temp).copied();
+
+        match (lower, upper) {
+            (Some(lo), Some(hi)) => {
+                let lo_value = temp_comp.get(&lo.to_string()).copied().unwrap_or_else(|| Decimal::from(1));
+                let hi_value = temp_comp.get(&hi.to_string()).copied().unwrap_or_else(|| Decimal::from(1));
+                let factor = (rounded_temp - lo) / (hi - lo);
+                lo_value + (hi_value - lo_value) * factor
+            }
+            (Some(lo), None) => temp_comp.get(&lo.to_string()).copied().unwrap_or_else(|| Decimal::from(1)),
+            (None, Some(hi)) => temp_comp.get(&hi.to_string()).copied().unwrap_or_else(|| Decimal::from(1)),
+            (None, None) => Decimal::from(1),
         }
-        
-        // Default fallback
-        Decimal::from(1)
     }
 
     fn calculate_dilution(&self, dilution_str: &str, volume: u32, film_type: &FilmType) -> Result<(String, u32, u32), CalculationError> {
@@ -299,29 +335,28 @@ impl CalculationEngine {
         format!("{}:{:02}", minutes.floor(), seconds)
     }
 
-    fn generate_notes(&self, film: &Film, developer: &Developer, dev_data: &DeveloperData, temperature: Decimal, push_pull: i32) -> Vec<String> {
+    fn generate_notes(&self, film: &Film, developer: &Developer, temperature: Decimal, push_pull: i32) -> Vec<String> {
         let mut notes = Vec::new();
         
         // Film type note
         match film.film_type {
             FilmType::ColorNegative => {
                 notes.push("C-41 Developer".to_string());
-                if let Some(kit_temp) = dev_data.developer_temp_c {
-                    notes.push(format!("Kit temperature: {}°C", kit_temp));
-                }
+                notes.push(format!("Kit temperature: {}°C", temperature));
             },
             FilmType::Slide => {
                 notes.push("E-6 First Developer".to_string());
-                if let Some(kit_temp) = dev_data.first_dev_temp_c {
-                    notes.push(format!("Kit temperature: {}°C", kit_temp));
-                }
+                notes.push(format!("Kit temperature: {}°C", temperature));
             },
             _ => {},
         }
-        
-        // Temperature note (B&W only - color runs at fixed kit temperatures)
-        if matches!(film.film_type, FilmType::BlackWhite) && temperature != Decimal::from(20) {
+
+        // Temperature compensation note (B&W always; colour when the kit has a table)
+        let bw_adjusted = matches!(film.film_type, FilmType::BlackWhite) && temperature != Decimal::from(20);
+        if bw_adjusted {
             notes.push(format!("Temperature adjusted for {}°C", temperature));
+        }
+        if !developer.temperature_compensation.is_empty() || bw_adjusted {
             if let Some(source) = &developer.temperature_compensation_source {
                 notes.push(format!("Temperature compensation: {}", source));
             }
@@ -341,11 +376,6 @@ impl CalculationEngine {
         notes
     }
 
-    pub fn get_available_films(&self) -> Result<Vec<&Film>, CalculationError> {
-        let database = self.get_database()?;
-        Ok(database.films.values().collect())
-    }
-
     pub fn get_available_developers_for_film(&self, film_key: &str) -> Result<Vec<String>, CalculationError> {
         let database = self.get_database()?;
         let film = database.films.get(film_key)
@@ -363,5 +393,151 @@ impl CalculationEngine {
     pub fn get_developer_info(&self, developer_key: &str) -> Result<&Developer, CalculationError> {
         let database = self.get_database()?;
         self.find_developer(&database.developers, developer_key)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::models::{CalculationRequest, Database, FilmType};
+
+    fn temperature_table() -> HashMap<String, Decimal> {
+        let mut table = HashMap::new();
+        table.insert("19".to_string(), Decimal::new(110, 2)); // 1.10
+        table.insert("20".to_string(), Decimal::from(1)); // 1.00
+        table.insert("21".to_string(), Decimal::new(90, 2)); // 0.90
+        table.insert("22".to_string(), Decimal::new(82, 2)); // 0.82
+        table
+    }
+
+    #[test]
+    fn temperature_compensation_interpolates_half_degrees() {
+        let engine = CalculationEngine::new();
+        let table = temperature_table();
+
+        // 20.5C should interpolate between 20 (1.00) and 21 (0.90) => 0.95
+        assert_eq!(
+            engine.get_temperature_compensation(&table, Decimal::new(205, 1)),
+            Decimal::new(95, 2)
+        );
+        // Exact integer match still works
+        assert_eq!(
+            engine.get_temperature_compensation(&table, Decimal::from(21)),
+            Decimal::new(90, 2)
+        );
+        // Out of range clamps to the nearest known key (here 22 -> 0.82)
+        assert_eq!(
+            engine.get_temperature_compensation(&table, Decimal::from(30)),
+            Decimal::new(82, 2)
+        );
+    }
+
+    fn color_combo() -> DeveloperData {
+        let mut data = DeveloperData::default();
+        data.developer_time_minutes = Some(Decimal::new(325, 2)); // 3.25
+        data.push_1_stop_dev_time = Some(Decimal::new(45, 1)); // 4.5
+        data.push_2_stop_dev_time = Some(Decimal::new(65, 1)); // 6.5
+        data.pull_1_stop_dev_time = Some(Decimal::new(25, 1)); // 2.5
+        data
+    }
+
+    fn slide_combo() -> DeveloperData {
+        let mut data = DeveloperData::default();
+        data.first_dev_time_minutes = Some(Decimal::from(6));
+        data.push_1_stop_first_dev_time = Some(Decimal::from(8));
+        data.push_2_stop_first_dev_time = Some(Decimal::from(10));
+        data.pull_1_stop_first_dev_time = Some(Decimal::new(45, 1)); // 4.5
+        data
+    }
+
+    #[test]
+    fn color_negative_supports_all_push_pull_stops() {
+        let engine = CalculationEngine::new();
+        let film = Film {
+            film_type: FilmType::ColorNegative,
+            ..Default::default()
+        };
+        let data = color_combo();
+
+        assert_eq!(engine.get_base_time(&film, &Developer::default(), &data, 0).unwrap(), Decimal::new(325, 2));
+        assert_eq!(engine.get_base_time(&film, &Developer::default(), &data, 1).unwrap(), Decimal::new(45, 1));
+        assert_eq!(engine.get_base_time(&film, &Developer::default(), &data, 2).unwrap(), Decimal::new(65, 1));
+        // Push 3 / Pull 2 fall back to sensible defaults
+        assert_eq!(engine.get_base_time(&film, &Developer::default(), &data, 3).unwrap(), Decimal::from(9));
+        assert_eq!(engine.get_base_time(&film, &Developer::default(), &data, -2).unwrap(), Decimal::from(2));
+    }
+
+    #[test]
+    fn slide_supports_all_push_pull_stops() {
+        let engine = CalculationEngine::new();
+        let film = Film {
+            film_type: FilmType::Slide,
+            ..Default::default()
+        };
+        let data = slide_combo();
+
+        assert_eq!(engine.get_base_time(&film, &Developer::default(), &data, 0).unwrap(), Decimal::from(6));
+        assert_eq!(engine.get_base_time(&film, &Developer::default(), &data, 1).unwrap(), Decimal::from(8));
+        assert_eq!(engine.get_base_time(&film, &Developer::default(), &data, 2).unwrap(), Decimal::from(10));
+        assert_eq!(engine.get_base_time(&film, &Developer::default(), &data, 3).unwrap(), Decimal::from(12));
+        assert_eq!(engine.get_base_time(&film, &Developer::default(), &data, -2).unwrap(), Decimal::new(35, 1));
+    }
+
+    #[test]
+    fn calculates_from_bundled_database() {
+        let path = concat!(env!("CARGO_MANIFEST_DIR"), "/../complete_database.json");
+        let content = std::fs::read_to_string(path).expect("bundled database readable");
+        let database: Database = serde_json::from_str(&content).expect("bundled database parses");
+
+        let mut engine = CalculationEngine::new();
+        engine.load_database(database);
+
+        let calc = |film: &str, dev: &str, temp: i64, push_pull: i32| {
+            engine.calculate_development(CalculationRequest {
+                film_key: film.to_string(),
+                developer_key: dev.to_string(),
+                temperature: Decimal::from(temp),
+                push_pull,
+                volume: 500,
+            })
+        };
+
+        // Tri-X 400 / D-76 stock, box speed, 20C => 6.75 min, stock
+        let r = calc("kodak_tri_x_400", "kodak_d76_stock", 20, 0).unwrap();
+        assert_eq!(r.time_minutes, Decimal::new(675, 2));
+        assert_eq!(r.dilution, "Stock");
+
+        // 24C applies the D-76 factor 0.69 (interpolated/table) => 6.75 * 0.69
+        let r24 = calc("kodak_tri_x_400", "kodak_d76_stock", 24, 0).unwrap();
+        assert_eq!(r24.time_minutes, Decimal::new(675, 2) * Decimal::new(69, 2));
+
+        // HP5 Plus / ID-11 stock, +1 stop => researched 10.5 min
+        let rp = calc("ilford_hp5_plus", "ilford_id11_stock", 20, 1).unwrap();
+        assert_eq!(rp.time_minutes, Decimal::new(105, 1));
+
+        // C-41 Portra 400 / Kodak Flexicolor, +2 stops => 4.25 min ready-to-use
+        let rc = calc("kodak_portra_400", "kodak_flexicolor_c41", 38, 2).unwrap();
+        assert_eq!(rc.time_minutes, Decimal::new(425, 2));
+        assert_eq!(rc.dilution, "Ready to use");
+
+        // E-6 Velvia 50, -2 stops => 3.5 min
+        let re = calc("fuji_velvia_50", "kodak_e6_kit", 38, -2).unwrap();
+        assert_eq!(re.time_minutes, Decimal::new(35, 1));
+
+        // Colour temperature: CineStill CS41 at 24C => 3.5 * 10 = 35 min
+        let rcool = calc("kodak_portra_400", "cinestill_c41_kit", 24, 0).unwrap();
+        assert_eq!(rcool.time_minutes, Decimal::new(350, 1));
+
+        // Kodak Flexicolor has no temperature table => time unchanged off-standard
+        let rk = calc("kodak_portra_400", "kodak_flexicolor_c41", 30, 0).unwrap();
+        assert_eq!(rk.time_minutes, Decimal::new(325, 2));
+
+        // No published push for T-Max 100 / D-76 1+1: T-Max film guideline => +1 = no change
+        let rtf = calc("kodak_tmax_100", "kodak_d76_1_1", 20, 1).unwrap();
+        assert_eq!(rtf.time_minutes, Decimal::new(95, 1));
+
+        // No published push for Fomapan 100 / D-76 1+3: standard guideline => +1 = *1.5
+        let rff = calc("fomapan_100", "kodak_d76_1_3", 20, 1).unwrap();
+        assert_eq!(rff.time_minutes, Decimal::new(255, 1));
     }
 }

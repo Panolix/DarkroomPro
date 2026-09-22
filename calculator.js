@@ -245,7 +245,10 @@ class DevelopmentCalculator {
                 <div class="info-header">
                     <h3>${film.name}</h3>
                     <span class="iso-badge">ISO ${film.iso}</span>
+                    <span class="prod-badge ${film.current_production ? 'current' : 'discontinued'}">${film.current_production ? 'In production' : 'Discontinued'}</span>
                 </div>
+
+                ${film.iso_note ? `<p class="iso-note">${film.iso_note}</p>` : ''}
                 
                 <div class="info-grid">
                     <div class="info-item">
@@ -453,12 +456,21 @@ class DevelopmentCalculator {
 
         const kitTemp = this.getStandardTemperature();
         if (kitTemp !== null) {
-            if (Math.round(temp) === Math.round(kitTemp)) {
+            const developer = resolveDeveloper(this.developerSelect.value);
+            const hasTable = !!(developer && developer.temperature_compensation &&
+                Object.keys(developer.temperature_compensation).length > 0);
+
+            if (hasTable && Math.abs(temp - kitTemp) > 0.01) {
+                this.tempNoteElement.textContent = `Compensated for ${temp}°C (kit standard ${kitTemp}°C)`;
+                this.tempNoteElement.style.color = 'var(--warning)';
+            } else if (Math.round(temp) === Math.round(kitTemp)) {
                 this.tempNoteElement.textContent = `Kit standard (${kitTemp}°C)`;
                 this.tempNoteElement.style.color = 'var(--success)';
             } else {
-                this.tempNoteElement.textContent = `Kit standard is ${kitTemp}°C`;
-                this.tempNoteElement.style.color = 'var(--warning)';
+                this.tempNoteElement.textContent = hasTable
+                    ? `Kit standard is ${kitTemp}°C`
+                    : `Fixed kit temperature (${kitTemp}°C)`;
+                this.tempNoteElement.style.color = hasTable ? 'var(--warning)' : 'var(--success)';
             }
             return;
         }
@@ -493,10 +505,26 @@ class DevelopmentCalculator {
         const kitTemp = this.getStandardTemperature();
 
         if (kitTemp !== null) {
-            this.temperatureInput.min = '20';
-            this.temperatureInput.max = '45';
-            this.temperatureInput.value = String(Math.round(kitTemp));
+            const developer = resolveDeveloper(this.developerSelect.value);
+            const table = (developer && developer.temperature_compensation)
+                ? Object.keys(developer.temperature_compensation).map(Number).filter(Number.isFinite)
+                : [];
+
+            if (table.length > 0) {
+                const min = Math.min(...table);
+                const max = Math.max(...table);
+                this.temperatureInput.disabled = false;
+                this.temperatureInput.min = String(min);
+                this.temperatureInput.max = String(max);
+                this.temperatureInput.value = String(Math.round(kitTemp * 2) / 2);
+            } else {
+                this.temperatureInput.disabled = true;
+                this.temperatureInput.min = '20';
+                this.temperatureInput.max = '45';
+                this.temperatureInput.value = String(Math.round(kitTemp));
+            }
         } else {
+            this.temperatureInput.disabled = false;
             this.temperatureInput.min = '15';
             this.temperatureInput.max = '30';
             const current = parseFloat(this.temperatureInput.value);
@@ -546,7 +574,7 @@ class DevelopmentCalculator {
                     // Show timer section
                     this.timerSection.style.display = 'block';
 
-                    this.updateProcessTimer(filmKey, developerKey, rustResult.time);
+                    this.updateProcessTimer(filmKey, developerKey, rustResult.time, temperature);
                     return;
                 }
             } catch (error) {
@@ -608,24 +636,34 @@ class DevelopmentCalculator {
         // Apply push/pull adjustments
         if (pushPull !== 0) {
             if (film.type === 'black_white') {
-                if (pushPull === 1) baseTime = baseData.push_1_stop_minutes || baseTime * 1.4;
-                else if (pushPull === 2) baseTime = baseData.push_2_stop_minutes || baseTime * 2.0;
-                else if (pushPull === 3) baseTime = baseData.push_3_stop_minutes || baseTime * 2.8;
-                else if (pushPull === -1) baseTime = baseData.pull_1_stop_minutes || baseTime * 0.7;
-                else if (pushPull === -2) baseTime = baseData.pull_2_stop_minutes || baseTime * 0.5;
+                // Where the database has no published EI row, fall back to the
+                // Massive Dev Chart push guideline for the film/developer class.
+                const f = this.getPushFactors(film, developer);
+                if (pushPull === 1) baseTime = baseData.push_1_stop_minutes || baseTime * f.push1;
+                else if (pushPull === 2) baseTime = baseData.push_2_stop_minutes || baseTime * f.push2;
+                else if (pushPull === 3) baseTime = baseData.push_3_stop_minutes || baseTime * f.push3;
+                else if (pushPull === -1) baseTime = baseData.pull_1_stop_minutes || baseTime * f.pull1;
+                else if (pushPull === -2) baseTime = baseData.pull_2_stop_minutes || baseTime * f.pull2;
             } else if (film.type === 'color_negative') {
                 if (pushPull === 1) baseTime = baseData.push_1_stop_dev_time || 4.5;
                 else if (pushPull === 2) baseTime = baseData.push_2_stop_dev_time || 6.5;
+                else if (pushPull === 3) baseTime = baseData.push_3_stop_dev_time || 9.0;
                 else if (pushPull === -1) baseTime = baseData.pull_1_stop_dev_time || 2.5;
+                else if (pushPull === -2) baseTime = baseData.pull_2_stop_dev_time || 2.0;
             } else if (film.type === 'slide') {
                 if (pushPull === 1) baseTime = baseData.push_1_stop_first_dev_time || 8.0;
                 else if (pushPull === 2) baseTime = baseData.push_2_stop_first_dev_time || 10.0;
+                else if (pushPull === 3) baseTime = baseData.push_3_stop_first_dev_time || 12.0;
                 else if (pushPull === -1) baseTime = baseData.pull_1_stop_first_dev_time || 4.5;
+                else if (pushPull === -2) baseTime = baseData.pull_2_stop_first_dev_time || 3.5;
             }
         }
         
-        // Calculate development time with temperature compensation (B&W only)
-        const tempCompensation = film.type === 'black_white'
+        // Temperature compensation: B&W always; colour kits only when the kit
+        // publishes a time/temperature table.
+        const hasDevTable = !!(developer && developer.temperature_compensation &&
+            Object.keys(developer.temperature_compensation).length > 0);
+        const tempCompensation = (film.type === 'black_white' || hasDevTable)
             ? this.getTemperatureCompensation(temperature, developer)
             : 1.0;
         const adjustedTime = baseTime * tempCompensation;
@@ -675,10 +713,10 @@ class DevelopmentCalculator {
         // Show timer section
         this.timerSection.style.display = 'block';
 
-        this.updateProcessTimer(filmKey, developerKey, adjustedTime);
+        this.updateProcessTimer(filmKey, developerKey, adjustedTime, temperature);
     }
 
-    updateProcessTimer(filmKey, developerKey, developerMinutes) {
+    updateProcessTimer(filmKey, developerKey, developerMinutes, temperature) {
         if (!window.developmentTimer) return;
 
         const film = filmDatabase[filmKey];
@@ -690,8 +728,11 @@ class DevelopmentCalculator {
         }
 
         const steps = window.processSteps.buildPresetSteps(film, combo, developerMinutes);
-        const temperature = this.getStandardTemperature();
-        window.developmentTimer.setSteps(steps, { filmKey, developerKey, temperature: temperature != null ? temperature : 20 });
+        const actualTemperature = temperature != null ? temperature : this.getStandardTemperature();
+        if (steps.length > 0 && actualTemperature != null) {
+            steps[0].temperature_c = actualTemperature;
+        }
+        window.developmentTimer.setSteps(steps, { filmKey, developerKey, temperature: actualTemperature != null ? actualTemperature : 20 });
     }
 
     getTemperatureCompensation(temperature, developer) {
@@ -699,26 +740,46 @@ class DevelopmentCalculator {
             ? developer.temperature_compensation
             : temperatureCompensation;
 
-        // Round to nearest 0.5 degree for lookup
+        if (!table) return 1.0;
+
+        // Round to nearest 0.5 degree
         const roundedTemp = Math.round(temperature * 2) / 2;
-        
-        // If exact temperature exists, use it
-        if (table[roundedTemp]) {
+
+        const keys = Object.keys(table).map(Number).filter(Number.isFinite).sort((a, b) => a - b);
+        if (keys.length === 0) return 1.0;
+
+        // Exact match (works for integer and half-degree keys)
+        if (keys.includes(roundedTemp)) {
             return table[roundedTemp];
         }
-        
-        // Otherwise interpolate between nearest values
-        const lowerTemp = Math.floor(roundedTemp);
-        const upperTemp = Math.ceil(roundedTemp);
-        
-        if (table[lowerTemp] && table[upperTemp]) {
-            const factor = roundedTemp - lowerTemp;
-            return table[lowerTemp] + 
-                   (table[upperTemp] - table[lowerTemp]) * factor;
+
+        // Interpolate between the surrounding keys; clamp at the table edges
+        let lower = null;
+        let upper = null;
+        for (const key of keys) {
+            if (key < roundedTemp) lower = key;
+            else if (key > roundedTemp && upper === null) upper = key;
         }
-        
-        // Fallback to 1.0 if temperature is out of range
-        return 1.0;
+
+        if (lower !== null && upper !== null) {
+            const factor = (roundedTemp - lower) / (upper - lower);
+            return table[lower] + (table[upper] - table[lower]) * factor;
+        }
+
+        const nearest = lower !== null ? lower : upper;
+        return nearest !== null ? table[nearest] : 1.0;
+    }
+
+    // Massive Dev Chart push guideline, used when no EI row is published for a
+    // combination. Compensating developers = Microphen / T-Max developer.
+    getPushFactors(film, developer) {
+        const devName = (developer && developer.name ? developer.name : '').toLowerCase();
+        const filmName = (film && film.name ? film.name : '').toLowerCase();
+        const isTMaxFilm = filmName.includes('t-max') || filmName.includes('tmax');
+        const isCompensating = devName.includes('microphen') || devName.includes('t-max');
+        if (isTMaxFilm) return { push1: 1.0, push2: 1.33, push3: 1.66, pull1: 0.7, pull2: 0.5 };
+        if (isCompensating) return { push1: 1.4, push2: 1.85, push3: 2.5, pull1: 0.7, pull2: 0.5 };
+        return { push1: 1.5, push2: 2.25, push3: 4.5, pull1: 0.7, pull2: 0.5 };
     }
 
     parseDilution(dilutionString) {
@@ -731,31 +792,32 @@ class DevelopmentCalculator {
     }
 
     updateResults(results) {
-        // Format time as MM:SS
-        const minutes = Math.floor(results.time);
-        const seconds = Math.round((results.time - minutes) * 60);
+        // Format time as MM:SS from total seconds to avoid a ":60" rollover
+        const totalSeconds = Math.max(0, Math.round(results.time * 60));
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
         const timeString = `${minutes}:${seconds.toString().padStart(2, '0')}`;
         
         this.devTimeElement.textContent = timeString;
         
         // Update time note based on film type and adjustments
         let timeNote = `${results.filmName} in ${results.developerName}`;
-        if (results.filmType === 'color_negative') {
-            timeNote += ` (C-41 Developer @ ${results.kitTemperature || 37.8}°C)`;
-        } else if (results.filmType === 'slide') {
-            timeNote += ` (E-6 First Developer @ ${results.kitTemperature || 37.8}°C)`;
+        const colorLabel = results.filmType === 'color_negative'
+            ? 'C-41 Developer'
+            : results.filmType === 'slide' ? 'E-6 First Developer' : null;
+        if (colorLabel) {
+            timeNote += ` (${colorLabel} @ ${results.temperature}°C)`;
         }
-        
-        const tempApplies = results.filmType === 'black_white';
-        if ((tempApplies && results.temperature !== 20) || results.pushPull !== 0) {
-            const adjustments = [];
-            if (tempApplies && results.temperature !== 20) {
-                adjustments.push(`${results.temperature}°C`);
-            }
-            if (results.pushPull !== 0) {
-                const pushPullText = results.pushPull > 0 ? `+${results.pushPull}` : results.pushPull;
-                adjustments.push(`${pushPullText} stops`);
-            }
+
+        const adjustments = [];
+        if (results.filmType === 'black_white' && results.temperature !== 20) {
+            adjustments.push(`${results.temperature}°C`);
+        }
+        if (results.pushPull !== 0) {
+            const pushPullText = results.pushPull > 0 ? `+${results.pushPull}` : results.pushPull;
+            adjustments.push(`${pushPullText} stops`);
+        }
+        if (adjustments.length > 0) {
             timeNote += ` (${adjustments.join(', ')})`;
         }
         this.timeNoteElement.textContent = timeNote;

@@ -11,6 +11,8 @@ class DevelopmentTimer {
         this.interval = null;
         this.deadline = null;
         this.autoPromptTimeout = null;
+        this.pendingResume = false;
+        this.pendingIndex = null;
 
         this.transitionMode = this.loadSetting('darkroompro.timer.mode', 'auto');
         this.bufferSeconds = this.clampBuffer(parseInt(this.loadSetting('darkroompro.timer.buffer', '5'), 10));
@@ -31,6 +33,7 @@ class DevelopmentTimer {
         this.activeCue = null;
         this.focusVisible = false;
         this.sleepBlocked = false;
+        this.audioContext = null;
 
         this.initializeElements();
         this.bindEvents();
@@ -388,6 +391,7 @@ class DevelopmentTimer {
                 this.remaining = this.stepDuration(this.currentIndex);
                 this.pendingResume = false;
                 this.prepareCues();
+                this.playSound('step');
                 this.render();
             } else {
                 this.complete();
@@ -571,9 +575,14 @@ class DevelopmentTimer {
         this.playSound('complete');
         this.flashTimer();
 
-        setTimeout(() => {
-            alert('🎉 Process Complete!\n\nAll steps are finished.');
-        }, 500);
+        if (this.darkroom.enabled) {
+            // Avoid a blocking modal over the fullscreen focus display.
+            if (this.nextElement) this.nextElement.textContent = 'Process complete';
+        } else {
+            setTimeout(() => {
+                alert('Process complete!\n\nAll steps are finished.');
+            }, 500);
+        }
     }
 
     // --- Rendering ---
@@ -982,7 +991,8 @@ class DevelopmentTimer {
 
         const beep = (frequency) => {
             try {
-                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const audioContext = this.getAudioContext();
+                if (!audioContext) return false;
                 const oscillator = audioContext.createOscillator();
                 const gainNode = audioContext.createGain();
 
@@ -1015,6 +1025,24 @@ class DevelopmentTimer {
         } else if (type === 'complete') {
             setTimeout(() => beep(frequencies.warning), 300);
             setTimeout(() => beep(frequencies.warning), 600);
+        }
+    }
+
+    // Reuse a single AudioContext. Browsers cap concurrent contexts (~6), so
+    // creating one per beep silently disables sound after a few cues.
+    getAudioContext() {
+        try {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (!AudioCtx) return null;
+            if (!this.audioContext) {
+                this.audioContext = new AudioCtx();
+            }
+            if (this.audioContext.state === 'suspended') {
+                this.audioContext.resume().catch(() => {});
+            }
+            return this.audioContext;
+        } catch (error) {
+            return null;
         }
     }
 

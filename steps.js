@@ -105,12 +105,17 @@ function buildAgitationCues(step) {
     if (frequencySeconds <= 0) return cues;
 
     let start = 0;
+    let first = true;
     while (start < stepSeconds) {
-        const duration = Math.min(agitation.intervalSeconds, stepSeconds - start);
+        const baseDuration = first
+            ? (agitation.initialSeconds != null ? agitation.initialSeconds : agitation.intervalSeconds)
+            : agitation.intervalSeconds;
+        const duration = Math.min(baseDuration, stepSeconds - start);
         if (duration > 0) {
             cues.push({ startSeconds: start, durationSeconds: duration });
         }
         start += frequencySeconds;
+        first = false;
     }
 
     return cues;

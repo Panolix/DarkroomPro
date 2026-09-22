@@ -42,17 +42,6 @@ impl DatabaseManager {
         Ok(())
     }
 
-    pub fn load_from_json(&mut self, json_content: &str) -> Result<(), DatabaseError> {
-        let database: Database = serde_json::from_str(json_content)?;
-        self.validate_database(&database)?;
-        self.database = Some(database);
-        Ok(())
-    }
-
-    pub fn get_database(&self) -> Option<&Database> {
-        self.database.as_ref()
-    }
-
     pub fn take_database(self) -> Option<Database> {
         self.database
     }
@@ -86,31 +75,6 @@ impl DatabaseManager {
 
         Ok(())
     }
-
-    pub fn get_stats(&self) -> Option<DatabaseStats> {
-        self.database.as_ref().map(|db| {
-            let total_combinations = db.films.values()
-                .map(|film| film.developers.len())
-                .sum();
-
-            DatabaseStats {
-                film_count: db.films.len(),
-                developer_count: db.developers.len(),
-                total_combinations,
-                version: db.metadata.version.clone(),
-                last_updated: db.metadata.last_updated.clone(),
-            }
-        })
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-pub struct DatabaseStats {
-    pub film_count: usize,
-    pub developer_count: usize,
-    pub total_combinations: usize,
-    pub version: String,
-    pub last_updated: String,
 }
 
 #[cfg(test)]
@@ -143,7 +107,10 @@ mod tests {
             .values()
             .map(|film| film.developers.len())
             .sum();
-        assert_eq!(combinations, 366, "film/developer combinations");
+        assert_eq!(
+            combinations, database.metadata.total_combinations as usize,
+            "film/developer combinations should match metadata"
+        );
     }
 
     #[test]
@@ -268,7 +235,7 @@ mod tests {
                 assert!(base > rust_decimal::Decimal::ZERO, "{} / {} has a non-positive base time", film_key, combo_key);
 
                 if let Some(p1) = combo.push_1_stop_minutes {
-                    assert!(p1 > base, "{} / {} push 1 must exceed base", film_key, combo_key);
+                    assert!(p1 >= base, "{} / {} push 1 must not be shorter than base", film_key, combo_key);
                 }
                 if let (Some(p1), Some(p2)) = (combo.push_1_stop_minutes, combo.push_2_stop_minutes) {
                     assert!(p2 >= p1, "{} / {} push times must increase", film_key, combo_key);

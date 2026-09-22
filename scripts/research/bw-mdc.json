@@ -1,0 +1,330 @@
+{
+  "note": "Black & white development times researched from the Massive Dev Chart (digitaltruth.com), 35mm, 20C unless noted. base = box ISO, push1 = +1 stop (2x EI), push2 = +2 (4x), push3 = +3 (8x), pull1 = -1 (0.5x), pull2 = -2 (0.25x). null = no row available.",
+  "films": {
+    "kodak_tri_x_400": {
+      "box_iso": 400,
+      "combos": {
+        "kodak_d76_stock": {"base": 6.75, "push1": 6.75, "push2": 9.5, "push3": 11, "pull1": null, "pull2": null},
+        "kodak_d76_1_1": {"base": 9.75, "push1": 9.75, "push2": 13.25, "push3": 16, "pull1": 10, "pull2": null},
+        "kodak_hc110_a": {"base": 3.75, "push1": 5.25, "push2": null, "push3": null, "pull1": null, "pull2": null},
+        "kodak_hc110_b": {"base": 6.5, "push1": 8.5, "push2": 16, "push3": 16, "pull1": 5.75, "pull2": null},
+        "kodak_hc110_e": {"base": 7.25, "push1": 10, "push2": null, "push3": 8, "pull1": 5.5, "pull2": null},
+        "kodak_xtol_stock": {"base": 7, "push1": 7.75, "push2": 9.5, "push3": 11, "pull1": 5.5, "pull2": 5.5},
+        "kodak_xtol_1_1": {"base": 9.25, "push1": 10, "push2": 12.5, "push3": 14.5, "pull1": 8, "pull2": 8},
+        "ilford_id11_stock": {"base": 7.5, "push1": null, "push2": 9.5, "push3": 11, "pull1": null, "pull2": null},
+        "ilford_ddx_1_4": {"base": 8, "push1": 10, "push2": 14, "push3": null, "pull1": 6.5, "pull2": null},
+        "adox_rodinal_1_25": {"base": 7, "push1": 6.5, "push2": 13, "push3": 17, "pull1": 7, "pull2": null},
+        "adox_rodinal_1_50": {"base": 13, "push1": 16.5, "push2": 18.5, "push3": 33, "pull1": 9, "pull2": 7.5},
+        "ilford_id11_1_1": {"base": 10.25, "push1": 11.5, "push2": 13.25, "push3": 16, "pull1": 9.5, "pull2": null},
+        "kodak_tmax_developer": {"base": 6, "push1": 6, "push2": 9.5, "push3": 12, "pull1": 6, "pull2": null}
+      }
+    },
+    "kodak_tmax_100": {
+      "box_iso": 100,
+      "combos": {
+        "kodak_d76_stock": {"base": 6.5, "push1": 6.5, "push2": 8.25, "push3": 11, "pull1": null, "pull2": null},
+        "kodak_d76_1_1": {"base": 9.5, "push1": null, "push2": null, "push3": null, "pull1": null, "pull2": null},
+        "kodak_tmax_developer": {"base": 7.5, "push1": 7.5, "push2": 10, "push3": 11.75, "pull1": null, "pull2": null},
+        "kodak_hc110_b": {"base": 6.5, "push1": 6.5, "push2": 10.5, "push3": null, "pull1": null, "pull2": null},
+        "kodak_xtol_stock": {"base": 7.25, "push1": 7.75, "push2": 9.25, "push3": 10.5, "pull1": 5.75, "pull2": 5.75},
+        "kodak_d76_1_3": {"base": 17, "push1": null, "push2": null, "push3": null, "pull1": null, "pull2": null},
+        "kodak_xtol_1_1": {"base": 9.5, "push1": 10, "push2": 12.5, "push3": 14.5, "pull1": 8, "pull2": 8},
+        "ilford_id11_stock": {"base": 6.5, "push1": 6.5, "push2": 8.25, "push3": 11, "pull1": null, "pull2": null},
+        "ilford_id11_1_1": {"base": 9.5, "push1": null, "push2": null, "push3": null, "pull1": null, "pull2": null},
+        "adox_rodinal_1_25": {"base": 5.75, "push1": null, "push2": 8.5, "push3": null, "pull1": null, "pull2": null},
+        "adox_rodinal_1_50": {"base": 12, "push1": null, "push2": null, "push3": null, "pull1": 10, "pull2": null},
+        "ilford_ddx_1_4": {"base": 7, "push1": 9, "push2": 11.5, "push3": null, "pull1": null, "pull2": null}
+      }
+    },
+    "kodak_tmax_400": {
+      "box_iso": 400,
+      "combos": {
+        "kodak_d76_stock": {"base": 7.5, "push1": 7.5, "push2": 9.25, "push3": null, "pull1": null, "pull2": null},
+        "kodak_tmax_developer": {"base": 6.75, "push1": 6.75, "push2": 8.5, "push3": 8.25, "pull1": null, "pull2": null},
+        "kodak_hc110_b": {"base": 5.75, "push1": 5.75, "push2": 7.5, "push3": 9.5, "pull1": null, "pull2": null},
+        "kodak_xtol_stock": {"base": 6.5, "push1": 7, "push2": 8.5, "push3": 9.5, "pull1": 5.75, "pull2": 5.75},
+        "kodak_d76_1_1": {"base": 10.25, "push1": 10.25, "push2": 18.5, "push3": null, "pull1": null, "pull2": 8.75},
+        "kodak_d76_1_3": {"base": 15, "push1": null, "push2": null, "push3": null, "pull1": 12, "pull2": null},
+        "kodak_xtol_1_1": {"base": 9.25, "push1": 9.5, "push2": 12.25, "push3": 10, "pull1": 8, "pull2": 8},
+        "ilford_id11_stock": {"base": 7.5, "push1": 7.5, "push2": 10.5, "push3": 12, "pull1": null, "pull2": null},
+        "ilford_id11_1_1": {"base": 10.25, "push1": 10.25, "push2": 18.5, "push3": null, "pull1": null, "pull2": 8.75},
+        "adox_rodinal_1_25": {"base": 6, "push1": 9, "push2": 11, "push3": 17, "pull1": null, "pull2": null},
+        "adox_rodinal_1_50": {"base": 12, "push1": 12, "push2": 18, "push3": null, "pull1": 8, "pull2": 3.75},
+        "ilford_ddx_1_4": {"base": 8, "push1": 10, "push2": 13, "push3": null, "pull1": 7, "pull2": null}
+      }
+    },
+    "kodak_tmax_p3200": {
+      "box_iso": 3200,
+      "combos": {
+        "kodak_d76_stock": {"base": 14, "push1": 15.5, "push2": null, "push3": null, "pull1": 12.5, "pull2": 11.5},
+        "ilford_id11_stock": {"base": 14, "push1": 15.5, "push2": null, "push3": null, "pull1": 12.5, "pull2": 11.5},
+        "kodak_xtol_stock": {"base": 13.5, "push1": 15.25, "push2": 17.25, "push3": 19, "pull1": 11.5, "pull2": 10.5},
+        "kodak_hc110_b": {"base": 10.5, "push1": 12, "push2": null, "push3": null, "pull1": 9.25, "pull2": 8.5},
+        "adox_rodinal_1_25": {"base": 8, "push1": 10.5, "push2": null, "push3": null, "pull1": 8, "pull2": null},
+        "ilford_ddx_1_4": {"base": 11, "push1": 15, "push2": 19.5, "push3": 25.5, "pull1": 9, "pull2": 7.5},
+        "ilford_microphen_stock": {"base": 12, "push1": 14, "push2": null, "push3": null, "pull1": 10.5, "pull2": null}
+      }
+    },
+    "fuji_neopan_400": {
+      "box_iso": 400,
+      "combos": {
+        "kodak_d76_stock": {"base": 7.5, "push1": 8.75, "push2": 13.5, "push3": null, "pull1": 6.5, "pull2": null},
+        "kodak_d76_1_1": {"base": 9.5, "push1": 13, "push2": 16.5, "push3": 19.5, "pull1": 9, "pull2": null},
+        "kodak_hc110_b": {"base": 5, "push1": 7.25, "push2": 12, "push3": 18, "pull1": null, "pull2": null},
+        "kodak_hc110_e": {"base": 8, "push1": 12, "push2": null, "push3": null, "pull1": null, "pull2": null},
+        "kodak_xtol_stock": {"base": 8.25, "push1": 9.75, "push2": 11.5, "push3": 13.5, "pull1": 7.5, "pull2": 7.5},
+        "kodak_xtol_1_1": {"base": 9.75, "push1": 11.5, "push2": 13.5, "push3": 16.5, "pull1": 8.25, "pull2": 8.25},
+        "kodak_xtol_1_2": {"base": 12.5, "push1": 14.5, "push2": 17, "push3": 20.5, "pull1": 11, "pull2": 11},
+        "ilford_id11_stock": {"base": 7.5, "push1": 8.75, "push2": 13.5, "push3": null, "pull1": 6.5, "pull2": null},
+        "ilford_id11_1_1": {"base": 9.5, "push1": 13, "push2": 16.5, "push3": 19.5, "pull1": 9, "pull2": null},
+        "ilford_ddx_1_4": {"base": 7, "push1": 10, "push2": 13.5, "push3": 18, "pull1": 6.25, "pull2": null},
+        "ilford_ilfosol_3_1_9": {"base": 6.5, "push1": 9.5, "push2": null, "push3": null, "pull1": null, "pull2": 4},
+        "ilford_ilfosol_3_1_14": {"base": 9.5, "push1": null, "push2": null, "push3": null, "pull1": 8, "pull2": null},
+        "ilford_microphen_stock": {"base": 4.5, "push1": 5.75, "push2": 8.5, "push3": 16, "pull1": null, "pull2": null},
+        "ilford_microphen_1_1": {"base": 7, "push1": null, "push2": null, "push3": null, "pull1": null, "pull2": null},
+        "ilford_perceptol_stock": {"base": 10, "push1": null, "push2": null, "push3": null, "pull1": 14, "pull2": null},
+        "ilford_perceptol_1_1": {"base": 14, "push1": null, "push2": null, "push3": null, "pull1": null, "pull2": null},
+        "adox_rodinal_1_25": {"base": 6, "push1": 7.5, "push2": 10, "push3": null, "pull1": 4.5, "pull2": null},
+        "adox_rodinal_1_50": {"base": 11, "push1": null, "push2": null, "push3": null, "pull1": 8.5, "pull2": null},
+        "kodak_d76_1_3": {"base": 15, "push1": null, "push2": null, "push3": null, "pull1": null, "pull2": null},
+        "kodak_xtol_1_3": {"base": 15.75, "push1": 18.5, "push2": 22.5, "push3": 26, "pull1": 13.5, "pull2": 13.5},
+        "ilford_id11_1_3": {"base": 15, "push1": null, "push2": null, "push3": null, "pull1": null, "pull2": null},
+        "ilford_microphen_1_3": {"base": 9, "push1": null, "push2": null, "push3": null, "pull1": null, "pull2": null}
+      }
+    },
+    "fuji_neopan_1600": {
+      "box_iso": 1600,
+      "combos": {
+        "kodak_d76_stock": {"base": 7.5, "push1": 15, "push2": null, "push3": null, "pull1": 5, "pull2": 4},
+        "kodak_hc110_b": {"base": 7, "push1": null, "push2": null, "push3": null, "pull1": 4.75, "pull2": null},
+        "kodak_xtol_stock": {"base": 5.75, "push1": 6.5, "push2": 7.25, "push3": null, "pull1": 5, "pull2": 4.5},
+        "ilford_ddx_1_4": {"base": 5, "push1": 9, "push2": null, "push3": null, "pull1": 4.5, "pull2": null},
+        "ilford_microphen_stock": {"base": 3.25, "push1": 5.75, "push2": 8.5, "push3": null, "pull1": null, "pull2": null},
+        "kodak_d76_1_1": {"base": 9, "push1": null, "push2": null, "push3": null, "pull1": 7, "pull2": 5.5},
+        "kodak_xtol_1_1": {"base": 7.5, "push1": 8.5, "push2": 9.75, "push3": null, "pull1": 6.75, "pull2": 6},
+        "ilford_id11_stock": {"base": 7.5, "push1": 15, "push2": null, "push3": null, "pull1": 5, "pull2": 4},
+        "ilford_id11_1_1": {"base": 9, "push1": null, "push2": null, "push3": null, "pull1": 7, "pull2": 5.5},
+        "adox_rodinal_1_25": {"base": 5, "push1": 7.5, "push2": null, "push3": null, "pull1": null, "pull2": 3.5},
+        "adox_rodinal_1_50": {"base": 8, "push1": null, "push2": null, "push3": null, "pull1": null, "pull2": null}
+      }
+    },
+    "fuji_acros_ii_100": {
+      "box_iso": 100,
+      "combos": {
+        "kodak_d76_stock": {"base": 7.25, "push1": 10, "push2": 10, "push3": null, "pull1": null, "pull2": null},
+        "kodak_hc110_b": {"base": 5.5, "push1": 7.5, "push2": 10, "push3": 14, "pull1": null, "pull2": null},
+        "ilford_ddx_1_4": {"base": 9, "push1": 14, "push2": 21.5, "push3": null, "pull1": null, "pull2": null},
+        "kodak_d76_1_1": {"base": 10.5, "push1": 14.5, "push2": 17, "push3": 21, "pull1": null, "pull2": null},
+        "ilford_id11_stock": {"base": 6.75, "push1": null, "push2": 10, "push3": null, "pull1": null, "pull2": null},
+        "ilford_id11_1_1": {"base": 10, "push1": 14.5, "push2": 17, "push3": 21, "pull1": null, "pull2": null},
+        "adox_rodinal_1_25": {"base": 6.5, "push1": null, "push2": 10.5, "push3": 8.5, "pull1": null, "pull2": null},
+        "adox_rodinal_1_50": {"base": 13.5, "push1": null, "push2": null, "push3": null, "pull1": 11, "pull2": null}
+      }
+    },
+    "ilford_delta_100": {
+      "box_iso": 100,
+      "combos": {
+        "ilford_id11_stock": {"base": 8.5, "push1": 10.5, "push2": null, "push3": 14, "pull1": 7, "pull2": null},
+        "ilford_ddx_1_4": {"base": 11.25, "push1": 12, "push2": 23, "push3": null, "pull1": 8, "pull2": null},
+        "kodak_d76_stock": {"base": 8.5, "push1": 10.5, "push2": null, "push3": 14, "pull1": 7, "pull2": null},
+        "kodak_hc110_b": {"base": 6, "push1": 8, "push2": 12, "push3": null, "pull1": 5, "pull2": null},
+        "kodak_d76_1_1": {"base": 11, "push1": 13, "push2": 14.5, "push3": null, "pull1": 10, "pull2": null},
+        "kodak_d76_1_3": {"base": 20, "push1": null, "push2": 12, "push3": null, "pull1": 15, "pull2": null},
+        "ilford_id11_1_1": {"base": 11, "push1": 13, "push2": 14.5, "push3": null, "pull1": 10, "pull2": null},
+        "ilford_id11_1_3": {"base": 20, "push1": null, "push2": 12, "push3": null, "pull1": 15, "pull2": null},
+        "ilford_microphen_stock": {"base": 6.5, "push1": 8, "push2": 10, "push3": null, "pull1": null, "pull2": null},
+        "ilford_microphen_1_1": {"base": 10, "push1": 14, "push2": null, "push3": null, "pull1": null, "pull2": null},
+        "ilford_perceptol_stock": {"base": 15, "push1": null, "push2": null, "push3": null, "pull1": 12, "pull2": 9},
+        "ilford_perceptol_1_1": {"base": 17, "push1": null, "push2": null, "push3": null, "pull1": 13, "pull2": null},
+        "ilford_ilfosol_3_1_9": {"base": 5, "push1": 7.5, "push2": 11, "push3": null, "pull1": null, "pull2": null},
+        "ilford_ilfosol_3_1_14": {"base": 7.5, "push1": null, "push2": null, "push3": null, "pull1": null, "pull2": null},
+        "kodak_tmax_developer": {"base": 7, "push1": 8, "push2": null, "push3": null, "pull1": 6, "pull2": null},
+        "kodak_xtol_stock": {"base": 8, "push1": 9.5, "push2": 11.5, "push3": 14.5, "pull1": 6.75, "pull2": 6.75},
+        "adox_rodinal_1_25": {"base": 9, "push1": null, "push2": null, "push3": null, "pull1": 7, "pull2": null},
+        "adox_rodinal_1_50": {"base": 14, "push1": 18, "push2": null, "push3": null, "pull1": 10, "pull2": null}
+      }
+    },
+    "ilford_delta_400": {
+      "box_iso": 400,
+      "combos": {
+        "ilford_id11_stock": {"base": 9.5, "push1": 11.5, "push2": 14.5, "push3": 19, "pull1": 7, "pull2": null},
+        "ilford_ddx_1_4": {"base": 8, "push1": 10.5, "push2": 13.5, "push3": 18, "pull1": 6, "pull2": null},
+        "kodak_d76_stock": {"base": 9.5, "push1": 11.5, "push2": 14.5, "push3": 19, "pull1": 7, "pull2": null},
+        "kodak_d76_1_1": {"base": 14, "push1": 17.5, "push2": null, "push3": null, "pull1": 10, "pull2": null},
+        "kodak_xtol_stock": {"base": 6.5, "push1": 10, "push2": 13, "push3": 17, "pull1": 6, "pull2": null},
+        "ilford_id11_1_1": {"base": 14, "push1": 17.5, "push2": null, "push3": null, "pull1": 10, "pull2": null},
+        "ilford_id11_1_3": {"base": 20, "push1": 32, "push2": null, "push3": null, "pull1": 18, "pull2": null},
+        "ilford_microphen_stock": {"base": 6.5, "push1": 8.5, "push2": 10.5, "push3": 14, "pull1": 5, "pull2": null},
+        "ilford_ilfosol_3_1_9": {"base": 7, "push1": 14, "push2": null, "push3": null, "pull1": 5.5, "pull2": null},
+        "ilford_ilfosol_3_1_14": {"base": 12, "push1": 20.5, "push2": null, "push3": null, "pull1": 8, "pull2": null},
+        "kodak_hc110_b": {"base": 7.5, "push1": 10, "push2": 13.5, "push3": null, "pull1": 5, "pull2": 4.5},
+        "kodak_tmax_developer": {"base": 6.5, "push1": 8.5, "push2": 10.5, "push3": 13.5, "pull1": 5, "pull2": null},
+        "adox_rodinal_1_25": {"base": 9, "push1": 18.5, "push2": null, "push3": 40, "pull1": 6.5, "pull2": 5.5},
+        "adox_rodinal_1_50": {"base": 20, "push1": null, "push2": null, "push3": null, "pull1": 11, "pull2": null}
+      }
+    },
+    "ilford_delta_3200": {
+      "box_iso": 3200,
+      "combos": {
+        "ilford_id11_stock": {"base": 10.5, "push1": 13, "push2": 17, "push3": null, "pull1": 9.5, "pull2": 8},
+        "ilford_ddx_1_4": {"base": 9.5, "push1": 12.5, "push2": 17, "push3": 25, "pull1": 8, "pull2": 7},
+        "ilford_microphen_stock": {"base": 9, "push1": 12, "push2": 16.5, "push3": null, "pull1": 8, "pull2": 7},
+        "ilford_perceptol_stock": {"base": 18, "push1": null, "push2": null, "push3": null, "pull1": 15, "pull2": 13},
+        "ilford_ilfosol_3_1_9": {"base": 11, "push1": 18, "push2": null, "push3": null, "pull1": 10, "pull2": 7.5},
+        "ilford_ilfosol_3_1_14": {"base": 17, "push1": 23, "push2": null, "push3": null, "pull1": 15.5, "pull2": 13}
+      }
+    },
+    "ilford_hp5_plus": {
+      "box_iso": 400,
+      "combos": {
+        "ilford_id11_stock": {"base": 7.5, "push1": 10.5, "push2": 14, "push3": null, "pull1": 6.75, "pull2": null},
+        "ilford_id11_1_1": {"base": 13, "push1": 16.5, "push2": 21, "push3": 25, "pull1": 10, "pull2": 6},
+        "ilford_ddx_1_4": {"base": 9, "push1": 10, "push2": 13, "push3": 20, "pull1": 7, "pull2": null},
+        "ilford_microphen_stock": {"base": 6.5, "push1": 8, "push2": 11, "push3": 16, "pull1": null, "pull2": null},
+        "kodak_d76_stock": {"base": 7.5, "push1": 10.5, "push2": 14, "push3": null, "pull1": 6.75, "pull2": null},
+        "kodak_hc110_b": {"base": 5, "push1": 7.5, "push2": 11, "push3": 16, "pull1": null, "pull2": null},
+        "adox_rodinal_1_50": {"base": 11, "push1": 16, "push2": 24, "push3": null, "pull1": null, "pull2": 9},
+        "kodak_d76_1_1": {"base": 13, "push1": 16.5, "push2": 18, "push3": 25, "pull1": null, "pull2": 6},
+        "kodak_d76_1_3": {"base": 20, "push1": 25, "push2": null, "push3": 60, "pull1": 14, "pull2": null},
+        "ilford_id11_1_3": {"base": 20, "push1": 25, "push2": 30, "push3": null, "pull1": 14, "pull2": null},
+        "ilford_microphen_1_1": {"base": 12, "push1": 15, "push2": 21, "push3": null, "pull1": null, "pull2": null},
+        "ilford_perceptol_stock": {"base": 11, "push1": null, "push2": 22, "push3": null, "pull1": null, "pull2": 9},
+        "ilford_perceptol_1_1": {"base": 15, "push1": null, "push2": null, "push3": null, "pull1": null, "pull2": null},
+        "ilford_ilfosol_3_1_9": {"base": 6.5, "push1": 13.5, "push2": 17, "push3": 24.5, "pull1": 5, "pull2": null},
+        "ilford_ilfosol_3_1_14": {"base": 11, "push1": 19.5, "push2": null, "push3": null, "pull1": 7, "pull2": null},
+        "kodak_hc110_a": {"base": 2.5, "push1": 3.5, "push2": 5.5, "push3": 9.5, "pull1": null, "pull2": null},
+        "kodak_tmax_developer": {"base": 6.5, "push1": 8, "push2": 9.5, "push3": 11.5, "pull1": null, "pull2": null},
+        "adox_rodinal_1_25": {"base": 6, "push1": 8, "push2": 12, "push3": 18, "pull1": 5, "pull2": null}
+      }
+    },
+    "ilford_fp4_plus": {
+      "box_iso": 125,
+      "combos": {
+        "ilford_id11_stock": {"base": 8.5, "push1": 10, "push2": 12, "push3": null, "pull1": 6.5, "pull2": null},
+        "ilford_ddx_1_4": {"base": 10, "push1": 12, "push2": 18, "push3": null, "pull1": 8.5, "pull2": null},
+        "kodak_d76_stock": {"base": 8.5, "push1": 10, "push2": 12, "push3": null, "pull1": 6.5, "pull2": null},
+        "kodak_d76_1_1": {"base": 11, "push1": 15, "push2": 18, "push3": null, "pull1": 8, "pull2": null},
+        "kodak_d76_1_3": {"base": 20, "push1": null, "push2": null, "push3": null, "pull1": 17, "pull2": null},
+        "ilford_id11_1_1": {"base": 11, "push1": 15, "push2": 18, "push3": null, "pull1": 8, "pull2": null},
+        "ilford_id11_1_3": {"base": 20, "push1": null, "push2": null, "push3": null, "pull1": 17, "pull2": null},
+        "ilford_microphen_stock": {"base": 8, "push1": 9, "push2": 15.5, "push3": 20, "pull1": null, "pull2": null},
+        "ilford_microphen_1_1": {"base": 10, "push1": 14, "push2": null, "push3": null, "pull1": null, "pull2": null},
+        "ilford_perceptol_stock": {"base": 12, "push1": null, "push2": 17, "push3": null, "pull1": 9, "pull2": null},
+        "ilford_perceptol_1_1": {"base": 15, "push1": null, "push2": null, "push3": null, "pull1": 13, "pull2": null},
+        "ilford_ilfosol_3_1_9": {"base": 4.25, "push1": 7.5, "push2": null, "push3": null, "pull1": null, "pull2": null},
+        "ilford_ilfosol_3_1_14": {"base": 7.5, "push1": null, "push2": null, "push3": null, "pull1": null, "pull2": null},
+        "kodak_hc110_a": {"base": 4.5, "push1": 6, "push2": null, "push3": null, "pull1": null, "pull2": null},
+        "kodak_hc110_b": {"base": 8, "push1": 12, "push2": 17, "push3": 24, "pull1": 6, "pull2": null},
+        "kodak_tmax_developer": {"base": 8, "push1": 9, "push2": 14, "push3": null, "pull1": null, "pull2": null},
+        "kodak_xtol_stock": {"base": 8, "push1": 9, "push2": 11, "push3": 14, "pull1": 6.5, "pull2": 6.5},
+        "adox_rodinal_1_25": {"base": 9, "push1": 15, "push2": null, "push3": 35, "pull1": null, "pull2": null},
+        "adox_rodinal_1_50": {"base": 15, "push1": 26, "push2": null, "push3": null, "pull1": 7.5, "pull2": null}
+      }
+    },
+    "ilford_panf_plus_50": {
+      "box_iso": 50,
+      "combos": {
+        "ilford_id11_stock": {"base": 6.5, "push1": null, "push2": null, "push3": null, "pull1": 4.5, "pull2": 4},
+        "ilford_perceptol_stock": {"base": 14, "push1": null, "push2": null, "push3": null, "pull1": 9, "pull2": null},
+        "kodak_d76_stock": {"base": 6.5, "push1": null, "push2": null, "push3": null, "pull1": 4.5, "pull2": 4},
+        "kodak_d76_1_1": {"base": 8.5, "push1": 11, "push2": null, "push3": null, "pull1": 6, "pull2": null},
+        "kodak_d76_1_3": {"base": 15, "push1": null, "push2": null, "push3": null, "pull1": 12.5, "pull2": 9},
+        "ilford_id11_1_1": {"base": 8.5, "push1": 11, "push2": null, "push3": null, "pull1": 6, "pull2": null},
+        "ilford_id11_1_3": {"base": 15, "push1": null, "push2": null, "push3": null, "pull1": 12.5, "pull2": 9},
+        "ilford_ddx_1_4": {"base": 8, "push1": 9, "push2": null, "push3": null, "pull1": 7, "pull2": null},
+        "ilford_microphen_stock": {"base": 4.5, "push1": 8, "push2": 12, "push3": null, "pull1": null, "pull2": null},
+        "ilford_microphen_1_1": {"base": 6, "push1": null, "push2": null, "push3": null, "pull1": null, "pull2": null},
+        "ilford_perceptol_1_1": {"base": 15, "push1": null, "push2": null, "push3": null, "pull1": 10.5, "pull2": null},
+        "ilford_ilfosol_3_1_14": {"base": 4.5, "push1": 5.5, "push2": null, "push3": null, "pull1": null, "pull2": null},
+        "kodak_hc110_b": {"base": 4, "push1": null, "push2": null, "push3": null, "pull1": null, "pull2": null},
+        "kodak_tmax_developer": {"base": 4, "push1": 7, "push2": null, "push3": null, "pull1": null, "pull2": null},
+        "kodak_xtol_stock": {"base": 7, "push1": 8, "push2": 9, "push3": 10, "pull1": 6, "pull2": null},
+        "adox_rodinal_1_25": {"base": 6, "push1": 12, "push2": 12.5, "push3": null, "pull1": 4.25, "pull2": null},
+        "adox_rodinal_1_50": {"base": 11, "push1": 13.5, "push2": null, "push3": null, "pull1": 8, "pull2": null}
+      }
+    },
+    "kentmere_100": {
+      "box_iso": 100,
+      "combos": {
+        "kodak_d76_stock": {"base": 9, "push1": 11, "push2": null, "push3": null, "pull1": 7, "pull2": null},
+        "kodak_d76_1_1": {"base": 11.5, "push1": 15.5, "push2": 20, "push3": 27, "pull1": 8.5, "pull2": null},
+        "ilford_id11_stock": {"base": 9, "push1": 11, "push2": null, "push3": null, "pull1": 7, "pull2": null},
+        "ilford_id11_1_1": {"base": 11.5, "push1": 15.5, "push2": 20, "push3": null, "pull1": 8.5, "pull2": null},
+        "kodak_xtol_stock": {"base": 8, "push1": 9.5, "push2": null, "push3": null, "pull1": 6.5, "pull2": null},
+        "kodak_xtol_1_1": {"base": 10, "push1": null, "push2": 14.5, "push3": null, "pull1": 8.5, "pull2": null},
+        "kodak_hc110_b": {"base": 6.5, "push1": 8, "push2": 10, "push3": null, "pull1": null, "pull2": null},
+        "adox_rodinal_1_25": {"base": 9, "push1": 13, "push2": null, "push3": 40, "pull1": null, "pull2": null},
+        "adox_rodinal_1_50": {"base": 15, "push1": 20, "push2": 25, "push3": 60, "pull1": 9, "pull2": 4.5},
+        "ilford_ddx_1_4": {"base": 10.5, "push1": 12.5, "push2": null, "push3": null, "pull1": 8.5, "pull2": null},
+        "kodak_tmax_developer": {"base": 8, "push1": null, "push2": null, "push3": null, "pull1": null, "pull2": null},
+        "ilford_microphen_stock": {"base": 8.5, "push1": 9, "push2": null, "push3": null, "pull1": null, "pull2": null}
+      }
+    },
+    "kentmere_400": {
+      "box_iso": 400,
+      "combos": {
+        "kodak_d76_stock": {"base": 9.5, "push1": 12.5, "push2": 20, "push3": null, "pull1": 8.5, "pull2": null},
+        "kodak_d76_1_1": {"base": 14, "push1": 17, "push2": 22, "push3": null, "pull1": null, "pull2": null},
+        "ilford_id11_stock": {"base": 9.5, "push1": 13, "push2": 20, "push3": null, "pull1": null, "pull2": null},
+        "ilford_id11_1_1": {"base": 16.5, "push1": 20.5, "push2": 22, "push3": 26, "pull1": null, "pull2": null},
+        "kodak_xtol_stock": {"base": 9, "push1": 10.5, "push2": 13, "push3": 17.5, "pull1": null, "pull2": null},
+        "kodak_xtol_1_1": {"base": 12, "push1": 14.5, "push2": 18, "push3": 22.5, "pull1": 8, "pull2": null},
+        "kodak_hc110_b": {"base": 5.5, "push1": 10, "push2": 12, "push3": 15, "pull1": 3.5, "pull2": null},
+        "adox_rodinal_1_25": {"base": 7.5, "push1": 9, "push2": 25, "push3": 25, "pull1": null, "pull2": null},
+        "adox_rodinal_1_50": {"base": 17.5, "push1": 19, "push2": 29, "push3": null, "pull1": 15, "pull2": 13},
+        "ilford_ddx_1_4": {"base": 11.5, "push1": 13, "push2": 17, "push3": 30, "pull1": null, "pull2": null},
+        "kodak_tmax_developer": {"base": 5.5, "push1": 5, "push2": null, "push3": null, "pull1": 3.5, "pull2": null},
+        "ilford_microphen_stock": {"base": 8, "push1": 10, "push2": 12, "push3": null, "pull1": null, "pull2": null}
+      }
+    },
+    "fomapan_100": {
+      "box_iso": 100,
+      "combos": {
+        "kodak_d76_stock": {"base": 6.5, "push1": null, "push2": null, "push3": null, "pull1": null, "pull2": null},
+        "kodak_d76_1_1": {"base": 10, "push1": 14, "push2": 18, "push3": null, "pull1": null, "pull2": null},
+        "ilford_id11_stock": {"base": 6.5, "push1": 10, "push2": null, "push3": null, "pull1": null, "pull2": null},
+        "ilford_id11_1_1": {"base": 9, "push1": 14, "push2": 18, "push3": null, "pull1": null, "pull2": null},
+        "kodak_xtol_stock": {"base": 5.5, "push1": null, "push2": null, "push3": null, "pull1": null, "pull2": null},
+        "kodak_xtol_1_1": {"base": 8, "push1": null, "push2": 11.5, "push3": null, "pull1": null, "pull2": null},
+        "kodak_hc110_b": {"base": 6, "push1": null, "push2": 11.5, "push3": null, "pull1": 4.5, "pull2": null},
+        "adox_rodinal_1_25": {"base": 5.5, "push1": null, "push2": 6.5, "push3": 12, "pull1": null, "pull2": null},
+        "adox_rodinal_1_50": {"base": 8.5, "push1": 12, "push2": 21.5, "push3": 23, "pull1": null, "pull2": null},
+        "ilford_ddx_1_4": {"base": 8, "push1": 9, "push2": 11.25, "push3": null, "pull1": null, "pull2": null},
+        "kodak_tmax_developer": {"base": 5.5, "push1": null, "push2": 11, "push3": null, "pull1": null, "pull2": null},
+        "ilford_microphen_stock": {"base": 6, "push1": 8.5, "push2": null, "push3": 16, "pull1": null, "pull2": null}
+      }
+    },
+    "fomapan_400": {
+      "box_iso": 400,
+      "combos": {
+        "kodak_d76_stock": {"base": 7.5, "push1": 11, "push2": 20, "push3": null, "pull1": null, "pull2": null},
+        "kodak_d76_1_1": {"base": 11.5, "push1": 17, "push2": 25, "push3": null, "pull1": 8.5, "pull2": null},
+        "ilford_id11_stock": {"base": 7.5, "push1": 11, "push2": null, "push3": null, "pull1": null, "pull2": null},
+        "ilford_id11_1_1": {"base": 12.5, "push1": 17, "push2": null, "push3": null, "pull1": null, "pull2": null},
+        "kodak_xtol_stock": {"base": 7, "push1": null, "push2": 15.75, "push3": null, "pull1": 5, "pull2": null},
+        "kodak_xtol_1_1": {"base": 9.5, "push1": 14.5, "push2": 22.5, "push3": null, "pull1": null, "pull2": null},
+        "kodak_hc110_b": {"base": 7, "push1": 10, "push2": 13, "push3": null, "pull1": null, "pull2": null},
+        "adox_rodinal_1_25": {"base": 5.5, "push1": 10, "push2": 20, "push3": 25, "pull1": null, "pull2": null},
+        "adox_rodinal_1_50": {"base": 15, "push1": 19, "push2": 24, "push3": 52, "pull1": 11, "pull2": 7},
+        "ilford_ddx_1_4": {"base": 9, "push1": 10.75, "push2": null, "push3": null, "pull1": null, "pull2": null},
+        "kodak_tmax_developer": {"base": 7.5, "push1": null, "push2": 18.5, "push3": null, "pull1": null, "pull2": null},
+        "ilford_microphen_stock": {"base": 8.5, "push1": 15, "push2": 17, "push3": null, "pull1": null, "pull2": null}
+      }
+    },
+    "cinestill_bwxx": {
+      "box_iso": 250,
+      "combos": {
+        "kodak_d76_stock": {"base": 7, "push1": 9, "push2": 13.5, "push3": 16.5, "pull1": 4.25, "pull2": 3},
+        "kodak_d76_1_1": {"base": 10, "push1": 13.5, "push2": null, "push3": null, "pull1": null, "pull2": null},
+        "ilford_id11_stock": {"base": 7, "push1": 9, "push2": 12.5, "push3": 16.5, "pull1": 4.25, "pull2": 3},
+        "ilford_id11_1_1": {"base": 10, "push1": null, "push2": null, "push3": null, "pull1": null, "pull2": null},
+        "kodak_xtol_stock": {"base": 7, "push1": 9, "push2": null, "push3": 25, "pull1": null, "pull2": null},
+        "kodak_hc110_b": {"base": 6, "push1": 6.5, "push2": 12.5, "push3": 20, "pull1": 4, "pull2": 3},
+        "adox_rodinal_1_25": {"base": 5.75, "push1": 7.5, "push2": 9.25, "push3": null, "pull1": null, "pull2": null},
+        "adox_rodinal_1_50": {"base": 9, "push1": 11, "push2": 16, "push3": null, "pull1": null, "pull2": null},
+        "ilford_ddx_1_4": {"base": 7, "push1": 10, "push2": null, "push3": null, "pull1": null, "pull2": null},
+        "kodak_tmax_developer": {"base": 6, "push1": 6, "push2": null, "push3": 15, "pull1": null, "pull2": null}
+      }
+    }
+  }
+}

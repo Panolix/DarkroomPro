@@ -51,7 +51,7 @@ check('preset step has agitation', !!agitationSteps[0].agitation && agitationSte
 
 const cues = buildAgitationCues(agitationSteps[0]);
 check('cue count for 7.5 min at 1/min', cues.length === 8, JSON.stringify(cues));
-check('first cue starts at 0', cues[0].startSeconds === 0 && cues[0].durationSeconds === 10);
+check('first cue starts at 0', cues[0].startSeconds === 0 && cues[0].durationSeconds === 30);
 check('second cue at 60s', cues[1].startSeconds === 60);
 check('no cues without agitation', buildAgitationCues({ name: 'Fixer', kind: 'fixer', time_minutes: 5 }).length === 0);
 check('no cues for untimed step', buildAgitationCues({ name: 'Rinse', kind: 'wash', time_minutes: null, agitation: { initialSeconds: 10, intervalSeconds: 5, frequencyMinutes: 1 } }).length === 0);

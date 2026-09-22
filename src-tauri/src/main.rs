@@ -27,11 +27,13 @@ async fn load_database(
 ) -> Result<Database, String> {
     let mut db_manager = DatabaseManager::new();
 
-    // Load from the bundled database file
-    let resource_path = app_handle
-        .path()
-        .resolve("complete_database.json", tauri::path::BaseDirectory::Resource)
-        .map_err(|e| format!("Failed to resolve resource path: {}", e))?;
+    // Locate the bundled database. Tauri stages a resource declared as
+    // "../complete_database.json" under "_up_/complete_database.json", so we
+    // probe several candidate locations rather than assuming one layout.
+    let resource_path = find_database_path(&app_handle)
+        .ok_or_else(|| "Could not locate complete_database.json resource".to_string())?;
+
+    println!("DarkroomPro: loading database from {}", resource_path.display());
 
     db_manager.load_from_file(&resource_path)
         .map_err(|e| format!("Failed to load database: {}", e))?;
@@ -39,11 +41,48 @@ async fn load_database(
     let database = db_manager.take_database()
         .ok_or("Failed to extract database")?;
 
+    println!(
+        "DarkroomPro: database loaded ({} films, {} developers)",
+        database.films.len(),
+        database.developers.len()
+    );
+
     // Load into calculation engine
     let mut engine = engine_state.lock().unwrap();
     engine.load_database(database.clone());
 
     Ok(database)
+}
+
+// Resolve the bundled film database across dev/prod and Tauri resource layouts.
+fn find_database_path(app_handle: &tauri::AppHandle) -> Option<PathBuf> {
+    let mut candidates: Vec<PathBuf> = Vec::new();
+
+    for relative in ["complete_database.json", "_up_/complete_database.json"] {
+        if let Ok(path) = app_handle
+            .path()
+            .resolve(relative, tauri::path::BaseDirectory::Resource)
+        {
+            candidates.push(path);
+        }
+    }
+
+    if let Ok(dir) = app_handle.path().resource_dir() {
+        candidates.push(dir.join("complete_database.json"));
+        candidates.push(dir.join("_up_").join("complete_database.json"));
+    }
+
+    // Development fallbacks
+    candidates.push(
+        PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+            .join("..")
+            .join("complete_database.json"),
+    );
+    if let Ok(cwd) = std::env::current_dir() {
+        candidates.push(cwd.join("complete_database.json"));
+    }
+
+    candidates.into_iter().find(|path| path.exists())
 }
 
 // Command to get all available films

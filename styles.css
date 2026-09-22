@@ -660,6 +660,31 @@ select:focus, input:focus {
     background: linear-gradient(45deg, #333333, #555555);
 }
 
+.prod-badge {
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.75em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+}
+
+.prod-badge.current {
+    background: linear-gradient(45deg, #1e7a4c, #2fa96b);
+}
+
+.prod-badge.discontinued {
+    background: linear-gradient(45deg, #8a3b3b, #b55252);
+}
+
+.iso-note {
+    margin: -6px 0 12px 0;
+    font-size: 0.85em;
+    color: var(--film-amber);
+    font-style: italic;
+}
+
 .info-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
