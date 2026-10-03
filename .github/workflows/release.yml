@@ -85,21 +85,21 @@ jobs:
           releaseBody: |
             ## DarkroomPro ${{ github.ref_name }}
 
-            Accuracy and reliability patch: geometric temperature interpolation, database clean-up, alphabetical developer sorting and a startup selection fix.
+            New film stock: Kodak Vision3 250D joins the database, alongside more accurate handling notes for the whole Vision3 line.
 
             ### Data
-            - Removed the incorrect "Cinema film stock" handling note from 52 C-41 combinations across 13 standard colour films (Portra, Ektar, Gold, Superia, Vista and others); notes are kept only on genuine cine stocks (CineStill, Vision3)
-            - Verified Fuji Acros II push times against the Massive Dev Chart (D-76 stock: 7.25 min at EI 100, 10 min at EI 200 and EI 400 — the identical push 1/push 2 values are published by the chart, not a transcription error)
+            - Added Kodak Vision3 250D (5208/7208) with full C-41 development data for all five supported developers: Kodak Flexicolor (3:15 at 37.8 °C), Tetenal Colortec (3:15 at 38 °C), Unicolor (3:30 at 38.9 °C), CineStill CS41 (3:30 at 39 °C) and Bellini (3:15 at 38 °C), each with push/pull times, agitation specs and temperature tolerances (database now 47 films / 433 combinations)
+            - Film description notes the dual rating: EI 250 in daylight, EI 200 under tungsten light
+            - Vision3 handling notes updated to match what is actually sold today: AHU (remjet-free) and remjet-removed rolls process like normal C-41 film, while raw remjet-backed stock needs an alkaline pre-bath or post-wash — applied consistently to Vision3 250D, 50D and 500T
 
-            ### Calculations
-            - Temperature interpolation is now geometric (log-space) in both the JavaScript and Rust engines: development time responds exponentially to temperature, so sparse colour-kit tables (Unicolor, Tetenal) no longer overestimate mid-range times (e.g. Unicolor C-41 at 30 °C: ~12 min → ~9.2 min; standard B&W temperatures unaffected)
-            - Half-degree interpolation verified consistent across both engines
-            - Offline fallback temperature table now mirrors the database's Ilford conversion chart values
+            ### Downloads
+            - **macOS**: `.dmg` (universal)
+            - **Windows**: `.msi` installer
+            - **Linux**: `.deb`, `.rpm` or `.AppImage`
 
-            ### Interface
-            - Developer dropdown is now sorted alphabetically by developer name, with dilution variants grouped under their developer (previously it followed raw database order, which differed per film)
-            - Film categories remain fixed on every start: Black & White → C-41 → E-6
-            - Verified that a film selected immediately at startup is no longer lost when the database finishes loading
+            > Release builds are unsigned. On macOS right-click and choose Open the first time; on Windows SmartScreen may prompt.
+
+            See the [README](https://github.com/Panolix/DarkroomPro/blob/main/README.md) for installation instructions.
 
             ### Downloads
             - **macOS**: `.dmg` (universal)

@@ -4438,7 +4438,7 @@
           "agitation_initial_seconds": 30,
           "agitation_interval_seconds": 2,
           "agitation_frequency_minutes": 0.25,
-          "special_notes": "Cinema film stock - may require careful handling",
+          "special_notes": "Cinema film stock - AHU (remjet-free) and remjet-removed rolls process like normal C-41 film; raw remjet-backed stock needs an alkaline pre-bath or post-wash to remove remjet",
           "source": "Kodak Flexicolor C-41 (CIS-211 / Z-131)",
           "source_url": "https://125px.com/docs/techpubs/kodak/cis211-2010_08.pdf",
           "verified_date": "2026-09-22"
@@ -4452,7 +4452,7 @@
           "agitation_initial_seconds": 15,
           "agitation_interval_seconds": 15,
           "agitation_frequency_minutes": 0.5,
-          "special_notes": "Cinema film stock - may require careful handling",
+          "special_notes": "Cinema film stock - AHU (remjet-free) and remjet-removed rolls process like normal C-41 film; raw remjet-backed stock needs an alkaline pre-bath or post-wash to remove remjet",
           "source": "Tetenal Colortec C-41 Kit instructions",
           "source_url": "https://www.digitaltruth.com/products/tetenal_tech/Tetenal-Colortec-C41-Kit-2.5L-Instructions.pdf",
           "verified_date": "2026-09-22",
@@ -4467,7 +4467,7 @@
           "agitation_initial_seconds": 10,
           "agitation_interval_seconds": 10,
           "agitation_frequency_minutes": 0.5,
-          "special_notes": "Cinema film stock - may require careful handling",
+          "special_notes": "Cinema film stock - AHU (remjet-free) and remjet-removed rolls process like normal C-41 film; raw remjet-backed stock needs an alkaline pre-bath or post-wash to remove remjet",
           "source": "Unicolor C-41 powder kit instructions",
           "source_url": "https://www.freestylephoto.com/static/pdf/product_pdfs/unicolor/unicolor-c-41-powder-1-liter-instructions.pdf",
           "verified_date": "2026-09-22"
@@ -4482,7 +4482,7 @@
           "agitation_initial_seconds": 10,
           "agitation_interval_seconds": 10,
           "agitation_frequency_minutes": 0.5,
-          "special_notes": "Cinema film stock - may require careful handling",
+          "special_notes": "Cinema film stock - AHU (remjet-free) and remjet-removed rolls process like normal C-41 film; raw remjet-backed stock needs an alkaline pre-bath or post-wash to remove remjet",
           "source": "CineStill CS41 powder kit instructions",
           "source_url": "https://cdn.shopify.com/s/files/1/0339/5113/files/CS41powder_Instructions_Complete.pdf",
           "verified_date": "2026-09-22",
@@ -4497,7 +4497,8 @@
           "agitation_frequency_minutes": 0.5,
           "source": "Bellini C41-RA technical data sheet",
           "source_url": "https://www.freestylephoto.com/static/pdf/product_pdf/bellini/C41_TECH_DATA_SHEET.pdf",
-          "verified_date": "2026-09-22"
+          "verified_date": "2026-09-22",
+          "special_notes": "Cinema film stock - AHU (remjet-free) and remjet-removed rolls process like normal C-41 film; raw remjet-backed stock needs an alkaline pre-bath or post-wash to remove remjet"
         }
       }
     },
@@ -4533,7 +4534,7 @@
           "agitation_initial_seconds": 30,
           "agitation_interval_seconds": 2,
           "agitation_frequency_minutes": 0.25,
-          "special_notes": "Cinema film stock - may require careful handling",
+          "special_notes": "Cinema film stock - AHU (remjet-free) and remjet-removed rolls process like normal C-41 film; raw remjet-backed stock needs an alkaline pre-bath or post-wash to remove remjet",
           "source": "Kodak Flexicolor C-41 (CIS-211 / Z-131)",
           "source_url": "https://125px.com/docs/techpubs/kodak/cis211-2010_08.pdf",
           "verified_date": "2026-09-22"
@@ -4547,7 +4548,7 @@
           "agitation_initial_seconds": 15,
           "agitation_interval_seconds": 15,
           "agitation_frequency_minutes": 0.5,
-          "special_notes": "Cinema film stock - may require careful handling",
+          "special_notes": "Cinema film stock - AHU (remjet-free) and remjet-removed rolls process like normal C-41 film; raw remjet-backed stock needs an alkaline pre-bath or post-wash to remove remjet",
           "source": "Tetenal Colortec C-41 Kit instructions",
           "source_url": "https://www.digitaltruth.com/products/tetenal_tech/Tetenal-Colortec-C41-Kit-2.5L-Instructions.pdf",
           "verified_date": "2026-09-22",
@@ -4562,7 +4563,7 @@
           "agitation_initial_seconds": 10,
           "agitation_interval_seconds": 10,
           "agitation_frequency_minutes": 0.5,
-          "special_notes": "Cinema film stock - may require careful handling",
+          "special_notes": "Cinema film stock - AHU (remjet-free) and remjet-removed rolls process like normal C-41 film; raw remjet-backed stock needs an alkaline pre-bath or post-wash to remove remjet",
           "source": "Unicolor C-41 powder kit instructions",
           "source_url": "https://www.freestylephoto.com/static/pdf/product_pdfs/unicolor/unicolor-c-41-powder-1-liter-instructions.pdf",
           "verified_date": "2026-09-22"
@@ -4577,7 +4578,7 @@
           "agitation_initial_seconds": 10,
           "agitation_interval_seconds": 10,
           "agitation_frequency_minutes": 0.5,
-          "special_notes": "Cinema film stock - may require careful handling",
+          "special_notes": "Cinema film stock - AHU (remjet-free) and remjet-removed rolls process like normal C-41 film; raw remjet-backed stock needs an alkaline pre-bath or post-wash to remove remjet",
           "source": "CineStill CS41 powder kit instructions",
           "source_url": "https://cdn.shopify.com/s/files/1/0339/5113/files/CS41powder_Instructions_Complete.pdf",
           "verified_date": "2026-09-22",
@@ -4592,7 +4593,8 @@
           "agitation_frequency_minutes": 0.5,
           "source": "Bellini C41-RA technical data sheet",
           "source_url": "https://www.freestylephoto.com/static/pdf/product_pdf/bellini/C41_TECH_DATA_SHEET.pdf",
-          "verified_date": "2026-09-22"
+          "verified_date": "2026-09-22",
+          "special_notes": "Cinema film stock - AHU (remjet-free) and remjet-removed rolls process like normal C-41 film; raw remjet-backed stock needs an alkaline pre-bath or post-wash to remove remjet"
         }
       }
     },
@@ -6911,6 +6913,103 @@
           "verified_date": "2026-09-22"
         }
       }
+    },
+    "kodak_vision3_250d": {
+      "name": "Kodak Vision3 250D",
+      "manufacturer": "Kodak",
+      "iso": 250,
+      "type": "color_negative",
+      "process": "c41",
+      "year_released": 2009,
+      "current_production": true,
+      "price_35mm_usd": 18,
+      "alternative_names": [
+        "Vision3 250D",
+        "5208",
+        "7208"
+      ],
+      "description": "Cinema daylight-balanced negative film stock (rated EI 250 in daylight, EI 200 under tungsten light)",
+      "grain": "fine",
+      "contrast": "medium",
+      "best_uses": [
+        "daylight",
+        "cinema",
+        "landscape",
+        "general_purpose"
+      ],
+      "developers": {
+        "kodak_flexicolor_c41": {
+          "developer_time_minutes": 3.25,
+          "developer_temp_c": 37.8,
+          "push_1_stop_dev_time": 3.75,
+          "push_2_stop_dev_time": 4.25,
+          "temperature_tolerance_c": 0.15,
+          "agitation_initial_seconds": 30,
+          "agitation_interval_seconds": 2,
+          "agitation_frequency_minutes": 0.25,
+          "special_notes": "Cinema film stock - AHU (remjet-free) and remjet-removed rolls process like normal C-41 film; raw remjet-backed stock needs an alkaline pre-bath or post-wash to remove remjet",
+          "source": "Kodak Flexicolor C-41 (CIS-211 / Z-131)",
+          "source_url": "https://125px.com/docs/techpubs/kodak/cis211-2010_08.pdf",
+          "verified_date": "2026-10-03"
+        },
+        "tetenal_c41_kit": {
+          "developer_time_minutes": 3.25,
+          "developer_temp_c": 38,
+          "push_1_stop_dev_time": 3.75,
+          "push_2_stop_dev_time": 4.25,
+          "temperature_tolerance_c": 0.5,
+          "agitation_initial_seconds": 15,
+          "agitation_interval_seconds": 15,
+          "agitation_frequency_minutes": 0.5,
+          "special_notes": "Cinema film stock - AHU (remjet-free) and remjet-removed rolls process like normal C-41 film; raw remjet-backed stock needs an alkaline pre-bath or post-wash to remove remjet",
+          "source": "Tetenal Colortec C-41 Kit instructions",
+          "source_url": "https://www.digitaltruth.com/products/tetenal_tech/Tetenal-Colortec-C41-Kit-2.5L-Instructions.pdf",
+          "verified_date": "2026-10-03",
+          "push_3_stop_dev_time": 4.75
+        },
+        "unicolor_c41_kit": {
+          "developer_time_minutes": 3.5,
+          "developer_temp_c": 38.9,
+          "push_1_stop_dev_time": 4.4,
+          "push_2_stop_dev_time": 5.25,
+          "temperature_tolerance_c": 0.3,
+          "agitation_initial_seconds": 10,
+          "agitation_interval_seconds": 10,
+          "agitation_frequency_minutes": 0.5,
+          "special_notes": "Cinema film stock - AHU (remjet-free) and remjet-removed rolls process like normal C-41 film; raw remjet-backed stock needs an alkaline pre-bath or post-wash to remove remjet",
+          "source": "Unicolor C-41 powder kit instructions",
+          "source_url": "https://www.freestylephoto.com/static/pdf/product_pdfs/unicolor/unicolor-c-41-powder-1-liter-instructions.pdf",
+          "verified_date": "2026-10-03"
+        },
+        "cinestill_c41_kit": {
+          "developer_time_minutes": 3.5,
+          "developer_temp_c": 39,
+          "push_1_stop_dev_time": 4.55,
+          "push_2_stop_dev_time": 6.13,
+          "pull_1_stop_dev_time": 2.75,
+          "temperature_tolerance_c": 0.5,
+          "agitation_initial_seconds": 10,
+          "agitation_interval_seconds": 10,
+          "agitation_frequency_minutes": 0.5,
+          "special_notes": "Cinema film stock - AHU (remjet-free) and remjet-removed rolls process like normal C-41 film; raw remjet-backed stock needs an alkaline pre-bath or post-wash to remove remjet",
+          "source": "CineStill CS41 powder kit instructions",
+          "source_url": "https://cdn.shopify.com/s/files/1/0339/5113/files/CS41powder_Instructions_Complete.pdf",
+          "verified_date": "2026-10-03",
+          "push_3_stop_dev_time": 8.75
+        },
+        "bellini_c41_kit": {
+          "developer_time_minutes": 3.25,
+          "developer_temp_c": 38,
+          "temperature_tolerance_c": 0.2,
+          "agitation_initial_seconds": 15,
+          "agitation_interval_seconds": 5,
+          "agitation_frequency_minutes": 0.5,
+          "special_notes": "Cinema film stock - AHU (remjet-free) and remjet-removed rolls process like normal C-41 film; raw remjet-backed stock needs an alkaline pre-bath or post-wash to remove remjet",
+          "source": "Bellini C41-RA technical data sheet",
+          "source_url": "https://www.freestylephoto.com/static/pdf/product_pdf/bellini/C41_TECH_DATA_SHEET.pdf",
+          "verified_date": "2026-10-03"
+        }
+      }
     }
   },
   "developers": {
@@ -8020,7 +8119,7 @@
   },
   "metadata": {
     "version": "2.1",
-    "last_updated": "2026-09-13",
+    "last_updated": "2026-10-03",
     "data_sources": [
       "Massive Dev Chart",
       "manufacturer_specifications",
@@ -8047,9 +8146,9 @@
       "safety_note": "Always follow proper darkroom safety procedures. Ensure adequate ventilation.",
       "testing_note": "These times are based on standard development to achieve proper density and contrast. Individual results may vary."
     },
-    "film_count": 46,
+    "film_count": 47,
     "developer_count": 18,
-    "total_combinations": 428,
+    "total_combinations": 433,
     "temperature_compensation_source": "Ilford technical information temperature conversion chart"
   }
 }
