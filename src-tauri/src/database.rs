@@ -99,7 +99,7 @@ mod tests {
     fn parses_bundled_database() {
         let database = load_bundled_database();
 
-        assert_eq!(database.films.len(), 46, "film count");
+        assert_eq!(database.films.len(), 47, "film count");
         assert_eq!(database.developers.len(), 18, "developer count");
 
         let combinations: usize = database
