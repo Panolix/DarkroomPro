@@ -1,4 +1,5 @@
 use crate::models::*;
+use rust_decimal::prelude::{FromPrimitive, ToPrimitive};
 use rust_decimal::Decimal;
 use std::collections::HashMap;
 use thiserror::Error;
@@ -287,6 +288,17 @@ impl CalculationEngine {
             (Some(lo), Some(hi)) => {
                 let lo_value = temp_comp.get(&lo.to_string()).copied().unwrap_or_else(|| Decimal::from(1));
                 let hi_value = temp_comp.get(&hi.to_string()).copied().unwrap_or_else(|| Decimal::from(1));
+                // Development time responds exponentially to temperature, so
+                // interpolate the factor in log space; linear interpolation
+                // over sparse colour-kit tables overestimates mid-range times.
+                if lo_value > Decimal::ZERO && hi_value > Decimal::ZERO {
+                    let factor = ((rounded_temp - lo) / (hi - lo)).to_f64().unwrap_or(0.0);
+                    let ln_lo = lo_value.to_f64().unwrap_or(1.0).ln();
+                    let ln_hi = hi_value.to_f64().unwrap_or(1.0).ln();
+                    let value = (ln_lo + (ln_hi - ln_lo) * factor).exp();
+                    let rounded = (value * 10000.0).round() / 10000.0;
+                    return Decimal::from_f64(rounded).unwrap_or(Decimal::from(1));
+                }
                 let factor = (rounded_temp - lo) / (hi - lo);
                 lo_value + (hi_value - lo_value) * factor
             }
@@ -415,10 +427,11 @@ mod tests {
         let engine = CalculationEngine::new();
         let table = temperature_table();
 
-        // 20.5C should interpolate between 20 (1.00) and 21 (0.90) => 0.95
+        // 20.5C interpolates geometrically between 20 (1.00) and 21 (0.90)
+        // => sqrt(0.90) = 0.9487
         assert_eq!(
             engine.get_temperature_compensation(&table, Decimal::new(205, 1)),
-            Decimal::new(95, 2)
+            Decimal::new(9487, 4)
         );
         // Exact integer match still works
         assert_eq!(

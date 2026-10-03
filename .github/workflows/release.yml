@@ -85,29 +85,21 @@ jobs:
           releaseBody: |
             ## DarkroomPro ${{ github.ref_name }}
 
-            Data overhaul, accurate push/pull, colour temperature compensation and a batch of reliability fixes.
+            Accuracy and reliability patch: geometric temperature interpolation, database clean-up, alphabetical developer sorting and a startup selection fix.
 
             ### Data
-            - 428 film/developer combinations (up from 366)
-            - B&W times and push/pull re-sourced from the Massive Dev Chart and manufacturer datasheets (Ilford, Kodak F-4016/F-4017, Fujifilm, Foma, CineStill)
-            - Push/pull uses manufacturer exposure-index tables where published; otherwise the documented Massive Dev Chart push guideline (standard / compensating / T-Max film factors)
-            - HC-110 Dilution E corrected to 1:47; added missing Rodinal and manufacturer-supported combinations
-            - Corrected film release years and added native-ISO notes for pushed films
+            - Removed the incorrect "Cinema film stock" handling note from 52 C-41 combinations across 13 standard colour films (Portra, Ektar, Gold, Superia, Vista and others); notes are kept only on genuine cine stocks (CineStill, Vision3)
+            - Verified Fuji Acros II push times against the Massive Dev Chart (D-76 stock: 7.25 min at EI 100, 10 min at EI 200 and EI 400 — the identical push 1/push 2 values are published by the chart, not a transcription error)
 
-            ### C-41 / E-6
-            - Per-kit developer times, temperatures, tolerances, agitation and push/pull (Kodak, Tetenal, CineStill, Unicolor, Bellini)
-            - Temperature compensation for kits with published time/temperature tables (Tetenal, CineStill, Unicolor): lower-temperature processing is now supported
-            - Corrected C-41 and E-6 process templates
+            ### Calculations
+            - Temperature interpolation is now geometric (log-space) in both the JavaScript and Rust engines: development time responds exponentially to temperature, so sparse colour-kit tables (Unicolor, Tetenal) no longer overestimate mid-range times (e.g. Unicolor C-41 at 30 °C: ~12 min → ~9.2 min; standard B&W temperatures unaffected)
+            - Half-degree interpolation verified consistent across both engines
+            - Offline fallback temperature table now mirrors the database's Ilford conversion chart values
 
-            ### Fixes
-            - Colour/slide Push 3 and Pull 2 now apply correctly
-            - Desktop app now loads the Rust calculation engine (database resource path fix)
-            - Half-degree temperature interpolation is consistent across engines
-            - Timer audio no longer stops after a few cues
-            - Agitation cue now uses the correct initial duration
-            - Development time no longer displays ":60"
-            - Film panel shows production status and native-ISO notes
-            - Warning-free build (dead code removed)
+            ### Interface
+            - Developer dropdown is now sorted alphabetically by developer name, with dilution variants grouped under their developer (previously it followed raw database order, which differed per film)
+            - Film categories remain fixed on every start: Black & White → C-41 → E-6
+            - Verified that a film selected immediately at startup is no longer lost when the database finishes loading
 
             ### Downloads
             - **macOS**: `.dmg` (universal)

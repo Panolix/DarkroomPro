@@ -23,10 +23,12 @@ pushPullCompensation = window.pushPullCompensation = {
     pull: { '1': 0.7, '2': 0.5 }
 };
 
+// Mirror of complete_database.json's global temperature_compensation table
+// (Ilford conversion chart), used only if the database fails to load.
 const FALLBACK_TEMPERATURE_COMPENSATION = {
-    15: 1.9, 16: 1.6, 17: 1.45, 18: 1.3, 19: 1.15,
-    20: 1.0, 21: 0.9, 22: 0.8, 23: 0.72, 24: 0.65,
-    25: 0.6, 26: 0.55, 27: 0.5, 28: 0.46, 29: 0.42, 30: 0.38
+    15: 1.64, 16: 1.49, 17: 1.35, 18: 1.22, 19: 1.1,
+    20: 1.0, 21: 0.91, 22: 0.82, 23: 0.74, 24: 0.67,
+    25: 0.61, 26: 0.55, 27: 0.5, 28: 0.45, 29: 0.41, 30: 0.37
 };
 
 function applyDatabase(data) {

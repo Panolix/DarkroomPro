@@ -329,26 +329,28 @@ class DevelopmentCalculator {
             return;
         }
 
-        // Add available developers - keep every dilution variant
+        // Add available developers, sorted alphabetically by the displayed
+        // label so dilution variants group with their developer
         const film = filmDatabase[this.filmSelect.value];
-        const addedKeys = new Set();
-
-        availableDevelopers.forEach(devKey => {
-            const developer = resolveDeveloper(devKey);
-
-            console.log('🔍 Checking developer:', devKey, developer ? '✅' : '❌');
-            if (developer && !addedKeys.has(devKey)) {
+        const devOptions = availableDevelopers
+            .map(devKey => {
+                const developer = resolveDeveloper(devKey);
+                if (!developer) {
+                    console.log('❌ Developer not found in database:', devKey);
+                    return null;
+                }
                 const combo = film && film.developers ? film.developers[devKey] : null;
                 const dilution = combo && combo.dilution ? ` (${combo.dilution})` : '';
-                const option = document.createElement('option');
-                option.value = devKey; // Keep original key for calculation
-                option.textContent = `${developer.name}${dilution}`;
-                this.developerSelect.appendChild(option);
-                addedKeys.add(devKey);
-                console.log('✅ Added developer option:', option.textContent);
-            } else if (!developer) {
-                console.log('❌ Developer not found in database:', devKey);
-            }
+                return { devKey, label: `${developer.name}${dilution}` };
+            })
+            .filter(Boolean)
+            .sort((a, b) => a.label.localeCompare(b.label, undefined, { numeric: true }));
+
+        devOptions.forEach(({ devKey, label }) => {
+            const option = document.createElement('option');
+            option.value = devKey; // Keep original key for calculation
+            option.textContent = label;
+            this.developerSelect.appendChild(option);
         });
 
         if (previousSelection && Array.from(this.developerSelect.options).some(option => option.value === previousSelection)) {
@@ -763,7 +765,16 @@ class DevelopmentCalculator {
 
         if (lower !== null && upper !== null) {
             const factor = (roundedTemp - lower) / (upper - lower);
-            return table[lower] + (table[upper] - table[lower]) * factor;
+            const lo = table[lower];
+            const hi = table[upper];
+            if (lo > 0 && hi > 0) {
+                // Development time responds exponentially to temperature, so
+                // interpolate the factor in log space; linear interpolation
+                // over sparse colour-kit tables overestimates mid-range times.
+                const value = Math.exp(Math.log(lo) + (Math.log(hi) - Math.log(lo)) * factor);
+                return Math.round(value * 10000) / 10000;
+            }
+            return lo + (hi - lo) * factor;
         }
 
         const nearest = lower !== null ? lower : upper;
