@@ -20,7 +20,7 @@ serde_json = "1.0"
 chrono = { version = "0.4", features = ["serde"] }
 thiserror = "1.0"
 rust_decimal = { version = "1.32", features = ["serde", "serde-float"] }
-printpdf = "0.7"
+printpdf = "0.12"
 keepawake = "0.4"
 
 [features]
