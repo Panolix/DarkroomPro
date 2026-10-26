@@ -18,7 +18,7 @@ tauri-plugin-shell = "2.3.0"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 chrono = { version = "0.4", features = ["serde"] }
-thiserror = "1.0"
+thiserror = "2.0"
 rust_decimal = { version = "1.32", features = ["serde", "serde-float"] }
 printpdf = "0.7"
 keepawake = "0.4"
