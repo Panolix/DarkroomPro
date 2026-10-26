@@ -85,21 +85,10 @@ jobs:
           releaseBody: |
             ## DarkroomPro ${{ github.ref_name }}
 
-            New film stock: Kodak Vision3 250D joins the database, alongside more accurate handling notes for the whole Vision3 line.
+            Maintenance release: refreshed the CI and release pipeline to the latest GitHub Actions versions (checkout v7, setup-node v7, tauri-action v1). No functional changes to the app.
 
-            ### Data
-            - Added Kodak Vision3 250D (5208/7208) with full C-41 development data for all five supported developers: Kodak Flexicolor (3:15 at 37.8 °C), Tetenal Colortec (3:15 at 38 °C), Unicolor (3:30 at 38.9 °C), CineStill CS41 (3:30 at 39 °C) and Bellini (3:15 at 38 °C), each with push/pull times, agitation specs and temperature tolerances (database now 47 films / 433 combinations)
-            - Film description notes the dual rating: EI 250 in daylight, EI 200 under tungsten light
-            - Vision3 handling notes updated to match what is actually sold today: AHU (remjet-free) and remjet-removed rolls process like normal C-41 film, while raw remjet-backed stock needs an alkaline pre-bath or post-wash — applied consistently to Vision3 250D, 50D and 500T
-
-            ### Downloads
-            - **macOS**: `.dmg` (universal)
-            - **Windows**: `.msi` installer
-            - **Linux**: `.deb`, `.rpm` or `.AppImage`
-
-            > Release builds are unsigned. On macOS right-click and choose Open the first time; on Windows SmartScreen may prompt.
-
-            See the [README](https://github.com/Panolix/DarkroomPro/blob/main/README.md) for installation instructions.
+            ### Internal
+            - Fixed the bundled-database film-count assertion so the 47-film Vision3 250D data set is validated correctly.
 
             ### Downloads
             - **macOS**: `.dmg` (universal)
