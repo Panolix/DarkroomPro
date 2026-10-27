@@ -131,7 +131,6 @@ class DevelopmentCalculator {
             labels[option.value] = option.textContent;
             return labels;
         }, {});
-        this.volumeInput = document.getElementById('volume');
         this.calculateBtn = document.getElementById('calculate');
         this.exportBtn = document.getElementById('export');
         this.exportSection = document.getElementById('export-section');
@@ -149,10 +148,6 @@ class DevelopmentCalculator {
         // Result elements
         this.devTimeElement = document.getElementById('dev-time');
         this.timeNoteElement = document.getElementById('time-note');
-        this.dilutionElement = document.getElementById('dilution');
-        this.dilutionTitleElement = document.getElementById('dilution-title');
-        this.developerAmountElement = document.getElementById('developer-amount');
-        this.waterAmountElement = document.getElementById('water-amount');
         this.tempDisplayElement = document.getElementById('temp-display');
         this.tempNoteElement = document.getElementById('temp-note');
         
@@ -180,7 +175,7 @@ class DevelopmentCalculator {
         this.rollsReset.addEventListener('click', () => this.setRollsDeveloped(0));
         
         // Auto-calculate when inputs change
-        [this.filmSelect, this.developerSelect, this.temperatureInput, this.pushPullSelect, this.volumeInput].forEach(element => {
+        [this.filmSelect, this.developerSelect, this.temperatureInput, this.pushPullSelect].forEach(element => {
             element.addEventListener('change', () => {
                 if (this.filmSelect.value && this.developerSelect.value) {
                     this.calculate();
@@ -883,11 +878,10 @@ class DevelopmentCalculator {
         const developerKey = this.developerSelect.value;
         const temperature = parseFloat(this.temperatureInput.value);
         const pushPull = parseFloat(this.pushPullSelect.value);
-        const volume = parseFloat(this.volumeInput.value);
         const filmForType = filmDatabase[filmKey];
 
         console.log('🧮 Calculate called with:', {
-            filmKey, developerKey, temperature, pushPull, volume
+            filmKey, developerKey, temperature, pushPull
         });
         console.log('🧮 Database state during calculate:', {
             filmDatabaseKeys: Object.keys(filmDatabase).length,
@@ -907,16 +901,11 @@ class DevelopmentCalculator {
             return;
         }
 
-        if (!(volume >= 100 && volume <= 2000)) {
-            this.showError('Solution volume must be between 100 and 2000 ml.');
-            return;
-        }
-
         // Try Rust backend first
         if (window.rustBridge?.isRustBackendAvailable()) {
             try {
                 const rustResult = await window.rustBridge.calculateDevelopmentEnhanced(
-                    filmKey, developerKey, temperature, pushPull, volume
+                    filmKey, developerKey, temperature, pushPull
                 );
                 
                 if (rustResult) {
@@ -1060,41 +1049,10 @@ class DevelopmentCalculator {
         const finalTime = rotaryAdjusted
             ? agitation.time * (1 - this.rotaryCompensation / 100)
             : agitation.time;
-        
-        // Calculate dilution amounts - fix the data structure mismatch
-        let dilutionString = baseData.dilution || baseData.dilution_ratio || 'stock';
-        let developerAmount, waterAmount;
-        
-        console.log('💧 Dilution calculation:', { dilutionString, volume, filmType: film.type });
-        
-        if (film.type === 'black_white') {
-            if (dilutionString === 'stock' || dilutionString === '1:0') {
-                // Stock solution - use full volume
-                developerAmount = volume;
-                waterAmount = 0;
-                dilutionString = 'Stock';
-            } else {
-                // Parse dilution ratio
-                const dilutionRatio = this.parseDilution(dilutionString);
-                const totalParts = dilutionRatio.developer + dilutionRatio.water;
-                developerAmount = Math.round((volume * dilutionRatio.developer) / totalParts);
-                waterAmount = volume - developerAmount;
-            }
-        } else {
-            // For C-41 and E-6, it's typically ready-to-use kits
-            dilutionString = 'Ready to use';
-            developerAmount = volume;
-            waterAmount = 0;
-        }
-        
-        console.log('💧 Calculated amounts:', { developerAmount, waterAmount, dilutionString });
-        
+
         // Update results
         this.updateResults({
             time: finalTime,
-            dilution: dilutionString,
-            developerAmount: Math.round(developerAmount),
-            waterAmount: Math.round(waterAmount),
             temperature: temperature,
             pushPull: pushPull,
             filmType: film.type,
@@ -1195,15 +1153,6 @@ class DevelopmentCalculator {
         return { push1: 1.5, push2: 2.25, push3: 4.5, pull1: 0.7, pull2: 0.5 };
     }
 
-    parseDilution(dilutionString) {
-        // Parse dilution ratios like "1:1", "1:31", etc.
-        const parts = dilutionString.split(':');
-        return {
-            developer: parseInt(parts[0]),
-            water: parseInt(parts[1])
-        };
-    }
-
     formatMinutes(minutes) {
         const totalSeconds = Math.max(0, Math.round(minutes * 60));
         const mins = Math.floor(totalSeconds / 60);
@@ -1248,27 +1197,6 @@ class DevelopmentCalculator {
             timeNote += ` (${adjustments.join(', ')})`;
         }
         this.timeNoteElement.textContent = timeNote;
-        
-        // Update dilution
-        const isColorProcess = results.filmType !== 'black_white';
-        this.dilutionElement.textContent = results.dilution;
-        this.dilutionElement.classList.toggle('compact', isColorProcess);
-        if (this.dilutionTitleElement) {
-            this.dilutionTitleElement.textContent = isColorProcess ? 'Working Solution' : 'Dilution Ratio';
-        }
-        
-        // Update solution amounts
-        if (!isColorProcess) {
-            this.developerAmountElement.textContent = `${results.developerAmount} ml developer`;
-            this.waterAmountElement.textContent = `${results.waterAmount} ml water`;
-        } else {
-            const developerInfo = resolveDeveloper(this.developerSelect.value);
-            const kit = developerInfo && developerInfo.kit_mixing;
-            this.developerAmountElement.textContent = `${results.developerAmount} ml working solution`;
-            this.waterAmountElement.textContent = kit
-                ? `Kit: ${kit.instructions}`
-                : 'No dilution';
-        }
         
         // Add animation to updated cards
         document.querySelectorAll('.result-card').forEach(card => {
@@ -1326,9 +1254,6 @@ class DevelopmentCalculator {
     showError(message) {
         this.devTimeElement.textContent = 'Error';
         this.timeNoteElement.textContent = message;
-        this.dilutionElement.textContent = '--';
-        this.developerAmountElement.textContent = '-- ml developer';
-        this.waterAmountElement.textContent = '-- ml water';
         
         // Hide timer section
         this.timerSection.style.display = 'none';

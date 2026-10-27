@@ -65,9 +65,6 @@ impl ExportManager {
         csv_content.push_str(&format!("Development Time (minutes),{}\n", calc.time_minutes));
         csv_content.push_str(&format!("Temperature,{}°C\n", calc.temperature));
         csv_content.push_str(&format!("Push/Pull,{} stops\n", calc.push_pull));
-        csv_content.push_str(&format!("Dilution,{}\n", calc.dilution));
-        csv_content.push_str(&format!("Developer Amount,{} ml\n", calc.developer_amount));
-        csv_content.push_str(&format!("Water Amount,{} ml\n", calc.water_amount));
 
         if !calc.notes.is_empty() {
             csv_content.push_str(&format!("Notes,\"{}\"\n", calc.notes.join("; ")));
@@ -152,17 +149,13 @@ impl ExportManager {
             String::new(),
             "DEVELOPER DETAILS:".to_string(),
             format!("Developer: {}", calc.developer_name),
-            format!("Dilution: {}", calc.dilution),
             String::new(),
             "CALCULATION PARAMETERS:".to_string(),
             format!("Temperature: {}°C", calc.temperature),
             format!("Push/Pull: {} stops", calc.push_pull),
-            format!("Solution Volume: {} ml", calc.developer_amount + calc.water_amount),
             String::new(),
             "RESULTS:".to_string(),
             format!("Development Time: {} ({} minutes)", calc.time_formatted, calc.time_minutes),
-            format!("Developer Amount: {} ml", calc.developer_amount),
-            format!("Water Amount: {} ml", calc.water_amount),
             String::new(),
         ];
 
@@ -222,9 +215,6 @@ mod tests {
         CalculationResult {
             time_minutes: Decimal::new(80, 1),
             time_formatted: "8:00".to_string(),
-            dilution: "Stock".to_string(),
-            developer_amount: 500,
-            water_amount: 0,
             temperature: Decimal::from(20),
             push_pull: 0,
             film_type: FilmType::BlackWhite,

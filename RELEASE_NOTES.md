@@ -4,7 +4,8 @@
 
 ## Changes
 
-- **Colour kit mixing is now explicit.** Every colour kit shows its actual mixing instructions and kit capacity, and the result card shows the kit mixing instead of “No dilution”. Bellini C41-RA now reads **500 ml concentrate + 500 ml water = 1 L, 16 rolls**; the tank volume is clearly labelled “Working Solution Volume”, so it is not confused with the kit batch size.
+- **Colour kit mixing is now explicit.** Every colour kit shows its actual mixing instructions and kit capacity. Bellini C41-RA now reads **500 ml concentrate + 500 ml water = 1 L, 16 rolls**.
+- **Dilution ratio and volume input removed.** The ratio is printed on the developer bottle and named in the developer selector, and tank volume does not affect development time. The result card, mix line and “Working Solution Volume” field are gone.
 - **Capacity corrections:** Kodak Flexicolor is listed at 20 rolls per 2.5 L kit (about 8 rolls/L one-shot), Bellini at 16 rolls per 1 L kit, Tetenal C-41 at 16 rolls/L (40 rolls per 2.5 L), CineStill at 24 max (8 rated), Unicolor at 8 rolls/L, Kodak E-6 at 20 rolls per 5 L batch (up to 50 with extended times), Tetenal E-6 at 30 rolls per 2.5 L, Unicolor E-6 at 8 rolls/L.
 - **Agitation chimes:** the repeating tick is now every 1.5s during an agitation window, and a distinct two-tone stop cue plays when the window ends. Only one sound sequence plays at a time; contiguous windows do not trigger an overlapping stop/start pair.
 - **Kodak E-6 +2 push corrected** to 11:30 rotary / 11:45 manual, following the +5:30 correction in Kodak Z-119.
@@ -12,9 +13,9 @@
 
 ## Verification
 
-- `cargo test`: 18 tests passing, including colour-kit mixing metadata.
+- `cargo test`: 17 tests passing, including colour-kit mixing metadata.
 - `npm run test:steps`: passing.
-- Browser checks: Bellini shows “500 ml concentrate + 500 ml water = 1 L” and “16 rolls per 1 L kit”; ticks at 1.5s; stop cue plays at the end of the window; Kodak E-6 +2 push is 11:30 rotary / 11:45 manual.
+- Browser checks: no dilution card, volume field or mix line; Bellini kit mixing/capacity shown in developer info; ticks at 1.5s; stop cue plays at the end of the window; Kodak E-6 +2 push is 11:30 rotary / 11:45 manual.
 
 ## Downloads
 

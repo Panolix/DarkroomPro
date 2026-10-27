@@ -200,7 +200,6 @@ pub struct CalculationRequest {
     pub developer_key: String,
     pub temperature: Decimal,
     pub push_pull: i32,
-    pub volume: u32,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -220,9 +219,6 @@ pub struct ProcessStep {
 pub struct CalculationResult {
     pub time_minutes: Decimal,
     pub time_formatted: String,
-    pub dilution: String,
-    pub developer_amount: u32,
-    pub water_amount: u32,
     pub temperature: Decimal,
     pub push_pull: i32,
     pub film_type: FilmType,
@@ -231,12 +227,6 @@ pub struct CalculationResult {
     pub notes: Vec<String>,
     #[serde(default)]
     pub steps: Vec<ProcessStep>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct DilutionRatio {
-    pub developer: u32,
-    pub water: u32,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

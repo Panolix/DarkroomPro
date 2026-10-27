@@ -43,15 +43,14 @@ async function initializeRustBackend() {
 initializeRustBackend();
 
 // Enhanced calculation function that uses Rust when available
-async function calculateDevelopmentEnhanced(filmKey, developerKey, temperature, pushPull, volume) {
+async function calculateDevelopmentEnhanced(filmKey, developerKey, temperature, pushPull) {
     if (rustBackendReady && invoke) {
         try {
             const request = {
                 film_key: filmKey,
                 developer_key: developerKey,
                 temperature: parseFloat(temperature),
-                push_pull: parseInt(pushPull),
-                volume: parseInt(volume)
+                push_pull: parseInt(pushPull)
             };
 
             console.log('🦀 Using Rust calculation engine:', request);
@@ -61,9 +60,6 @@ async function calculateDevelopmentEnhanced(filmKey, developerKey, temperature, 
             // Convert Rust result to JavaScript format for compatibility
             return {
                 time: parseFloat(result.time_minutes),
-                dilution: result.dilution,
-                developerAmount: result.developer_amount,
-                waterAmount: result.water_amount,
                 temperature: parseFloat(result.temperature),
                 pushPull: result.push_pull,
                 filmType: result.film_type,

@@ -202,15 +202,6 @@ select:focus, input:focus {
     font-weight: 300;
 }
 
-.result-breakdown {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    font-size: 0.9rem;
-    color: var(--dark-gray);
-    font-weight: 300;
-}
-
 .timer-section {
     background: var(--surface);
     padding: 30px;
@@ -1690,12 +1681,6 @@ input:disabled,
 select:disabled {
     opacity: 0.55;
     cursor: not-allowed;
-}
-
-/* "Ready to use" is a label, not a ratio - keep it on one line. */
-.result-value.compact {
-    font-size: 1.9rem;
-    letter-spacing: -0.01em;
 }
 
 /* Read-only batch capacity and the per-batch roll compensation note. */

@@ -1,6 +1,6 @@
 # 🧪 DarkroomPro
 
-A professional desktop application for calculating **precise film development parameters** with scientifically accurate timing, temperature compensation, and dilution ratios for 433 film/developer combinations.
+A professional desktop application for calculating **precise film development parameters** with scientifically accurate timing, temperature compensation, and published push/pull data for 433 film/developer combinations.
 
 ![Platform Support](https://img.shields.io/badge/Platform-macOS%20%7C%20Windows%20%7C%20Linux-blue)
 ![License](https://img.shields.io/badge/License-CC_BY--NC--SA_4.0-blue)
@@ -18,8 +18,8 @@ A professional desktop application for calculating **precise film development pa
 
 ## 🆕 What's new in 1.3.2
 
-- **Kit mixing and capacities**: every colour kit now shows its actual kit mixing and capacity, including Bellini C41-RA (500 ml concentrate + 500 ml water = 1 L, 16 rolls) and Kodak Flexicolor (2.5 L, 20 rolls one-shot). The dilution card also shows the kit mixing instead of “No dilution”.
-- **Clearer volume label**: “Working Solution Volume (ml)” makes it explicit that this is the amount needed for your tank, not the kit’s batch size.
+- **Dilution ratio and volume input removed**: the ratio is printed on the developer bottle and named in the developer selector, so the app no longer repeats it or asks for a tank volume. Tank volume does not change development time, so there is nothing to calculate.
+- **Kit mixing and capacities**: every colour kit now shows its actual kit mixing and capacity, including Bellini C41-RA (500 ml concentrate + 500 ml water = 1 L, 16 rolls) and Kodak Flexicolor (2.5 L, 20 rolls one-shot).
 - **Better agitation chimes**: ticks now repeat every 1.5s, and a distinct two-tone stop cue plays when the agitation window ends. The scheduler ensures only one sequence plays at a time.
 - **Kodak E-6 +2 push corrected** to 11:30 rotary / 11:45 manual (+5:30 per Kodak Z-119).
 - Includes 1.3.1’s adjustable B&W rotary compensation and E-6 method-specific timing.
@@ -54,7 +54,7 @@ See [RELEASE_NOTES.md](RELEASE_NOTES.md) for the full changelog.
 - **Temperature Compensation**: Per-developer curves for B&W developers from Kodak and Ilford charts, with a standard conversion fallback where no manufacturer chart exists. Colour kits are locked to the kit's standard temperature; kits that publish a temperature table can be unlocked explicitly
 - **Agitation Method**: Intermittent (inversion) or rotary/continuous. For black & white, rotary processing uses an adjustable 0-35% reduction (15% default; 15-35% may be needed depending on film/developer, and pre-wetting or a diffusion enlarger can need less). E-6 first-developer times switch between the published manual and rotary values; C-41 uses the kit time
 - **Push/Pull Processing**: +3 push and -2 pull stops. B&W falls back to the documented Massive Dev Chart guideline when no EI row exists; colour push/pull is offered only where the kit publishes a time (no estimated values)
-- **Dilution Calculator**: Optimal developer-to-water ratios with precise measurements
+- **Published Dilution Data**: each developer's published dilution is listed in its info panel; pick the matching one in the selector
 - **Type-Safe Calculations**: Rust-powered calculation engine for guaranteed accuracy
 
 ### ⏱️ **Professional Timer**
@@ -130,8 +130,8 @@ See [RELEASE_NOTES.md](RELEASE_NOTES.md) for the full changelog.
 2. **Choose your developer** (filtered based on film compatibility)
 3. **Set your temperature** (B&W: 15-30°C with automatic compensation; colour kits are locked to their standard temperature — Tetenal 38°C, Unicolor 38.9°C, CineStill 39°C — with an opt-in temperature table only where the kit instructions publish one)
 4. **Adjust push/pull** if needed (+3 push to -2 pull; unsupported colour combinations are marked “not published”)
-5. **Set the working-solution volume** (100-2000ml; the amount for your tank, not the kit batch) and **agitation method** (intermittent or rotary; adjust the rotary % if needed)
-6. **Calculate** and get precise development time and dilution
+5. **Choose the agitation method** (intermittent or rotary; adjust the rotary % if needed)
+6. **Calculate** and get the development time
 7. **Start the timer** and develop with confidence!
 8. **Export results** for your records
 

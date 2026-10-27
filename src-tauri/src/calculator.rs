@@ -56,8 +56,6 @@ pub enum CalculationError {
     InvalidPushPull(i32),
     #[error("No published push/pull time for {film} in {developer} at {push_pull} stops")]
     PushPullNotPublished { film: String, developer: String, push_pull: i32 },
-    #[error("Invalid volume: {0}ml (must be between 100-2000ml)")]
-    InvalidVolume(u32),
     #[error("Database not loaded")]
     DatabaseNotLoaded,
 }
@@ -114,14 +112,6 @@ impl CalculationEngine {
         };
         let adjusted_time = base_time * temp_compensation;
         
-        // Calculate dilution
-        let dilution_str = dev_data.dilution.clone().unwrap_or_else(|| "stock".to_string());
-        let (dilution_string, developer_amount, water_amount) = self.calculate_dilution(
-            &dilution_str,
-            request.volume,
-            &film.film_type,
-        )?;
-        
         // Format time
         let time_formatted = self.format_time(adjusted_time);
         
@@ -131,9 +121,6 @@ impl CalculationEngine {
         Ok(CalculationResult {
             time_minutes: adjusted_time,
             time_formatted,
-            dilution: dilution_string,
-            developer_amount,
-            water_amount,
             temperature: request.temperature,
             push_pull: request.push_pull,
             film_type: film.film_type.clone(),
@@ -155,10 +142,6 @@ impl CalculationEngine {
         
         if request.push_pull < -2 || request.push_pull > 3 {
             return Err(CalculationError::InvalidPushPull(request.push_pull));
-        }
-        
-        if request.volume < 100 || request.volume > 2000 {
-            return Err(CalculationError::InvalidVolume(request.volume));
         }
         
         Ok(())
@@ -322,37 +305,6 @@ impl CalculationEngine {
         }
     }
 
-    fn calculate_dilution(&self, dilution_str: &str, volume: u32, film_type: &FilmType) -> Result<(String, u32, u32), CalculationError> {
-        match film_type {
-            FilmType::BlackWhite => {
-                if dilution_str == "stock" || dilution_str == "1:0" {
-                    Ok(("Stock".to_string(), volume, 0))
-                } else {
-                    let ratio = self.parse_dilution(dilution_str)?;
-                    let total_parts = ratio.developer + ratio.water;
-                    let developer_amount = ((volume as f64 * ratio.developer as f64) / total_parts as f64).round() as u32;
-                    let water_amount = volume - developer_amount;
-                    Ok((dilution_str.to_string(), developer_amount, water_amount))
-                }
-            },
-            FilmType::ColorNegative | FilmType::Slide => {
-                Ok(("Ready to use".to_string(), volume, 0))
-            },
-        }
-    }
-
-    fn parse_dilution(&self, dilution_str: &str) -> Result<DilutionRatio, CalculationError> {
-        let parts: Vec<&str> = dilution_str.split(':').collect();
-        if parts.len() != 2 {
-            return Ok(DilutionRatio { developer: 1, water: 0 }); // Default to stock
-        }
-        
-        let developer = parts[0].parse::<u32>().unwrap_or(1);
-        let water = parts[1].parse::<u32>().unwrap_or(0);
-        
-        Ok(DilutionRatio { developer, water })
-    }
-
     fn format_time(&self, time_minutes: Decimal) -> String {
         let total_seconds = (time_minutes * Decimal::from(60)).round();
         let minutes = total_seconds / Decimal::from(60);
@@ -459,20 +411,6 @@ mod tests {
         );
     }
 
-    #[test]
-    fn dilution_amounts_round_to_nearest_ml() {
-        let engine = CalculationEngine::new();
-
-        let (label, dev, water) = engine.calculate_dilution("1:31", 500, &FilmType::BlackWhite).unwrap();
-        assert_eq!((label.as_str(), dev, water), ("1:31", 16, 484));
-
-        let (_, dev, water) = engine.calculate_dilution("1:50", 500, &FilmType::BlackWhite).unwrap();
-        assert_eq!((dev, water), (10, 490));
-
-        let (_, dev, water) = engine.calculate_dilution("1:25", 500, &FilmType::BlackWhite).unwrap();
-        assert_eq!((dev, water), (19, 481));
-    }
-
     fn color_combo() -> DeveloperData {
         let mut data = DeveloperData::default();
         data.developer_time_minutes = Some(Decimal::new(325, 2)); // 3.25
@@ -551,14 +489,12 @@ mod tests {
                 developer_key: dev.to_string(),
                 temperature: Decimal::from(temp),
                 push_pull,
-                volume: 500,
             })
         };
 
         // Tri-X 400 / D-76 stock, box speed, 20C => 6.75 min, stock
         let r = calc("kodak_tri_x_400", "kodak_d76_stock", 20, 0).unwrap();
         assert_eq!(r.time_minutes, Decimal::new(675, 2));
-        assert_eq!(r.dilution, "Stock");
 
         // 24C applies the D-76 factor 0.69 (interpolated/table) => 6.75 * 0.69
         let r24 = calc("kodak_tri_x_400", "kodak_d76_stock", 24, 0).unwrap();
@@ -571,7 +507,6 @@ mod tests {
         // C-41 Portra 400 / Kodak Flexicolor, +2 stops => 4.25 min ready-to-use
         let rc = calc("kodak_portra_400", "kodak_flexicolor_c41", 38, 2).unwrap();
         assert_eq!(rc.time_minutes, Decimal::new(425, 2));
-        assert_eq!(rc.dilution, "Ready to use");
 
         // E-6 Velvia 50, +1 stop => 8 min
         let re = calc("fuji_velvia_50", "kodak_e6_kit", 38, 1).unwrap();

@@ -55,19 +55,12 @@
                         </div>
                     </div>
 
-                    <div class="input-row">
-                        <div class="input-group">
-                            <label for="volume">Working Solution Volume (ml)</label>
-                            <input type="number" id="volume" value="500" min="100" max="2000" step="50" title="Volume of mixed working solution needed for your tank — not the kit's total batch size">
-                        </div>
-
-                        <div class="input-group">
-                            <label for="agitation-method">Agitation Method</label>
-                            <select id="agitation-method">
-                                <option value="inversion">Intermittent (inversion)</option>
-                                <option value="rotary">Rotary (continuous)</option>
-                            </select>
-                        </div>
+                    <div class="input-group">
+                        <label for="agitation-method">Agitation Method</label>
+                        <select id="agitation-method">
+                            <option value="inversion">Intermittent (inversion)</option>
+                            <option value="rotary">Rotary (continuous)</option>
+                        </select>
                     </div>
 
                     <div class="input-group" id="rotary-compensation-group" style="display: none;">
@@ -109,15 +102,6 @@
                     <h3>⏱️ Development Time</h3>
                     <div class="result-value" id="dev-time">--:--</div>
                     <div class="result-note" id="time-note">Select film and developer</div>
-                </div>
-
-                <div class="result-card" id="dilution-result">
-                    <h3 id="dilution-title">Dilution Ratio</h3>
-                    <div class="result-value" id="dilution">1:--</div>
-                    <div class="result-breakdown" id="dilution-breakdown">
-                        <span id="developer-amount">-- ml developer</span>
-                        <span id="water-amount">-- ml water</span>
-                    </div>
                 </div>
 
                 <div class="result-card" id="temp-result">
