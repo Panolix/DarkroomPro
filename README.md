@@ -1,6 +1,6 @@
 # 🧪 DarkroomPro
 
-A professional desktop application for calculating **precise film development parameters** with scientifically accurate timing, temperature compensation, and dilution ratios for over 428 film/developer combinations.
+A professional desktop application for calculating **precise film development parameters** with scientifically accurate timing, temperature compensation, and dilution ratios for 433 film/developer combinations.
 
 ![Platform Support](https://img.shields.io/badge/Platform-macOS%20%7C%20Windows%20%7C%20Linux-blue)
 ![License](https://img.shields.io/badge/License-CC_BY--NC--SA_4.0-blue)
@@ -10,15 +10,15 @@ A professional desktop application for calculating **precise film development pa
 
 ![DarkroomPro Application Screenshot](Readme-Images/darkroompro-screenshot.png)
 
-*DarkroomPro's intuitive interface showing film selection, developer options, temperature compensation, and built-in development timer.*
+*DarkroomPro's intuitive interface showing film selection, developer options, temperature compensation, and built-in development timer. (Screenshot from an earlier release; the current build also includes the multi-step process timer and darkroom mode.)*
 
 ## 🎯 **Key Features**
 
-- **46 Film Stocks** - Comprehensive database of B&W, color negative, and slide films
-- **18+ Developers** - Popular developers with precise dilution ratios  
-- **428 Combinations** - Tested film/developer pairings with accurate data
+- **47 Film Stocks** - Comprehensive database of B&W, color negative, and slide films
+- **18 Developers** - Popular developers with precise dilution ratios  
+- **433 Combinations** - Tested film/developer pairings with accurate data
 - **Temperature Compensation** - Per-developer curves sourced from manufacturer charts (15-30°C)
-- **Push/Pull Processing** - Accurate calculations for ±3 stops
+- **Push/Pull Processing** - Accurate calculations for +3 push and -2 pull stops
 - **Multi-Step Timer** - Auto, Buffer and Manual step transitions with a customizable step editor
 - **Agitation Reminders** - Chimes and prompts for the published agitation schedule
 - **Darkroom Mode** - Safelight theme, focus display, agitation chimes and screen wake-lock in one toggle
@@ -29,14 +29,14 @@ A professional desktop application for calculating **precise film development pa
 ## ✨ Features
 
 ### 📊 **Comprehensive Database**
-- **46 Film Stocks**: Complete database of B&W, color negative, and slide films
-- **18+ Developers**: Popular developers with precise dilution ratios
-- **428 Combinations**: Tested film/developer pairings with accurate data
+- **47 Film Stocks**: Complete database of B&W, color negative, and slide films
+- **18 Developers**: Popular developers with precise dilution ratios
+- **433 Combinations**: Tested film/developer pairings with accurate data
 - **Manufacturer Grouping**: Films organized by brand for easy selection
 
 ### 🧮 **Advanced Calculations**
-- **Temperature Compensation**: Per-developer curves for all B&W developers, derived from Kodak and Ilford temperature charts, with a sourced global fallback
-- **Push/Pull Processing**: Accurate calculations for ±3 stops exposure compensation
+- **Temperature Compensation**: Per-developer curves for B&W developers from Kodak and Ilford charts, with a standard conversion fallback where no manufacturer chart exists; colour kits use their published time/temperature tables
+- **Push/Pull Processing**: Accurate calculations for +3 push and -2 pull stops of exposure compensation
 - **Dilution Calculator**: Optimal developer-to-water ratios with precise measurements
 - **Type-Safe Calculations**: Rust-powered calculation engine for guaranteed accuracy
 
@@ -51,11 +51,11 @@ A professional desktop application for calculating **precise film development pa
 ### 📤 **Export & Sharing**
 - **Multiple Formats**: Export calculations as JSON, CSV, or PDF reports
 - **Timestamped Reports**: Professional calculation summaries
-- **Database Export**: Complete film/developer database summaries
+- **Consistent Filenames**: Exports are saved as `darkroom-calculation-<timestamp>.<format>`
 
 ### 🖥️ **Cross-Platform**
 - **Desktop Apps**: Native installers for Windows, macOS, and Linux
-- **Web Version**: Browser-based version for any platform
+- **Web Build**: Optional browser build (served from `dist/`) for desktop-free use
 - **Responsive Design**: Optimized for desktop and tablet use
 
 ## 🏗️ Architecture
@@ -79,27 +79,29 @@ A professional desktop application for calculating **precise film development pa
 
 > **Note:** Release builds are unsigned. On macOS, right-click the app and choose **Open** the first time you launch it; on Windows, SmartScreen may ask you to confirm.
 
+> Filenames below show the current 1.2.3 release; if a newer version is out, grab the matching file from [Releases](../../releases).
+
 #### **macOS**
-1. Download `DarkroomPro_1.2.0_universal.dmg` from [Releases](../../releases)
+1. Download `DarkroomPro_1.2.3_universal.dmg` from [Releases](../../releases)
 2. Open the DMG file
 3. Drag DarkroomPro to Applications folder
 4. Launch from Applications or Launchpad
 
 #### **Windows**
-1. Download `DarkroomPro_1.2.0_x64_en-US.msi` from [Releases](../../releases)
+1. Download `DarkroomPro_1.2.3_x64_en-US.msi` from [Releases](../../releases)
 2. Run the installer
 3. Follow installation wizard
 4. Launch from Start Menu or Desktop
 
 #### **Linux**
-1. Download `DarkroomPro_1.2.0_amd64.deb` (Debian/Ubuntu), `DarkroomPro-1.2.0-1.x86_64.rpm` (RedHat/Fedora), or `DarkroomPro_1.2.0_amd64.AppImage` (portable)
+1. Download `DarkroomPro_1.2.3_amd64.deb` (Debian/Ubuntu), `DarkroomPro-1.2.3-1.x86_64.rpm` (RedHat/Fedora), or `DarkroomPro_1.2.3_amd64.AppImage` (portable)
 2. Install using your package manager:
    ```bash
    # Debian/Ubuntu
-   sudo dpkg -i DarkroomPro_1.2.0_amd64.deb
+   sudo dpkg -i DarkroomPro_1.2.3_amd64.deb
    
    # RedHat/Fedora
-   sudo rpm -i DarkroomPro-1.2.0-1.x86_64.rpm
+   sudo rpm -i DarkroomPro-1.2.3-1.x86_64.rpm
    ```
 3. Launch from applications menu
 
@@ -108,7 +110,7 @@ A professional desktop application for calculating **precise film development pa
 1. **Select your film stock** from the categorized dropdown
 2. **Choose your developer** (filtered based on film compatibility)
 3. **Set your temperature** (B&W: 15-30°C with automatic compensation; colour kits with a published time/temperature table — Tetenal, CineStill, Unicolor — can be run at lower temperatures, otherwise use the fixed kit temperature)
-4. **Adjust push/pull** if needed (±3 stops)
+4. **Adjust push/pull** if needed (+3 push to -2 pull)
 5. **Set solution volume** (100-2000ml)
 6. **Calculate** and get precise development time and dilution
 7. **Start the timer** and develop with confidence!
@@ -118,7 +120,7 @@ A professional desktop application for calculating **precise film development pa
 
 ### **Prerequisites**
 - **Node.js 18+** - JavaScript runtime
-- **Rust 1.70+** - For Tauri backend compilation
+- **Rust 1.77.2+** - For Tauri 2 backend compilation
 - **Platform-specific tools**:
   - **macOS**: Xcode Command Line Tools
   - **Windows**: Microsoft C++ Build Tools
@@ -141,10 +143,15 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 #### **Web Development**
 ```bash
-# Start web development server
-npm run web:dev
-# Opens at http://localhost:8000
+# Start the Vite dev server (serves the frontend with hot reload)
+npm run dev
+# Serves the frontend at http://localhost:1420
 ```
+
+> `npm run web:dev` starts a plain `python -m http.server 8000` over the raw
+> source files. The browser cannot resolve the bare `jspdf` import in
+> `rust-bridge.js`, so use `npm run dev` for development, or `npm run build`
+> and serve `dist/` for a browser build.
 
 #### **Desktop Development**
 ```bash
@@ -188,7 +195,7 @@ DarkroomPro/
 
 The application includes a comprehensive database of film stocks and developers:
 
-### **Film Stocks (46)**
+### **Film Stocks (47)**
 - **Black & White**: Kodak Tri-X, Ilford HP5+, Fujifilm Acros, etc.
 - **Color Negative**: Kodak Portra, Fujifilm Pro 400H, Cinestill 800T, etc.
 - **Slide Film**: Kodak Ektachrome, Fujifilm Velvia, Provia, etc.
