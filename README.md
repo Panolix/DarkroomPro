@@ -62,7 +62,7 @@ See [RELEASE_NOTES.md](RELEASE_NOTES.md) for the full changelog.
 - **Multi-Step Process Timer**: The developer step is timed from the calculation; add your own bleach, blix, fixer, stabilizer or rinse steps and enter their times from your kit instructions
 - **Transition Modes**: Auto-advance, Buffer (custom 1-60s prep window) or Manual start
 - **Agitation Reminders**: Cue chimes and on-screen prompts from each combination's published schedule
-- **Custom Agitation**: Override the schedule with your own initial agitation (30s by default), interval and duration (for example: 30s at the start, then 10s every 60s); a soft repeating tick plays during each agitation window
+- **Custom Agitation**: Override the schedule with your own initial agitation (30s by default), interval and duration (for example: 30s at the start, then 10s every 60s); a clear repeating tick plays during each agitation window, with a distinct stop cue
 - **Batch Reuse Compensation**: Enter the number of rolls already developed in the batch; the app applies only documented rules - CineStill +2% per roll, Tetenal +15s per 4 rolls at 38°C (60s at 30°C), Bellini +15s per 3 rolls. One-shot developers show no roll-count compensation
 - **Step Editor**: Add, reorder, remove or retime steps per film/developer; times are saved automatically
 - **Darkroom Mode**: One toggle for the red safelight theme, wake-lock and fullscreen options. The fullscreen focus display opens when you start the timer (Auto Fullscreen on) or press <kbd>F</kbd> at any time

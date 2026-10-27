@@ -1,6 +1,6 @@
 # DarkroomPro v1.3.2
 
-**Kit mixing, capacity and agitation chime fixes**
+**Kit mixing, dilution cleanup and timer fixes**
 
 ## Changes
 

@@ -85,7 +85,7 @@ jobs:
           releaseBody: |
             ## DarkroomPro ${{ github.ref_name }}
 
-            **Kit mixing, capacity and agitation chime fixes**
+            **Kit mixing, dilution cleanup and timer fixes**
 
             ### Changes
             - **Colour kit mixing is explicit:** every colour kit shows its actual mixing and capacity. Bellini C41-RA is 500 ml concentrate + 500 ml water = 1 L (16 rolls).
