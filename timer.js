@@ -36,6 +36,7 @@ class DevelopmentTimer {
         this.cues = [];
         this.firedCues = new Set();
         this.activeCue = null;
+        this.flashInterval = null;
         this.focusVisible = false;
         this.sleepBlocked = false;
         this.audioContext = null;
@@ -422,10 +423,17 @@ class DevelopmentTimer {
         return step.agitation || (this.context && this.context.presetAgitation) || null;
     }
 
-    prepareCues() {
-        this.stopAgitationChime();
-        this.firedCues = new Set();
+    clearAgitationVisuals() {
         this.activeCue = null;
+        this.stopAgitationChime();
+        if (this.timerCardElement) {
+            this.timerCardElement.classList.remove('agitating');
+        }
+    }
+
+    prepareCues() {
+        this.clearAgitationVisuals();
+        this.firedCues = new Set();
         const step = this.steps[this.currentIndex];
         const agitation = this.effectiveAgitation(step);
         this.cues = (window.processSteps && step && agitation && step.time_minutes != null)
@@ -435,8 +443,7 @@ class DevelopmentTimer {
 
     updateCueState() {
         if (this.state !== 'running' || this.cues.length === 0) {
-            this.activeCue = null;
-            this.stopAgitationChime();
+            this.clearAgitationVisuals();
             return;
         }
 
@@ -490,6 +497,7 @@ class DevelopmentTimer {
         }
 
         this.stopTicking();
+        this.stopFlash();
         this.state = 'idle';
         this.currentIndex = 0;
         this.remaining = this.stepDuration(0);
@@ -558,6 +566,7 @@ class DevelopmentTimer {
             this.state = 'idle';
             this.pendingResume = true;
             this.updateButtons();
+            this.updateDisplay();
             this.playSound('pause');
         } else if (this.state === 'buffering') {
             this.remaining = Math.max(0, Math.ceil((this.deadline - Date.now()) / 1000));
@@ -565,6 +574,7 @@ class DevelopmentTimer {
             this.state = 'idle';
             this.pendingResume = 'buffer';
             this.updateButtons();
+            this.updateDisplay();
             this.playSound('pause');
         } else if (this.pendingResume) {
             if (this.pendingResume === 'buffer') {
@@ -578,6 +588,7 @@ class DevelopmentTimer {
 
     reset() {
         this.stopTicking();
+        this.stopFlash();
         this.clearAutoPrompt();
         this.state = 'idle';
         this.currentIndex = 0;
@@ -623,6 +634,7 @@ class DevelopmentTimer {
 
     beginStep(resume = false) {
         this.pendingResume = false;
+        this.stopFlash();
         this.state = 'running';
         if (!resume) this.prepareCues();
         this.remaining = this.remaining > 0 ? this.remaining : this.stepDuration(this.currentIndex);
@@ -647,7 +659,7 @@ class DevelopmentTimer {
             clearInterval(this.interval);
             this.interval = null;
         }
-        this.stopAgitationChime();
+        this.clearAgitationVisuals();
     }
 
     tick() {
@@ -987,16 +999,26 @@ class DevelopmentTimer {
     }
 
     flashTimer() {
+        this.stopFlash();
         let flashes = 0;
-        const flashInterval = setInterval(() => {
+        this.flashInterval = setInterval(() => {
             this.displayElement.style.opacity = this.displayElement.style.opacity === '0.3' ? '1' : '0.3';
             flashes++;
 
             if (flashes >= 6) {
-                clearInterval(flashInterval);
-                this.displayElement.style.opacity = '1';
+                this.stopFlash();
             }
         }, 200);
+    }
+
+    stopFlash() {
+        if (this.flashInterval) {
+            clearInterval(this.flashInterval);
+            this.flashInterval = null;
+        }
+        if (this.displayElement) {
+            this.displayElement.style.opacity = '1';
+        }
     }
 
     // --- Custom editor ---
@@ -1191,7 +1213,7 @@ class DevelopmentTimer {
             warning: 1000,
             step: 950,
             lowstep: 700,
-            agitationEnd: 560,
+            agitationEnd: 700,
             complete: 1200
         };
 
@@ -1200,8 +1222,8 @@ class DevelopmentTimer {
         this.stopAgitationChime();
         this.cancelScheduledSounds();
 
-        const gain = type === 'agitationEnd' ? 0.06 : 0.09;
-        if (!this.beep(frequencies[type] || 800, gain, type === 'agitationEnd' ? 0.16 : 0.18)) {
+        const gain = type === 'agitationEnd' ? 0.11 : 0.09;
+        if (!this.beep(frequencies[type] || 800, gain, type === 'agitationEnd' ? 0.2 : 0.18)) {
             console.log(`Timer ${type} sound`);
             return;
         }
@@ -1210,7 +1232,7 @@ class DevelopmentTimer {
         if (type === 'step') {
             this.scheduleBeep(frequencies.lowstep, 220);
         } else if (type === 'agitationEnd') {
-            this.scheduleBeep(420, 180, 0.055, 0.16);
+            this.scheduleBeep(520, 180, 0.09, 0.18);
         } else if (type === 'complete') {
             this.scheduleBeep(frequencies.warning, 300);
             this.scheduleBeep(frequencies.warning, 600);
@@ -1256,23 +1278,24 @@ class DevelopmentTimer {
         }
     }
 
-    // A soft, repeating tick for the duration of an agitation window. It is
-    // deliberately quiet and slower than the visual countdown so it draws
-    // attention without becoming a metronome.
+    // A repeating tick for the duration of an agitation window. It needs to be
+    // clearly audible over a running tap or exhaust fan, so it is louder and
+    // more frequent than the old soft tick, but still short enough not to
+    // become a metronome.
     startAgitationChime(durationSeconds) {
         this.stopAgitationChime();
         if (!(durationSeconds > 0)) return;
 
         const seq = this.agitationSeq;
         const durationMs = durationSeconds * 1000;
-        const interval = 1500;
-        const firstDelay = Date.now() - this.lastSoundAt < 700 ? 1200 : 700;
+        const interval = 900;
+        const firstDelay = Date.now() - this.lastSoundAt < 500 ? 700 : 300;
         let elapsed = 0;
 
         const scheduleNext = (delay) => {
             this.agitationTimer = setTimeout(() => {
                 if (seq !== this.agitationSeq) return;
-                this.beep(880, 0.028, 0.06);
+                this.beep(1000, 0.12, 0.09);
                 elapsed += delay;
                 if (elapsed + interval <= durationMs) {
                     scheduleNext(interval);
