@@ -20,7 +20,7 @@ A professional desktop application for calculating **precise film development pa
 
 - **Dilution ratio and volume input removed**: the ratio is printed on the developer bottle and named in the developer selector, so the app no longer repeats it or asks for a tank volume. Tank volume does not change development time, so there is nothing to calculate.
 - **Kit mixing and capacities**: every colour kit now shows its actual kit mixing and capacity, including Bellini C41-RA (500 ml concentrate + 500 ml water = 1 L, 16 rolls) and Kodak Flexicolor (2.5 L, 20 rolls one-shot).
-- **Better agitation chimes**: ticks now repeat every ~0.9s at a clearly audible level, with a distinct two-tone stop cue when the agitation window ends. The scheduler ensures only one sequence plays at a time.
+- **Better agitation chimes**: ticks now repeat every ~1.1s at a clearly audible level, with a distinct two-tone stop cue when the agitation window ends. The scheduler ensures only one sequence plays at a time.
 - **Timer cleanup fix**: pausing or resetting now immediately clears the pulsing orange agitation dot, the “Agitate now” text, and the completion flash instead of leaving them running.
 - **Kodak E-6 +2 push corrected** to 11:30 rotary / 11:45 manual (+5:30 per Kodak Z-119).
 - Includes 1.3.1’s adjustable B&W rotary compensation and E-6 method-specific timing.

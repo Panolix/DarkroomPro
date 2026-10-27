@@ -1288,14 +1288,14 @@ class DevelopmentTimer {
 
         const seq = this.agitationSeq;
         const durationMs = durationSeconds * 1000;
-        const interval = 900;
-        const firstDelay = Date.now() - this.lastSoundAt < 500 ? 700 : 300;
+        const interval = 1100;
+        const firstDelay = Date.now() - this.lastSoundAt < 500 ? 800 : 300;
         let elapsed = 0;
 
         const scheduleNext = (delay) => {
             this.agitationTimer = setTimeout(() => {
                 if (seq !== this.agitationSeq) return;
-                this.beep(1000, 0.12, 0.09);
+                this.beep(850, 0.12, 0.09);
                 elapsed += delay;
                 if (elapsed + interval <= durationMs) {
                     scheduleNext(interval);

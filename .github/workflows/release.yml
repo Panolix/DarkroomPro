@@ -91,7 +91,7 @@ jobs:
             - **Colour kit mixing is explicit:** every colour kit shows its actual mixing and capacity. Bellini C41-RA is 500 ml concentrate + 500 ml water = 1 L (16 rolls).
             - **Dilution ratio and volume input removed:** the ratio is on the developer bottle and in the selector, and tank volume does not change development time. The result card, mix line and volume field are gone.
             - **Capacity corrections:** Kodak Flexicolor 20 rolls per 2.5 L (about 8/L one-shot), Bellini 16 per 1 L, Tetenal C-41 16/L (40 per 2.5 L), CineStill 24 max (8 rated), Unicolor 8/L, Kodak E-6 20 per 5 L (up to 50 extended), Tetenal E-6 30 per 2.5 L, Unicolor E-6 8/L.
-            - **Agitation chimes:** repeating tick every ~0.9s at a clearly audible level, with a distinct two-tone stop cue when the window ends. One sound sequence at a time; contiguous windows do not overlap.
+            - **Agitation chimes:** repeating tick every ~1.1s at a lower, clearly audible pitch, with a distinct two-tone stop cue when the window ends. One sound sequence at a time; contiguous windows do not overlap.
             - **Timer cleanup:** pause/reset clears the pulsing orange dot, "Agitate now" text and completion flash immediately.
             - **Kodak E-6 +2 push corrected** to 11:30 rotary / 11:45 manual (+5:30 per Z-119).
             - Includes 1.3.1's adjustable B&W rotary compensation and E-6 method-specific timing.
@@ -99,7 +99,7 @@ jobs:
             ### Verification
             - `cargo test`: 17 tests passing.
             - `npm run test:steps`: passing.
-            - Browser checks: Bellini kit mixing/capacity; ~0.9s chime ticks at gain 0.12; stop cue; pause/reset clears dot/text/flash; E-6 +2 push values.
+            - Browser checks: Bellini kit mixing/capacity; ~1.1s chime ticks at gain 0.12; stop cue; pause/reset clears dot/text/flash; E-6 +2 push values.
 
             See [RELEASE_NOTES.md](https://github.com/Panolix/DarkroomPro/blob/main/RELEASE_NOTES.md) for the full list.
 

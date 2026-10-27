@@ -7,7 +7,7 @@
 - **Colour kit mixing is now explicit.** Every colour kit shows its actual mixing instructions and kit capacity. Bellini C41-RA now reads **500 ml concentrate + 500 ml water = 1 L, 16 rolls**.
 - **Dilution ratio and volume input removed.** The ratio is printed on the developer bottle and named in the developer selector, and tank volume does not affect development time. The result card, mix line and “Working Solution Volume” field are gone.
 - **Capacity corrections:** Kodak Flexicolor is listed at 20 rolls per 2.5 L kit (about 8 rolls/L one-shot), Bellini at 16 rolls per 1 L kit, Tetenal C-41 at 16 rolls/L (40 rolls per 2.5 L), CineStill at 24 max (8 rated), Unicolor at 8 rolls/L, Kodak E-6 at 20 rolls per 5 L batch (up to 50 with extended times), Tetenal E-6 at 30 rolls per 2.5 L, Unicolor E-6 at 8 rolls/L.
-- **Agitation chimes:** the repeating tick is now every ~0.9s, louder (1000 Hz, gain 0.12) and 90 ms long, so it is audible over a tap or fan. A distinct two-tone stop cue plays when the window ends. Only one sound sequence plays at a time; contiguous windows do not trigger an overlapping stop/start pair.
+- **Agitation chimes:** the repeating tick now runs every ~1.1s at a lower, clearly audible pitch, so it is present over a tap or fan without being shrill. A distinct two-tone stop cue plays when the window ends. Only one sound sequence plays at a time; contiguous windows do not trigger an overlapping stop/start pair.
 - **Timer cleanup:** pausing or resetting clears the pulsing orange dot, the “Agitate now” text and the completion flash immediately.
 - **Kodak E-6 +2 push corrected** to 11:30 rotary / 11:45 manual, following the +5:30 correction in Kodak Z-119.
 - Includes 1.3.1’s adjustable B&W rotary compensation and E-6 method-specific first-developer timing.
@@ -16,7 +16,7 @@
 
 - `cargo test`: 17 tests passing, including colour-kit mixing metadata.
 - `npm run test:steps`: passing.
-- Browser checks: no dilution card, volume field or mix line; Bellini kit mixing/capacity shown in developer info; 6 chime ticks in a 5s window at 900 ms spacing and gain 0.12; stop cue plays at 700/520 Hz; pause/reset clears the dot, text and flash; Kodak E-6 +2 push is 11:30 rotary / 11:45 manual.
+- Browser checks: no dilution card, volume field or mix line; Bellini kit mixing/capacity shown in developer info; 5 chime ticks in a 5s window at 1100 ms spacing and gain 0.12; stop cue plays at 700/520 Hz; pause/reset clears the dot, text and flash; Kodak E-6 +2 push is 11:30 rotary / 11:45 manual.
 
 ## Downloads
 
