@@ -48,6 +48,14 @@ class DevelopmentCalculator {
             this.agitationMethodSelect.value = this.rotary ? 'rotary' : 'inversion';
         }
         try {
+            const storedCompensation = parseInt(localStorage.getItem('darkroompro.process.rotaryCompensation') || '15', 10);
+            this.rotaryCompensation = Number.isFinite(storedCompensation)
+                ? Math.min(35, Math.max(0, storedCompensation))
+                : 15;
+        } catch (error) {
+            this.rotaryCompensation = 15;
+        }
+        try {
             this.rollsByDeveloper = JSON.parse(localStorage.getItem('darkroompro.rollsByDeveloper') || '{}');
         } catch (error) {
             this.rollsByDeveloper = {};
@@ -131,6 +139,8 @@ class DevelopmentCalculator {
         this.agitationMethodSelect = document.getElementById('agitation-method');
         this.kitTempToggle = document.getElementById('kit-temp-toggle');
         this.processNote = document.getElementById('process-note');
+        this.rotaryCompensationGroup = document.getElementById('rotary-compensation-group');
+        this.rotaryCompensationInput = document.getElementById('rotary-compensation');
         this.rollsInput = document.getElementById('rolls-developed');
         this.rollsReset = document.getElementById('rolls-reset');
         this.batchCapacity = document.getElementById('batch-capacity');
@@ -164,6 +174,7 @@ class DevelopmentCalculator {
             this.updateRollsUI();
         });
         this.agitationMethodSelect.addEventListener('change', () => this.setAgitationMethod(this.agitationMethodSelect.value));
+        this.rotaryCompensationInput.addEventListener('change', () => this.setRotaryCompensation(this.rotaryCompensationInput.value));
         this.kitTempToggle.addEventListener('click', () => this.toggleKitTempOverride());
         this.rollsInput.addEventListener('change', () => this.setRollsDeveloped(this.rollsInput.value));
         this.rollsReset.addEventListener('click', () => this.setRollsDeveloped(0));
@@ -343,6 +354,7 @@ class DevelopmentCalculator {
         this.applyStandardTemperature();
         this.updateDeveloperInfo();
         this.updatePushPullOptions();
+        this.updateRotaryCompensationUI();
     }
     
     getTypeDisplayName(type) {
@@ -381,7 +393,9 @@ class DevelopmentCalculator {
                     return null;
                 }
                 const combo = film && film.developers ? film.developers[devKey] : null;
-                const dilution = combo && combo.dilution ? ` (${combo.dilution})` : '';
+                const dilution = combo && combo.dilution
+                    ? ` (${combo.dilution === 'stock' ? 'Stock' : combo.dilution})`
+                    : '';
                 return { devKey, label: `${developer.name}${dilution}` };
             })
             .filter(Boolean)
@@ -425,12 +439,16 @@ class DevelopmentCalculator {
 
         const dilutionList = developer.dilutions
             ? Object.values(developer.dilutions)
-                .map(d => (typeof d === 'string' ? d : d.ratio))
+                .map(d => {
+                    const ratio = typeof d === 'string' ? d : d.ratio;
+                    return ratio === '1:0' ? 'Stock' : ratio;
+                })
                 .filter(Boolean)
                 // The Rust backend returns dilutions in hash order; sort by ratio
                 // so stock/1:1/1:3... always read in a sensible order.
                 .sort((a, b) => {
                     const ratioValue = ratio => {
+                        if (ratio === 'Stock') return 0;
                         const match = String(ratio).match(/[:+](\d+(?:\.\d+)?)/);
                         return match ? parseFloat(match[1]) : Number.MAX_SAFE_INTEGER;
                     };
@@ -566,9 +584,35 @@ class DevelopmentCalculator {
         } catch (error) {
             // persistence is optional
         }
+        this.updateRotaryCompensationUI();
         this.updateProcessNote();
         if (this.filmSelect.value && this.developerSelect.value) {
             this.calculate();
+        }
+    }
+
+    setRotaryCompensation(value) {
+        const parsed = parseInt(value, 10);
+        this.rotaryCompensation = Number.isFinite(parsed) ? Math.min(35, Math.max(0, parsed)) : 15;
+        try {
+            localStorage.setItem('darkroompro.process.rotaryCompensation', String(this.rotaryCompensation));
+        } catch (error) {
+            // persistence is optional
+        }
+        this.updateRotaryCompensationUI();
+        this.updateProcessNote();
+        if (this.filmSelect.value && this.developerSelect.value) {
+            this.calculate();
+        }
+    }
+
+    updateRotaryCompensationUI() {
+        if (!this.rotaryCompensationGroup) return;
+        const film = filmDatabase[this.filmSelect.value];
+        const show = this.rotary && !!film && film.type === 'black_white';
+        this.rotaryCompensationGroup.style.display = show ? 'block' : 'none';
+        if (this.rotaryCompensationInput) {
+            this.rotaryCompensationInput.value = this.rotaryCompensation;
         }
     }
 
@@ -609,15 +653,44 @@ class DevelopmentCalculator {
         }
     }
 
-    updateProcessNote() {        if (!this.processNote) return;
+    getAgitationAdjustment(film, developer) {
+        if (!film || film.type !== 'slide' || !developer || !developer.agitation_adjustment) return null;
+        const adjustment = developer.agitation_adjustment;
+        const seconds = this.rotary ? adjustment.rotary_seconds : adjustment.inversion_seconds;
+        if (seconds == null || seconds === 0) return null;
+        const label = seconds > 0 ? `+${seconds}s` : `−${Math.abs(seconds)}s`;
+        return {
+            seconds,
+            label: `${this.rotary ? 'rotary' : 'manual'} ${label}`
+        };
+    }
+
+    applyAgitationAdjustment(minutes, film, developer) {
+        const adjustment = this.getAgitationAdjustment(film, developer);
+        if (!adjustment) return { time: minutes, comp: null };
+        return {
+            time: Math.max(0.1, minutes + adjustment.seconds / 60),
+            comp: adjustment
+        };
+    }
+
+    updateProcessNote() {
+        if (!this.processNote) return;
 
         const film = filmDatabase[this.filmSelect.value];
+        const developer = resolveDeveloper(this.developerSelect.value);
         const notes = [];
 
         if (film && film.type === 'black_white' && this.rotary) {
-            notes.push('Rotary/continuous agitation: −15% is applied to the developer time as a starting point (Ilford / Massive Dev Chart). Test your setup.');
+            notes.push(`Rotary/continuous agitation: −${this.rotaryCompensation}% is applied to the developer time. 15% is a starting point; 15–35% may be needed depending on film/developer, and pre-wetting or a diffusion enlarger can need less. Test your setup.`);
         } else if (film && film.type !== 'black_white' && this.rotary) {
-            notes.push('Colour processes already assume continuous agitation; no rotary time adjustment is applied.');
+            notes.push('Colour process times use the kit standard; rotary/manual differences are only applied where the kit publishes a method-specific time.');
+        }
+
+        if (film && film.type === 'slide' && developer && developer.agitation_adjustment) {
+            const adjustment = developer.agitation_adjustment;
+            const fmt = value => value > 0 ? `+${value}s` : value < 0 ? `−${Math.abs(value)}s` : '0s';
+            notes.push(`E-6 First Developer: manual ${fmt(adjustment.inversion_seconds || 0)}, rotary ${fmt(adjustment.rotary_seconds || 0)} (${adjustment.source}).`);
         }
 
         if (film && film.type !== 'black_white' && this.temperatureInput.disabled) {
@@ -837,14 +910,18 @@ class DevelopmentCalculator {
                     const developerForAdjust = resolveDeveloper(developerKey);
                     const roll = this.applyRollCompensation(rustResult.time, developerForAdjust, temperature);
                     let adjustedRustTime = roll.time;
+                    const agitation = this.applyAgitationAdjustment(adjustedRustTime, filmForType, developerForAdjust);
+                    adjustedRustTime = agitation.time;
                     const rotaryAdjusted = this.rotary && filmForType && filmForType.type === 'black_white';
                     if (rotaryAdjusted) {
-                        adjustedRustTime = Math.max(0.1, adjustedRustTime * 0.85);
+                        adjustedRustTime = Math.max(0.1, adjustedRustTime * (1 - this.rotaryCompensation / 100));
                     }
                     rustResult.time = adjustedRustTime;
                     rustResult.timeFormatted = this.formatMinutes(adjustedRustTime);
                     rustResult.rotary = this.rotary;
                     rustResult.rotaryAdjusted = rotaryAdjusted;
+                    rustResult.rotaryPercent = this.rotaryCompensation;
+                    rustResult.agitationAdjustment = agitation.comp ? agitation.comp.label : null;
                     rustResult.rollCompensation = roll.comp ? roll.comp.label : null;
                     rustResult.kitTemperature = this.getStandardTemperature();
                     this.updateResults(rustResult);
@@ -964,8 +1041,11 @@ class DevelopmentCalculator {
             : 1.0;
         const adjustedTime = baseTime * tempCompensation;
         const roll = this.applyRollCompensation(adjustedTime, developer, temperature);
+        const agitation = this.applyAgitationAdjustment(roll.time, film, developer);
         const rotaryAdjusted = this.rotary && film.type === 'black_white';
-        const finalTime = rotaryAdjusted ? roll.time * 0.85 : roll.time;
+        const finalTime = rotaryAdjusted
+            ? agitation.time * (1 - this.rotaryCompensation / 100)
+            : agitation.time;
         
         // Calculate dilution amounts - fix the data structure mismatch
         let dilutionString = baseData.dilution || baseData.dilution_ratio || 'stock';
@@ -1009,7 +1089,9 @@ class DevelopmentCalculator {
             kitTemperature: this.getStandardTemperature(),
             rotary: this.rotary,
             rotaryAdjusted: rotaryAdjusted,
-            rollCompensation: roll.comp ? roll.comp.label : null
+            rotaryPercent: this.rotaryCompensation,
+            rollCompensation: roll.comp ? roll.comp.label : null,
+            agitationAdjustment: agitation.comp ? agitation.comp.label : null
         });
         
         // Show timer section
@@ -1140,10 +1222,13 @@ class DevelopmentCalculator {
             adjustments.push(`${pushPullText} stops`);
         }
         if (results.rotaryAdjusted) {
-            adjustments.push('rotary −15%');
+            adjustments.push(`rotary −${results.rotaryPercent}%`);
         }
         if (results.rollCompensation) {
             adjustments.push(results.rollCompensation);
+        }
+        if (results.agitationAdjustment) {
+            adjustments.push(results.agitationAdjustment);
         }
         if (adjustments.length > 0) {
             timeNote += ` (${adjustments.join(', ')})`;

@@ -7792,7 +7792,15 @@
         "color_accuracy"
       ],
       "avoid_with": [],
-      "temperature_compensation_source": "Kodak Process E-6 (Z-119 / E-28) (temperature-critical; no time compensation)"
+      "temperature_compensation_source": "Kodak Process E-6 (Z-119 / E-28) (temperature-critical; no time compensation)",
+      "agitation_adjustment": {
+        "base": "rotary",
+        "inversion_seconds": 15,
+        "rotary_seconds": 0,
+        "source": "Kodak Z-119: First Developer 6:15 with manual reel agitation vs 6:00 in rotary tubes",
+        "verified_date": "2026-10-27",
+        "note": "Applies to the E-6 First Developer and its push/pull times."
+      }
     },
     "tetenal_e6_kit": {
       "name": "Tetenal E-6 Kit",
@@ -7824,6 +7832,14 @@
       "temperature_compensation": {
         "38": 1,
         "39": 1.12
+      },
+      "agitation_adjustment": {
+        "base": "inversion",
+        "inversion_seconds": 0,
+        "rotary_seconds": -15,
+        "source": "Tetenal Colortec E-6 instructions (6:15 manual); rotary 6:00 per Kodak Z-119 comparison",
+        "verified_date": "2026-10-27",
+        "note": "Applies to the E-6 First Developer and its push/pull times."
       }
     },
     "unicolor_e6_kit": {

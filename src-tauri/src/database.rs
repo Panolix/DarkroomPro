@@ -149,6 +149,25 @@ mod tests {
     }
 
     #[test]
+    fn e6_agitation_adjustments_are_documented() {
+        let database = load_bundled_database();
+
+        for key in ["kodak_e6_kit", "tetenal_e6_kit"] {
+            let developer = database.developers.get(key)
+                .unwrap_or_else(|| panic!("missing developer {}", key));
+            let adjustment = developer.agitation_adjustment.as_ref()
+                .unwrap_or_else(|| panic!("missing agitation adjustment for {}", key));
+            assert!(adjustment.get("inversion_seconds").is_some(), "{} missing inversion_seconds", key);
+            assert!(adjustment.get("rotary_seconds").is_some(), "{} missing rotary_seconds", key);
+            assert!(
+                adjustment.get("source").and_then(|v| v.as_str()).is_some_and(|s| !s.is_empty()),
+                "{} missing source",
+                key
+            );
+        }
+    }
+
+    #[test]
     fn chart_linked_rows_name_the_chart() {
         let database = load_bundled_database();
 

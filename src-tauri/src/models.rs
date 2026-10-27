@@ -69,6 +69,8 @@ pub struct Developer {
     /// manufacturer-published rule without duplicating the schema in Rust.
     #[serde(default)]
     pub roll_compensation: Option<serde_json::Value>,
+    #[serde(default)]
+    pub agitation_adjustment: Option<serde_json::Value>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]

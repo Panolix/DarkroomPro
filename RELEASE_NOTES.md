@@ -1,3 +1,33 @@
+# DarkroomPro v1.3.1
+
+**Adjustable rotary compensation and E-6 method-specific timing**
+
+This is a focused accuracy update on top of 1.3.0.
+
+## Changes
+
+- **Adjustable B&W rotary compensation**: the rotary setting now exposes a compensation field from 0–35%, defaulting to 15%. The 15% figure remains the manufacturer/Massive Dev Chart starting point; independent testing shows 15–35% depending on film and developer, and pre-wetting or a diffusion enlarger can need less. The timer note explains this.
+- **E-6 first-developer method switching**: Kodak Z-119 gives 6:15 for manual reels and 6:00 for rotary tubes. The app now applies that ±15s method difference (including push/pull times) for Kodak E-6 and Tetenal E-6. Unicolor E-6 remains at its published single time because no method-specific value is published.
+- **Stock labels**: developer info and dilution selectors now show “Stock” instead of “1:0”.
+- **Process notes**: explain the rotary percentage, E-6 method adjustment and colour method limitations.
+
+## Verification
+
+- `cargo test`: 17 tests passing, including E-6 agitation-adjustment metadata.
+- `npm run test:steps`: passing.
+- Checked in the browser: B&W rotary 15% → 4:53, 25% → 4:19; Kodak E-6 manual 6:15 / rotary 6:00; Tetenal E-6 manual 6:15 / rotary 6:00; D-76 labels now read “Stock, 1:1, 1:3”.
+- Build and asset workflow are unchanged from 1.3.0.
+
+## Downloads
+
+- **macOS**: `.dmg` (universal)
+- **Windows**: `.msi` installer
+- **Linux**: `.deb`, `.rpm` or `.AppImage`
+
+> Release builds are unsigned. On macOS, right-click the app and choose **Open** the first time; on Windows, SmartScreen may ask you to confirm.
+
+---
+
 # DarkroomPro v1.3.0
 
 **Agitation, rotary processing and batch reuse**

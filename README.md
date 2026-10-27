@@ -16,14 +16,12 @@ A professional desktop application for calculating **precise film development pa
 
 *Darkroom mode's fullscreen focus display, toggled with <kbd>F</kbd> or the Auto Fullscreen option.*
 
-## 🆕 What's new in 1.3.0
+## 🆕 What's new in 1.3.1
 
-- **Custom agitation schedules** with a soft repeating cue (no overlapping chimes).
-- **Rotary/continuous processing**: −15% B&W developer time, colour untouched, cues suppressed.
-- **Batch reuse compensation** for CineStill CS41, Tetenal C-41 and Bellini C41-RA, driven by each kit's published rule.
-- **C-41/E-6 temperature lock** to the kit standard, with an explicit opt-in for published kit tables.
-- **UI refresh**: rounded controls, clearer form sections, stronger contrast and stable button feedback.
-- **Darkroom mode** no longer opens fullscreen automatically.
+- **Adjustable B&W rotary compensation**: 0–35% (15% default), with guidance that 15–35% may be needed depending on film/developer and that pre-wetting or a diffusion enlarger can need less.
+- **E-6 method-specific first developer**: Kodak and Tetenal E-6 now apply the published manual/rotary difference (+15s manual, rotary time as published), including push/pull times.
+- **Clearer stock labels**: developer info and dilution selectors now say “Stock” instead of “1:0”.
+- Includes all 1.3.0 features: custom agitation, batch reuse compensation, colour temperature lock, UI refresh and darkroom-mode behaviour.
 
 See [RELEASE_NOTES.md](RELEASE_NOTES.md) for the full changelog.
 
@@ -34,7 +32,7 @@ See [RELEASE_NOTES.md](RELEASE_NOTES.md) for the full changelog.
 - **433 Combinations** - Sourced film/developer pairings with provenance
 - **Temperature Compensation** - Per-developer curves sourced from manufacturer charts (15-30°C)
 - **Push/Pull Processing** - +3 push and -2 pull stops where published; B&W uses the documented Massive Dev Chart guideline when a row is missing
-- **Agitation Method** - Intermittent or rotary/continuous; rotary applies the published ~15% B&W developer-time reduction (starting point)
+- **Agitation Method** - Intermittent or rotary/continuous; rotary uses an adjustable 0-35% B&W developer-time reduction (15% default, starting point)
 - **Multi-Step Timer** - Auto, Buffer and Manual step transitions with a customizable step editor
 - **Agitation Reminders** - Published schedules or your own interval/duration, with optional repeating chimes during each agitation window
 - **Batch Reuse Compensation** - Track rolls already developed through a batch; applies the kit's published compensation (CineStill, Tetenal, Bellini) where one exists
@@ -53,7 +51,7 @@ See [RELEASE_NOTES.md](RELEASE_NOTES.md) for the full changelog.
 
 ### 🧮 **Advanced Calculations**
 - **Temperature Compensation**: Per-developer curves for B&W developers from Kodak and Ilford charts, with a standard conversion fallback where no manufacturer chart exists. Colour kits are locked to the kit's standard temperature; kits that publish a temperature table can be unlocked explicitly
-- **Agitation Method**: Intermittent (inversion) or rotary/continuous. For black & white, rotary processing reduces the developer time by 15% as a starting point (Ilford / Massive Dev Chart); colour times are not agitation-compensated
+- **Agitation Method**: Intermittent (inversion) or rotary/continuous. For black & white, rotary processing uses an adjustable 0-35% reduction (15% default; 15-35% may be needed depending on film/developer, and pre-wetting or a diffusion enlarger can need less). E-6 first-developer times switch between the published manual and rotary values; C-41 uses the kit time
 - **Push/Pull Processing**: +3 push and -2 pull stops. B&W falls back to the documented Massive Dev Chart guideline when no EI row exists; colour push/pull is offered only where the kit publishes a time (no estimated values)
 - **Dilution Calculator**: Optimal developer-to-water ratios with precise measurements
 - **Type-Safe Calculations**: Rust-powered calculation engine for guaranteed accuracy
@@ -99,29 +97,29 @@ See [RELEASE_NOTES.md](RELEASE_NOTES.md) for the full changelog.
 
 > **Note:** Release builds are unsigned. On macOS, right-click the app and choose **Open** the first time you launch it; on Windows, SmartScreen may ask you to confirm.
 
-> Filenames below show the 1.3.0 release; if a newer version is out, grab the matching file from [Releases](../../releases).
+> Filenames below show the 1.3.1 release; if a newer version is out, grab the matching file from [Releases](../../releases).
 
 #### **macOS**
-1. Download `DarkroomPro_1.3.0_universal.dmg` from [Releases](../../releases)
+1. Download `DarkroomPro_1.3.1_universal.dmg` from [Releases](../../releases)
 2. Open the DMG file
 3. Drag DarkroomPro to Applications folder
 4. Launch from Applications or Launchpad
 
 #### **Windows**
-1. Download `DarkroomPro_1.3.0_x64_en-US.msi` from [Releases](../../releases)
+1. Download `DarkroomPro_1.3.1_x64_en-US.msi` from [Releases](../../releases)
 2. Run the installer
 3. Follow installation wizard
 4. Launch from Start Menu or Desktop
 
 #### **Linux**
-1. Download `DarkroomPro_1.3.0_amd64.deb` (Debian/Ubuntu), `DarkroomPro-1.3.0-1.x86_64.rpm` (RedHat/Fedora), or `DarkroomPro_1.3.0_amd64.AppImage` (portable)
+1. Download `DarkroomPro_1.3.1_amd64.deb` (Debian/Ubuntu), `DarkroomPro-1.3.1-1.x86_64.rpm` (RedHat/Fedora), or `DarkroomPro_1.3.1_amd64.AppImage` (portable)
 2. Install using your package manager:
    ```bash
    # Debian/Ubuntu
-   sudo dpkg -i DarkroomPro_1.3.0_amd64.deb
+   sudo dpkg -i DarkroomPro_1.3.1_amd64.deb
    
    # RedHat/Fedora
-   sudo rpm -i DarkroomPro-1.3.0-1.x86_64.rpm
+   sudo rpm -i DarkroomPro-1.3.1-1.x86_64.rpm
    ```
 3. Launch from applications menu
 
@@ -131,7 +129,7 @@ See [RELEASE_NOTES.md](RELEASE_NOTES.md) for the full changelog.
 2. **Choose your developer** (filtered based on film compatibility)
 3. **Set your temperature** (B&W: 15-30°C with automatic compensation; colour kits are locked to their standard temperature — Tetenal 38°C, Unicolor 38.9°C, CineStill 39°C — with an opt-in temperature table only where the kit instructions publish one)
 4. **Adjust push/pull** if needed (+3 push to -2 pull; unsupported colour combinations are marked “not published”)
-5. **Set solution volume** (100-2000ml) and **agitation method** (intermittent or rotary)
+5. **Set solution volume** (100-2000ml) and **agitation method** (intermittent or rotary; adjust the rotary % if needed)
 6. **Calculate** and get precise development time and dilution
 7. **Start the timer** and develop with confidence!
 8. **Export results** for your records

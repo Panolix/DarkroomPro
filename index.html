@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preload" href="/fonts/InterVariable.woff2" as="font" type="font/woff2" crossorigin>
-    <title>DarkroomPro v1.3.0 - Professional Film Development Calculator</title>
+    <title>DarkroomPro v1.3.1 - Professional Film Development Calculator</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -68,6 +68,11 @@
                                 <option value="rotary">Rotary (continuous)</option>
                             </select>
                         </div>
+                    </div>
+
+                    <div class="input-group" id="rotary-compensation-group" style="display: none;">
+                        <label for="rotary-compensation">Rotary compensation (%)</label>
+                        <input type="number" id="rotary-compensation" min="0" max="35" step="1" value="15" aria-label="Rotary compensation percentage">
                     </div>
 
                     <div class="input-row">
