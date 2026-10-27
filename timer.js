@@ -304,7 +304,11 @@ class DevelopmentTimer {
                 this.agitationSummary.textContent = 'Rotary/continuous — no agitation cues';
             } else if (agitation) {
                 const prefix = this.customAgitation ? 'Custom: ' : 'Preset: ';
-                this.agitationSummary.textContent = `${prefix}${window.processSteps.describeAgitation(agitation)}`;
+                if (this.customAgitation && this.agitationDuration >= this.agitationEvery) {
+                    this.agitationSummary.textContent = 'Custom: continuous agitation (no gap between cues)';
+                } else {
+                    this.agitationSummary.textContent = `${prefix}${window.processSteps.describeAgitation(agitation)}`;
+                }
             } else {
                 this.agitationSummary.textContent = 'No agitation schedule for this step';
             }
@@ -438,14 +442,23 @@ class DevelopmentTimer {
 
         const duration = this.currentStepDuration();
         const elapsed = Math.max(0, duration - this.remaining);
+        const previousCue = this.activeCue;
         const nextCue = this.cues.find(cue => elapsed >= cue.startSeconds && elapsed < cue.startSeconds + cue.durationSeconds) || null;
 
-        if (nextCue && (!this.activeCue || nextCue.startSeconds !== this.activeCue.startSeconds)) {
+        if (nextCue && (!previousCue || nextCue.startSeconds !== previousCue.startSeconds)) {
+            const contiguous = previousCue &&
+                nextCue.startSeconds === previousCue.startSeconds + previousCue.durationSeconds;
             if (this.darkroom.chimes) {
+                if (previousCue && !contiguous) {
+                    this.playSound('agitationEnd');
+                }
                 this.startAgitationChime(nextCue.durationSeconds);
             }
-        } else if (!nextCue && this.activeCue) {
+        } else if (!nextCue && previousCue) {
             this.stopAgitationChime();
+            if (this.darkroom.chimes) {
+                this.playSound('agitationEnd');
+            }
         }
 
         this.activeCue = nextCue;
@@ -1178,6 +1191,7 @@ class DevelopmentTimer {
             warning: 1000,
             step: 950,
             lowstep: 700,
+            agitationEnd: 560,
             complete: 1200
         };
 
@@ -1186,7 +1200,8 @@ class DevelopmentTimer {
         this.stopAgitationChime();
         this.cancelScheduledSounds();
 
-        if (!this.beep(frequencies[type] || 800)) {
+        const gain = type === 'agitationEnd' ? 0.06 : 0.09;
+        if (!this.beep(frequencies[type] || 800, gain, type === 'agitationEnd' ? 0.16 : 0.18)) {
             console.log(`Timer ${type} sound`);
             return;
         }
@@ -1194,6 +1209,8 @@ class DevelopmentTimer {
 
         if (type === 'step') {
             this.scheduleBeep(frequencies.lowstep, 220);
+        } else if (type === 'agitationEnd') {
+            this.scheduleBeep(420, 180, 0.055, 0.16);
         } else if (type === 'complete') {
             this.scheduleBeep(frequencies.warning, 300);
             this.scheduleBeep(frequencies.warning, 600);
@@ -1248,7 +1265,7 @@ class DevelopmentTimer {
 
         const seq = this.agitationSeq;
         const durationMs = durationSeconds * 1000;
-        const interval = 2500;
+        const interval = 1500;
         const firstDelay = Date.now() - this.lastSoundAt < 700 ? 1200 : 700;
         let elapsed = 0;
 

@@ -455,6 +455,10 @@ class DevelopmentCalculator {
                     return ratioValue(a) - ratioValue(b);
                 })
             : [];
+        const kit = developer.kit_mixing;
+        const capacityValue = kit
+            ? `${kit.capacity_rolls} rolls per ${kit.volume_ml / 1000} L kit`
+            : `${developer.capacity_rolls_per_liter || 'N/A'} rolls/L`;
         this.developerDetailsElement.innerHTML = `
             <div class="info-card-content">
                 <div class="info-header">
@@ -477,7 +481,7 @@ class DevelopmentCalculator {
                     </div>
                     <div class="info-item">
                         <span class="label">Capacity</span>
-                        <span class="value">${developer.capacity_rolls_per_liter || 'N/A'} rolls/L</span>
+                        <span class="value">${capacityValue}</span>
                     </div>
                 </div>
                 
@@ -490,6 +494,13 @@ class DevelopmentCalculator {
                         <span class="char-label">Characteristics:</span>
                         <span class="char-value">${cleanText(developer.characteristics) || 'N/A'}</span>
                     </div>
+                    ${kit ? `
+                        <div class="char-item">
+                            <span class="char-label">Kit mixing:</span>
+                            <span class="char-value">${kit.instructions}</span>
+                        </div>
+                        ${kit.note ? `<div class="char-item"><span class="char-label">Kit note:</span><span class="char-value">${kit.note}</span></div>` : ''}
+                    ` : ''}
                     ${dilutionList.length > 0 ? `
                         <div class="char-item">
                             <span class="char-label">Dilutions:</span>
@@ -785,8 +796,11 @@ class DevelopmentCalculator {
         this.rollsInput.max = String(rule ? Math.max(0, (rule.max_rolls || 30) - 1) : 0);
         this.rollsInput.value = String(this.rollsDeveloped);
         this.rollsReset.style.display = supported && this.rollsDeveloped > 0 ? 'inline-block' : 'none';
+        const kit = developer && developer.kit_mixing;
         if (rule && rule.rated_rolls && rule.max_rolls && rule.rated_rolls !== rule.max_rolls) {
             this.batchCapacity.textContent = `${rule.rated_rolls} rated, ${rule.max_rolls} max per L`;
+        } else if (kit) {
+            this.batchCapacity.textContent = `${kit.capacity_rolls} rolls per ${kit.volume_ml / 1000} L kit`;
         } else {
             this.batchCapacity.textContent = developer && developer.capacity_rolls_per_liter
                 ? `${developer.capacity_rolls_per_liter} rolls/L`
@@ -1248,8 +1262,12 @@ class DevelopmentCalculator {
             this.developerAmountElement.textContent = `${results.developerAmount} ml developer`;
             this.waterAmountElement.textContent = `${results.waterAmount} ml water`;
         } else {
+            const developerInfo = resolveDeveloper(this.developerSelect.value);
+            const kit = developerInfo && developerInfo.kit_mixing;
             this.developerAmountElement.textContent = `${results.developerAmount} ml working solution`;
-            this.waterAmountElement.textContent = 'No dilution';
+            this.waterAmountElement.textContent = kit
+                ? `Kit: ${kit.instructions}`
+                : 'No dilution';
         }
         
         // Add animation to updated cards

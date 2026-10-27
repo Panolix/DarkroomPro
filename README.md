@@ -16,12 +16,13 @@ A professional desktop application for calculating **precise film development pa
 
 *Darkroom mode's fullscreen focus display, toggled with <kbd>F</kbd> or the Auto Fullscreen option.*
 
-## 🆕 What's new in 1.3.1
+## 🆕 What's new in 1.3.2
 
-- **Adjustable B&W rotary compensation**: 0–35% (15% default), with guidance that 15–35% may be needed depending on film/developer and that pre-wetting or a diffusion enlarger can need less.
-- **E-6 method-specific first developer**: Kodak and Tetenal E-6 now apply the published manual/rotary difference (+15s manual, rotary time as published), including push/pull times.
-- **Clearer stock labels**: developer info and dilution selectors now say “Stock” instead of “1:0”.
-- Includes all 1.3.0 features: custom agitation, batch reuse compensation, colour temperature lock, UI refresh and darkroom-mode behaviour.
+- **Kit mixing and capacities**: every colour kit now shows its actual kit mixing and capacity, including Bellini C41-RA (500 ml concentrate + 500 ml water = 1 L, 16 rolls) and Kodak Flexicolor (2.5 L, 20 rolls one-shot). The dilution card also shows the kit mixing instead of “No dilution”.
+- **Clearer volume label**: “Working Solution Volume (ml)” makes it explicit that this is the amount needed for your tank, not the kit’s batch size.
+- **Better agitation chimes**: ticks now repeat every 1.5s, and a distinct two-tone stop cue plays when the agitation window ends. The scheduler ensures only one sequence plays at a time.
+- **Kodak E-6 +2 push corrected** to 11:30 rotary / 11:45 manual (+5:30 per Kodak Z-119).
+- Includes 1.3.1’s adjustable B&W rotary compensation and E-6 method-specific timing.
 
 See [RELEASE_NOTES.md](RELEASE_NOTES.md) for the full changelog.
 
@@ -97,29 +98,29 @@ See [RELEASE_NOTES.md](RELEASE_NOTES.md) for the full changelog.
 
 > **Note:** Release builds are unsigned. On macOS, right-click the app and choose **Open** the first time you launch it; on Windows, SmartScreen may ask you to confirm.
 
-> Filenames below show the 1.3.1 release; if a newer version is out, grab the matching file from [Releases](../../releases).
+> Filenames below show the 1.3.2 release; if a newer version is out, grab the matching file from [Releases](../../releases).
 
 #### **macOS**
-1. Download `DarkroomPro_1.3.1_universal.dmg` from [Releases](../../releases)
+1. Download `DarkroomPro_1.3.2_universal.dmg` from [Releases](../../releases)
 2. Open the DMG file
 3. Drag DarkroomPro to Applications folder
 4. Launch from Applications or Launchpad
 
 #### **Windows**
-1. Download `DarkroomPro_1.3.1_x64_en-US.msi` from [Releases](../../releases)
+1. Download `DarkroomPro_1.3.2_x64_en-US.msi` from [Releases](../../releases)
 2. Run the installer
 3. Follow installation wizard
 4. Launch from Start Menu or Desktop
 
 #### **Linux**
-1. Download `DarkroomPro_1.3.1_amd64.deb` (Debian/Ubuntu), `DarkroomPro-1.3.1-1.x86_64.rpm` (RedHat/Fedora), or `DarkroomPro_1.3.1_amd64.AppImage` (portable)
+1. Download `DarkroomPro_1.3.2_amd64.deb` (Debian/Ubuntu), `DarkroomPro-1.3.2-1.x86_64.rpm` (RedHat/Fedora), or `DarkroomPro_1.3.2_amd64.AppImage` (portable)
 2. Install using your package manager:
    ```bash
    # Debian/Ubuntu
-   sudo dpkg -i DarkroomPro_1.3.1_amd64.deb
+   sudo dpkg -i DarkroomPro_1.3.2_amd64.deb
    
    # RedHat/Fedora
-   sudo rpm -i DarkroomPro-1.3.1-1.x86_64.rpm
+   sudo rpm -i DarkroomPro-1.3.2-1.x86_64.rpm
    ```
 3. Launch from applications menu
 
@@ -129,7 +130,7 @@ See [RELEASE_NOTES.md](RELEASE_NOTES.md) for the full changelog.
 2. **Choose your developer** (filtered based on film compatibility)
 3. **Set your temperature** (B&W: 15-30°C with automatic compensation; colour kits are locked to their standard temperature — Tetenal 38°C, Unicolor 38.9°C, CineStill 39°C — with an opt-in temperature table only where the kit instructions publish one)
 4. **Adjust push/pull** if needed (+3 push to -2 pull; unsupported colour combinations are marked “not published”)
-5. **Set solution volume** (100-2000ml) and **agitation method** (intermittent or rotary; adjust the rotary % if needed)
+5. **Set the working-solution volume** (100-2000ml; the amount for your tank, not the kit batch) and **agitation method** (intermittent or rotary; adjust the rotary % if needed)
 6. **Calculate** and get precise development time and dilution
 7. **Start the timer** and develop with confidence!
 8. **Export results** for your records

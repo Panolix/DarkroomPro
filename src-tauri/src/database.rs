@@ -149,6 +149,40 @@ mod tests {
     }
 
     #[test]
+    fn color_kits_have_mixing_data() {
+        let database = load_bundled_database();
+
+        for key in [
+            "bellini_c41_kit",
+            "cinestill_c41_kit",
+            "unicolor_c41_kit",
+            "tetenal_c41_kit",
+            "kodak_flexicolor_c41",
+            "kodak_e6_kit",
+            "tetenal_e6_kit",
+            "unicolor_e6_kit",
+        ] {
+            let developer = database.developers.get(key)
+                .unwrap_or_else(|| panic!("missing developer {}", key));
+            let kit = developer.kit_mixing.as_ref()
+                .unwrap_or_else(|| panic!("missing kit mixing for {}", key));
+            assert!(kit.get("volume_ml").and_then(|v| v.as_u64()).is_some_and(|v| v > 0), "{} bad volume", key);
+            assert!(kit.get("capacity_rolls").and_then(|v| v.as_u64()).is_some_and(|v| v > 0), "{} bad capacity", key);
+            assert!(
+                kit.get("instructions").and_then(|v| v.as_str()).is_some_and(|s| !s.is_empty()),
+                "{} missing mixing instructions",
+                key
+            );
+        }
+
+        let bellini = database.developers.get("bellini_c41_kit").unwrap();
+        let kit = bellini.kit_mixing.as_ref().unwrap();
+        assert_eq!(kit.get("volume_ml").and_then(|v| v.as_u64()), Some(1000));
+        assert_eq!(kit.get("capacity_rolls").and_then(|v| v.as_u64()), Some(16));
+        assert!(kit.get("instructions").and_then(|v| v.as_str()).unwrap().contains("500 ml concentrate"));
+    }
+
+    #[test]
     fn e6_agitation_adjustments_are_documented() {
         let database = load_bundled_database();
 

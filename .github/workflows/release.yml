@@ -85,18 +85,19 @@ jobs:
           releaseBody: |
             ## DarkroomPro ${{ github.ref_name }}
 
-            **Adjustable rotary compensation and E-6 method-specific timing**
+            **Kit mixing, capacity and agitation chime fixes**
 
             ### Changes
-            - **Adjustable B&W rotary compensation:** 0-35% (15% default). The 15% figure is the manufacturer/Massive Dev Chart starting point; 15-35% may be needed depending on film/developer, and pre-wetting or a diffusion enlarger can need less.
-            - **E-6 method-specific first developer:** Kodak and Tetenal E-6 now apply the published manual/rotary difference (+15s manual) to the first developer and its push/pull times.
-            - **Stock labels:** developer info and dilution selectors now show "Stock" instead of "1:0".
-            - Includes all 1.3.0 features: custom agitation, batch reuse compensation, colour temperature lock, UI refresh and darkroom-mode behaviour.
+            - **Colour kit mixing is explicit:** every colour kit shows its actual mixing and capacity. Bellini C41-RA is 500 ml concentrate + 500 ml water = 1 L (16 rolls); the volume field is labelled "Working Solution Volume" so tank volume is not confused with kit batch size.
+            - **Capacity corrections:** Kodak Flexicolor 20 rolls per 2.5 L (about 8/L one-shot), Bellini 16 per 1 L, Tetenal C-41 16/L (40 per 2.5 L), CineStill 24 max (8 rated), Unicolor 8/L, Kodak E-6 20 per 5 L (up to 50 extended), Tetenal E-6 30 per 2.5 L, Unicolor E-6 8/L.
+            - **Agitation chimes:** repeating tick every 1.5s, with a distinct two-tone stop cue when the window ends. One sound sequence at a time; contiguous windows do not overlap.
+            - **Kodak E-6 +2 push corrected** to 11:30 rotary / 11:45 manual (+5:30 per Z-119).
+            - Includes 1.3.1's adjustable B&W rotary compensation and E-6 method-specific timing.
 
             ### Verification
-            - `cargo test`: 17 tests passing.
+            - `cargo test`: 18 tests passing.
             - `npm run test:steps`: passing.
-            - Browser checks: B&W rotary 15% -> 4:53, 25% -> 4:19; Kodak/Tetenal E-6 manual 6:15 / rotary 6:00; D-76 labels "Stock, 1:1, 1:3".
+            - Browser checks: Bellini kit mixing/capacity; 1.5s chime ticks; stop cue; E-6 +2 push values.
 
             See [RELEASE_NOTES.md](https://github.com/Panolix/DarkroomPro/blob/main/RELEASE_NOTES.md) for the full list.
 
