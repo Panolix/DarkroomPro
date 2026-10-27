@@ -65,6 +65,10 @@ pub struct Developer {
     pub temperature_compensation: HashMap<String, Decimal>,
     #[serde(default)]
     pub temperature_compensation_source: Option<String>,
+    /// Per-batch roll compensation, kept as raw JSON so the UI can read the
+    /// manufacturer-published rule without duplicating the schema in Rust.
+    #[serde(default)]
+    pub roll_compensation: Option<serde_json::Value>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]

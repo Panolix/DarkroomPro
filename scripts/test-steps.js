@@ -58,7 +58,13 @@ check('no cues for untimed step', buildAgitationCues({ name: 'Rinse', kind: 'was
 
 const rapidCues = buildAgitationCues({ name: 'Developer', kind: 'developer', time_minutes: 1, agitation: { initialSeconds: 5, intervalSeconds: 5, frequencyMinutes: 0.5 } });
 check('cues every 30s give 2 entries', rapidCues.length === 2, JSON.stringify(rapidCues));
+
+const subMinuteCues = buildAgitationCues({ name: 'Developer', kind: 'developer', time_minutes: 2, agitation: { initialSeconds: 8, intervalSeconds: 8, frequencyMinutes: 0.75 } });
+check('custom cues every 45s', subMinuteCues.length === 3 && subMinuteCues[1].startSeconds === 45, JSON.stringify(subMinuteCues));
+
 check('agitation description', describeAgitation({ initialSeconds: 30, intervalSeconds: 10, frequencyMinutes: 1 }).includes('Agitate 30s'));
+check('description formats sub-minute frequency in seconds', describeAgitation({ initialSeconds: 8, intervalSeconds: 8, frequencyMinutes: 0.75 }).includes('every 45s'));
+check('description omits a zero initial agitation', !describeAgitation({ initialSeconds: 0, intervalSeconds: 10, frequencyMinutes: 1 }).includes('at start'));
 
 console.log('Summary');
 const userSteps = [

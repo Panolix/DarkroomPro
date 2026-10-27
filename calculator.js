@@ -36,6 +36,23 @@ class DevelopmentCalculator {
 
         this.filmsPopulated = false;
         this.populatedFilmCount = 0;
+        this.lastFilmInfoKey = null;
+        this.lastDeveloperInfoKey = null;
+        this.kitTempOverride = false;
+        try {
+            this.rotary = localStorage.getItem('darkroompro.process.rotary') === 'rotary';
+        } catch (error) {
+            this.rotary = false;
+        }
+        if (this.agitationMethodSelect) {
+            this.agitationMethodSelect.value = this.rotary ? 'rotary' : 'inversion';
+        }
+        try {
+            this.rollsByDeveloper = JSON.parse(localStorage.getItem('darkroompro.rollsByDeveloper') || '{}');
+        } catch (error) {
+            this.rollsByDeveloper = {};
+        }
+        this.rollsDeveloped = 0;
 
         // Wait for database to load
         this.waitForDatabase();
@@ -102,16 +119,28 @@ class DevelopmentCalculator {
         this.developerSelect = document.getElementById('developer');
         this.temperatureInput = document.getElementById('temperature');
         this.pushPullSelect = document.getElementById('push-pull');
+        this.pushPullLabels = [...this.pushPullSelect.options].reduce((labels, option) => {
+            labels[option.value] = option.textContent;
+            return labels;
+        }, {});
         this.volumeInput = document.getElementById('volume');
         this.calculateBtn = document.getElementById('calculate');
         this.exportBtn = document.getElementById('export');
         this.exportSection = document.getElementById('export-section');
         this.exportFormatSelect = document.getElementById('export-format');
+        this.agitationMethodSelect = document.getElementById('agitation-method');
+        this.kitTempToggle = document.getElementById('kit-temp-toggle');
+        this.processNote = document.getElementById('process-note');
+        this.rollsInput = document.getElementById('rolls-developed');
+        this.rollsReset = document.getElementById('rolls-reset');
+        this.batchCapacity = document.getElementById('batch-capacity');
+        this.rollsNote = document.getElementById('rolls-note');
         
         // Result elements
         this.devTimeElement = document.getElementById('dev-time');
         this.timeNoteElement = document.getElementById('time-note');
         this.dilutionElement = document.getElementById('dilution');
+        this.dilutionTitleElement = document.getElementById('dilution-title');
         this.developerAmountElement = document.getElementById('developer-amount');
         this.waterAmountElement = document.getElementById('water-amount');
         this.tempDisplayElement = document.getElementById('temp-display');
@@ -130,7 +159,14 @@ class DevelopmentCalculator {
         this.exportBtn.addEventListener('click', () => this.exportResults());
         this.filmSelect.addEventListener('change', () => this.updateFilmInfo());
         this.developerSelect.addEventListener('change', () => this.updateDeveloperInfo());
-        this.temperatureInput.addEventListener('input', () => this.updateTemperatureDisplay());
+        this.temperatureInput.addEventListener('input', () => {
+            this.updateTemperatureDisplay();
+            this.updateRollsUI();
+        });
+        this.agitationMethodSelect.addEventListener('change', () => this.setAgitationMethod(this.agitationMethodSelect.value));
+        this.kitTempToggle.addEventListener('click', () => this.toggleKitTempOverride());
+        this.rollsInput.addEventListener('change', () => this.setRollsDeveloped(this.rollsInput.value));
+        this.rollsReset.addEventListener('click', () => this.setRollsDeveloped(0));
         
         // Auto-calculate when inputs change
         [this.filmSelect, this.developerSelect, this.temperatureInput, this.pushPullSelect, this.volumeInput].forEach(element => {
@@ -224,6 +260,9 @@ class DevelopmentCalculator {
 
     updateFilmInfo() {
         const filmKey = this.filmSelect.value;
+        if (filmKey && filmKey === this.lastFilmInfoKey) return;
+        this.lastFilmInfoKey = filmKey || null;
+        this.kitTempOverride = false;
         console.log('🎬 updateFilmInfo called with filmKey:', filmKey);
         console.log('🎬 Current filmDatabase state:', {
             keys: Object.keys(filmDatabase).length,
@@ -302,6 +341,8 @@ class DevelopmentCalculator {
         console.log('🎬 Available developers for', film.name, ':', availableDevelopers);
         this.updateDeveloperOptions(availableDevelopers);
         this.applyStandardTemperature();
+        this.updateDeveloperInfo();
+        this.updatePushPullOptions();
     }
     
     getTypeDisplayName(type) {
@@ -361,8 +402,13 @@ class DevelopmentCalculator {
     }
 
     updateDeveloperInfo() {
-        this.applyStandardTemperature();
         const developerKey = this.developerSelect.value;
+        if (developerKey && developerKey === this.lastDeveloperInfoKey) return;
+        this.lastDeveloperInfoKey = developerKey || null;
+        this.kitTempOverride = false;
+        this.rollsDeveloped = developerKey ? (this.rollsByDeveloper[developerKey] || 0) : 0;
+        this.applyStandardTemperature();
+        this.updatePushPullOptions();
         if (!developerKey) {
             this.developerDetailsElement.textContent = 'Select a developer to see details';
             return;
@@ -381,6 +427,15 @@ class DevelopmentCalculator {
             ? Object.values(developer.dilutions)
                 .map(d => (typeof d === 'string' ? d : d.ratio))
                 .filter(Boolean)
+                // The Rust backend returns dilutions in hash order; sort by ratio
+                // so stock/1:1/1:3... always read in a sensible order.
+                .sort((a, b) => {
+                    const ratioValue = ratio => {
+                        const match = String(ratio).match(/[:+](\d+(?:\.\d+)?)/);
+                        return match ? parseFloat(match[1]) : Number.MAX_SAFE_INTEGER;
+                    };
+                    return ratioValue(a) - ratioValue(b);
+                })
             : [];
         this.developerDetailsElement.innerHTML = `
             <div class="info-card-content">
@@ -462,17 +517,18 @@ class DevelopmentCalculator {
             const hasTable = !!(developer && developer.temperature_compensation &&
                 Object.keys(developer.temperature_compensation).length > 0);
 
-            if (hasTable && Math.abs(temp - kitTemp) > 0.01) {
-                this.tempNoteElement.textContent = `Compensated for ${temp}°C (kit standard ${kitTemp}°C)`;
+            if (this.temperatureInput.disabled) {
+                this.tempNoteElement.textContent = `Fixed kit standard (${kitTemp}°C)`;
+                this.tempNoteElement.style.color = 'var(--success)';
+            } else if (hasTable && Math.abs(temp - kitTemp) > 0.01) {
+                this.tempNoteElement.textContent = `Kit temperature table: ${temp}°C (standard ${kitTemp}°C)`;
                 this.tempNoteElement.style.color = 'var(--warning)';
             } else if (Math.round(temp) === Math.round(kitTemp)) {
                 this.tempNoteElement.textContent = `Kit standard (${kitTemp}°C)`;
                 this.tempNoteElement.style.color = 'var(--success)';
             } else {
-                this.tempNoteElement.textContent = hasTable
-                    ? `Kit standard is ${kitTemp}°C`
-                    : `Fixed kit temperature (${kitTemp}°C)`;
-                this.tempNoteElement.style.color = hasTable ? 'var(--warning)' : 'var(--success)';
+                this.tempNoteElement.textContent = `Kit standard is ${kitTemp}°C`;
+                this.tempNoteElement.style.color = 'var(--warning)';
             }
             return;
         }
@@ -503,6 +559,185 @@ class DevelopmentCalculator {
         return 37.8;
     }
 
+    setAgitationMethod(value) {
+        this.rotary = value === 'rotary';
+        try {
+            localStorage.setItem('darkroompro.process.rotary', this.rotary ? 'rotary' : 'inversion');
+        } catch (error) {
+            // persistence is optional
+        }
+        this.updateProcessNote();
+        if (this.filmSelect.value && this.developerSelect.value) {
+            this.calculate();
+        }
+    }
+
+    toggleKitTempOverride() {
+        this.kitTempOverride = !this.kitTempOverride;
+        this.applyStandardTemperature();
+        if (this.filmSelect.value && this.developerSelect.value) {
+            this.calculate();
+        }
+    }
+
+    updatePushPullOptions() {
+        const film = filmDatabase[this.filmSelect.value];
+        const combo = film && film.developers ? film.developers[this.developerSelect.value] : null;
+        const isBlackWhite = !!film && film.type === 'black_white';
+        const isColor = !!film && !isBlackWhite;
+        const fields = film && film.type === 'color_negative'
+            ? { '1': 'push_1_stop_dev_time', '2': 'push_2_stop_dev_time', '3': 'push_3_stop_dev_time', '-1': 'pull_1_stop_dev_time', '-2': 'pull_2_stop_dev_time' }
+            : { '1': 'push_1_stop_first_dev_time', '2': 'push_2_stop_first_dev_time', '3': 'push_3_stop_first_dev_time', '-1': 'pull_1_stop_first_dev_time', '-2': 'pull_2_stop_first_dev_time' };
+
+        [...this.pushPullSelect.options].forEach(option => {
+            const baseLabel = this.pushPullLabels[option.value] || option.textContent;
+            const value = parseInt(option.value, 10);
+            if (!isColor || value === 0 || !combo) {
+                option.disabled = false;
+                option.textContent = baseLabel;
+                return;
+            }
+            const field = fields[option.value];
+            const available = !!field && combo[field] != null;
+            option.disabled = !available;
+            option.textContent = available ? baseLabel : `${baseLabel} — not published`;
+        });
+
+        const selected = this.pushPullSelect.selectedOptions[0];
+        if (selected && selected.disabled) {
+            this.pushPullSelect.value = '0';
+        }
+    }
+
+    updateProcessNote() {        if (!this.processNote) return;
+
+        const film = filmDatabase[this.filmSelect.value];
+        const notes = [];
+
+        if (film && film.type === 'black_white' && this.rotary) {
+            notes.push('Rotary/continuous agitation: −15% is applied to the developer time as a starting point (Ilford / Massive Dev Chart). Test your setup.');
+        } else if (film && film.type !== 'black_white' && this.rotary) {
+            notes.push('Colour processes already assume continuous agitation; no rotary time adjustment is applied.');
+        }
+
+        if (film && film.type !== 'black_white' && this.temperatureInput.disabled) {
+            if (this.kitTempToggle && this.kitTempToggle.style.display !== 'none') {
+                notes.push('Temperature is locked to the kit standard. Enable the kit temperature table only if your instructions publish one.');
+            } else {
+                notes.push('Temperature is fixed for this process.');
+            }
+        } else if (film && film.type !== 'black_white' && this.kitTempOverride) {
+            notes.push("Using the kit's published temperature table.");
+        }
+
+        this.processNote.textContent = notes.join(' ');
+    }
+
+    setRollsDeveloped(value) {
+        const developer = resolveDeveloper(this.developerSelect.value);
+        const rule = developer && developer.roll_compensation;
+        if (!rule) {
+            this.rollsDeveloped = 0;
+            this.updateRollsUI();
+            return;
+        }
+
+        const max = Math.max(0, (rule.max_rolls || 30) - 1);
+        const rolls = Math.max(0, Math.min(max, parseInt(value, 10) || 0));
+        this.rollsDeveloped = rolls;
+
+        if (this.developerSelect.value) {
+            this.rollsByDeveloper[this.developerSelect.value] = rolls;
+            try {
+                localStorage.setItem('darkroompro.rollsByDeveloper', JSON.stringify(this.rollsByDeveloper));
+            } catch (error) {
+                // persistence is optional
+            }
+        }
+
+        this.updateRollsUI();
+        if (this.filmSelect.value && this.developerSelect.value) {
+            this.calculate();
+        }
+    }
+
+    getRollCompensation(developer, temperature) {
+        const rule = developer && developer.roll_compensation;
+        if (!rule || this.rollsDeveloped <= 0) return null;
+
+        if (rule.type === 'percent_per_roll') {
+            const percent = rule.value * this.rollsDeveloped;
+            return { percent, label: `+${percent}% for ${this.rollsDeveloped} rolls` };
+        }
+
+        if (rule.type === 'seconds_per_block') {
+            const key = String(Math.round(temperature * 10) / 10);
+            const byTemp = rule.seconds_by_temperature || {};
+            const seconds = byTemp[key] !== undefined
+                ? byTemp[key]
+                : byTemp[String(Math.round(temperature))];
+            if (seconds == null) return null;
+            const blocks = Math.floor(this.rollsDeveloped / (rule.block || 1));
+            if (blocks < 1) return null;
+            return {
+                seconds: blocks * seconds,
+                label: `+${blocks * seconds}s for ${this.rollsDeveloped} rolls`
+            };
+        }
+
+        return null;
+    }
+
+    applyRollCompensation(minutes, developer, temperature) {
+        const comp = this.getRollCompensation(developer, temperature);
+        if (!comp) return { time: minutes, comp: null };
+        if (comp.percent != null) {
+            return { time: minutes * (1 + comp.percent / 100), comp };
+        }
+        return { time: minutes + comp.seconds / 60, comp };
+    }
+
+    updateRollsUI() {
+        if (!this.rollsInput) return;
+
+        const developer = resolveDeveloper(this.developerSelect.value);
+        const rule = developer && developer.roll_compensation;
+        const temp = parseFloat(this.temperatureInput.value);
+        const key = String(Math.round(temp * 10) / 10);
+        const byTemp = rule && rule.seconds_by_temperature ? rule.seconds_by_temperature : null;
+        const hasTempRule = !!(byTemp && (byTemp[key] !== undefined || byTemp[String(Math.round(temp))] !== undefined));
+        const supported = !!rule && (rule.type === 'percent_per_roll' || hasTempRule);
+
+        this.rollsInput.disabled = !supported;
+        this.rollsInput.max = String(rule ? Math.max(0, (rule.max_rolls || 30) - 1) : 0);
+        this.rollsInput.value = String(this.rollsDeveloped);
+        this.rollsReset.style.display = supported && this.rollsDeveloped > 0 ? 'inline-block' : 'none';
+        if (rule && rule.rated_rolls && rule.max_rolls && rule.rated_rolls !== rule.max_rolls) {
+            this.batchCapacity.textContent = `${rule.rated_rolls} rated, ${rule.max_rolls} max per L`;
+        } else {
+            this.batchCapacity.textContent = developer && developer.capacity_rolls_per_liter
+                ? `${developer.capacity_rolls_per_liter} rolls/L`
+                : 'Not published';
+        }
+
+        let note = '';
+        if (developer && !rule) {
+            note = 'No published roll-count compensation for this developer; use it one-shot or follow its replenishment guidance.';
+        } else if (developer && !supported) {
+            note = `No roll compensation is published for ${temp}°C for this kit.`;
+        } else if (rule) {
+            const rate = rule.type === 'percent_per_roll'
+                ? `+${rule.value}% per roll already developed`
+                : `+${(byTemp[key] !== undefined ? byTemp[key] : byTemp[String(Math.round(temp))])}s per ${rule.block} rolls already developed`;
+            const rated = rule.rated_rolls ? ` Rated ${rule.rated_rolls} rolls` : '';
+            const max = rule.max_rolls && rule.max_rolls !== rule.rated_rolls
+                ? ` (up to ${rule.max_rolls} with added time)`
+                : '';
+            note = `${rate}.${rated}${max}. ${rule.note || ''}`;
+        }
+        this.rollsNote.textContent = note;
+    }
+
     applyStandardTemperature() {
         const kitTemp = this.getStandardTemperature();
 
@@ -511,21 +746,37 @@ class DevelopmentCalculator {
             const table = (developer && developer.temperature_compensation)
                 ? Object.keys(developer.temperature_compensation).map(Number).filter(Number.isFinite)
                 : [];
+            const hasTable = table.length > 0;
 
-            if (table.length > 0) {
+            if (this.kitTempToggle) {
+                this.kitTempToggle.style.display = hasTable ? 'inline-block' : 'none';
+                this.kitTempToggle.classList.toggle('active', hasTable && this.kitTempOverride);
+                this.kitTempToggle.textContent = hasTable && this.kitTempOverride
+                    ? 'Using kit temperature table'
+                    : 'Use kit temperature table';
+            }
+
+            if (hasTable && this.kitTempOverride) {
                 const min = Math.min(...table);
                 const max = Math.max(...table);
                 this.temperatureInput.disabled = false;
                 this.temperatureInput.min = String(min);
                 this.temperatureInput.max = String(max);
-                this.temperatureInput.value = String(Math.round(kitTemp * 2) / 2);
+                const current = parseFloat(this.temperatureInput.value);
+                if (!(current >= min && current <= max)) {
+                    this.temperatureInput.value = String(kitTemp);
+                }
             } else {
+                // Standard practice: the kit temperature is fixed. Lower
+                // temperatures are only available through the kit's own table.
                 this.temperatureInput.disabled = true;
-                this.temperatureInput.min = '20';
-                this.temperatureInput.max = '45';
-                this.temperatureInput.value = String(Math.round(kitTemp));
+                this.temperatureInput.min = String(kitTemp);
+                this.temperatureInput.max = String(kitTemp);
+                this.temperatureInput.value = String(kitTemp);
             }
         } else {
+            if (this.kitTempToggle) this.kitTempToggle.style.display = 'none';
+            this.kitTempOverride = false;
             this.temperatureInput.disabled = false;
             this.temperatureInput.min = '15';
             this.temperatureInput.max = '30';
@@ -536,6 +787,8 @@ class DevelopmentCalculator {
         }
 
         this.updateTemperatureDisplay();
+        this.updateProcessNote();
+        this.updateRollsUI();
     }
 
     async calculate() {
@@ -544,6 +797,7 @@ class DevelopmentCalculator {
         const temperature = parseFloat(this.temperatureInput.value);
         const pushPull = parseFloat(this.pushPullSelect.value);
         const volume = parseFloat(this.volumeInput.value);
+        const filmForType = filmDatabase[filmKey];
 
         console.log('🧮 Calculate called with:', {
             filmKey, developerKey, temperature, pushPull, volume
@@ -561,6 +815,16 @@ class DevelopmentCalculator {
             return;
         }
 
+        if (filmForType && filmForType.type === 'black_white' && (temperature < 15 || temperature > 30)) {
+            this.showError('Black & white development temperature must be between 15 and 30°C.');
+            return;
+        }
+
+        if (!(volume >= 100 && volume <= 2000)) {
+            this.showError('Solution volume must be between 100 and 2000 ml.');
+            return;
+        }
+
         // Try Rust backend first
         if (window.rustBridge?.isRustBackendAvailable()) {
             try {
@@ -570,6 +834,18 @@ class DevelopmentCalculator {
                 
                 if (rustResult) {
                     console.log('🦀 Using Rust calculation result');
+                    const developerForAdjust = resolveDeveloper(developerKey);
+                    const roll = this.applyRollCompensation(rustResult.time, developerForAdjust, temperature);
+                    let adjustedRustTime = roll.time;
+                    const rotaryAdjusted = this.rotary && filmForType && filmForType.type === 'black_white';
+                    if (rotaryAdjusted) {
+                        adjustedRustTime = Math.max(0.1, adjustedRustTime * 0.85);
+                    }
+                    rustResult.time = adjustedRustTime;
+                    rustResult.timeFormatted = this.formatMinutes(adjustedRustTime);
+                    rustResult.rotary = this.rotary;
+                    rustResult.rotaryAdjusted = rotaryAdjusted;
+                    rustResult.rollCompensation = roll.comp ? roll.comp.label : null;
                     rustResult.kitTemperature = this.getStandardTemperature();
                     this.updateResults(rustResult);
 
@@ -647,17 +923,35 @@ class DevelopmentCalculator {
                 else if (pushPull === -1) baseTime = baseData.pull_1_stop_minutes || baseTime * f.pull1;
                 else if (pushPull === -2) baseTime = baseData.pull_2_stop_minutes || baseTime * f.pull2;
             } else if (film.type === 'color_negative') {
-                if (pushPull === 1) baseTime = baseData.push_1_stop_dev_time || 4.5;
-                else if (pushPull === 2) baseTime = baseData.push_2_stop_dev_time || 6.5;
-                else if (pushPull === 3) baseTime = baseData.push_3_stop_dev_time || 9.0;
-                else if (pushPull === -1) baseTime = baseData.pull_1_stop_dev_time || 2.5;
-                else if (pushPull === -2) baseTime = baseData.pull_2_stop_dev_time || 2.0;
+                const field = {
+                    '1': 'push_1_stop_dev_time',
+                    '2': 'push_2_stop_dev_time',
+                    '3': 'push_3_stop_dev_time',
+                    '-1': 'pull_1_stop_dev_time',
+                    '-2': 'pull_2_stop_dev_time'
+                }[String(pushPull)];
+                const published = field ? baseData[field] : null;
+                if (published == null) {
+                    const label = pushPull > 0 ? `+${pushPull}-stop` : `${pushPull}-stop`;
+                    this.showError(`No published ${label} time for ${film.name} in ${developer.name}. Use Normal or check the kit instructions.`);
+                    return;
+                }
+                baseTime = published;
             } else if (film.type === 'slide') {
-                if (pushPull === 1) baseTime = baseData.push_1_stop_first_dev_time || 8.0;
-                else if (pushPull === 2) baseTime = baseData.push_2_stop_first_dev_time || 10.0;
-                else if (pushPull === 3) baseTime = baseData.push_3_stop_first_dev_time || 12.0;
-                else if (pushPull === -1) baseTime = baseData.pull_1_stop_first_dev_time || 4.5;
-                else if (pushPull === -2) baseTime = baseData.pull_2_stop_first_dev_time || 3.5;
+                const field = {
+                    '1': 'push_1_stop_first_dev_time',
+                    '2': 'push_2_stop_first_dev_time',
+                    '3': 'push_3_stop_first_dev_time',
+                    '-1': 'pull_1_stop_first_dev_time',
+                    '-2': 'pull_2_stop_first_dev_time'
+                }[String(pushPull)];
+                const published = field ? baseData[field] : null;
+                if (published == null) {
+                    const label = pushPull > 0 ? `+${pushPull}-stop` : `${pushPull}-stop`;
+                    this.showError(`No published ${label} time for ${film.name} in ${developer.name}. Use Normal or check the kit instructions.`);
+                    return;
+                }
+                baseTime = published;
             }
         }
         
@@ -669,6 +963,9 @@ class DevelopmentCalculator {
             ? this.getTemperatureCompensation(temperature, developer)
             : 1.0;
         const adjustedTime = baseTime * tempCompensation;
+        const roll = this.applyRollCompensation(adjustedTime, developer, temperature);
+        const rotaryAdjusted = this.rotary && film.type === 'black_white';
+        const finalTime = rotaryAdjusted ? roll.time * 0.85 : roll.time;
         
         // Calculate dilution amounts - fix the data structure mismatch
         let dilutionString = baseData.dilution || baseData.dilution_ratio || 'stock';
@@ -700,7 +997,7 @@ class DevelopmentCalculator {
         
         // Update results
         this.updateResults({
-            time: adjustedTime,
+            time: finalTime,
             dilution: dilutionString,
             developerAmount: Math.round(developerAmount),
             waterAmount: Math.round(waterAmount),
@@ -709,13 +1006,16 @@ class DevelopmentCalculator {
             filmType: film.type,
             filmName: film.name,
             developerName: developer.name,
-            kitTemperature: this.getStandardTemperature()
+            kitTemperature: this.getStandardTemperature(),
+            rotary: this.rotary,
+            rotaryAdjusted: rotaryAdjusted,
+            rollCompensation: roll.comp ? roll.comp.label : null
         });
         
         // Show timer section
         this.timerSection.style.display = 'block';
 
-        this.updateProcessTimer(filmKey, developerKey, adjustedTime, temperature);
+        this.updateProcessTimer(filmKey, developerKey, finalTime, temperature);
     }
 
     updateProcessTimer(filmKey, developerKey, developerMinutes, temperature) {
@@ -734,7 +1034,13 @@ class DevelopmentCalculator {
         if (steps.length > 0 && actualTemperature != null) {
             steps[0].temperature_c = actualTemperature;
         }
-        window.developmentTimer.setSteps(steps, { filmKey, developerKey, temperature: actualTemperature != null ? actualTemperature : 20 });
+        window.developmentTimer.setSteps(steps, {
+            filmKey,
+            developerKey,
+            temperature: actualTemperature != null ? actualTemperature : 20,
+            presetAgitation: window.processSteps.agitationFromCombo(combo),
+            rotary: this.rotary
+        });
     }
 
     getTemperatureCompensation(temperature, developer) {
@@ -802,12 +1108,17 @@ class DevelopmentCalculator {
         };
     }
 
+    formatMinutes(minutes) {
+        const totalSeconds = Math.max(0, Math.round(minutes * 60));
+        const mins = Math.floor(totalSeconds / 60);
+        const secs = totalSeconds % 60;
+        return `${mins}:${secs.toString().padStart(2, '0')}`;
+    }
+
     updateResults(results) {
         // Format time as MM:SS from total seconds to avoid a ":60" rollover
-        const totalSeconds = Math.max(0, Math.round(results.time * 60));
-        const minutes = Math.floor(totalSeconds / 60);
-        const seconds = totalSeconds % 60;
-        const timeString = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        const timeString = this.formatMinutes(results.time);
+        results.timeFormatted = timeString;
         
         this.devTimeElement.textContent = timeString;
         
@@ -828,21 +1139,32 @@ class DevelopmentCalculator {
             const pushPullText = results.pushPull > 0 ? `+${results.pushPull}` : results.pushPull;
             adjustments.push(`${pushPullText} stops`);
         }
+        if (results.rotaryAdjusted) {
+            adjustments.push('rotary −15%');
+        }
+        if (results.rollCompensation) {
+            adjustments.push(results.rollCompensation);
+        }
         if (adjustments.length > 0) {
             timeNote += ` (${adjustments.join(', ')})`;
         }
         this.timeNoteElement.textContent = timeNote;
         
         // Update dilution
+        const isColorProcess = results.filmType !== 'black_white';
         this.dilutionElement.textContent = results.dilution;
+        this.dilutionElement.classList.toggle('compact', isColorProcess);
+        if (this.dilutionTitleElement) {
+            this.dilutionTitleElement.textContent = isColorProcess ? 'Working Solution' : 'Dilution Ratio';
+        }
         
         // Update solution amounts
-        if (results.filmType === 'black_white') {
+        if (!isColorProcess) {
             this.developerAmountElement.textContent = `${results.developerAmount} ml developer`;
             this.waterAmountElement.textContent = `${results.waterAmount} ml water`;
         } else {
-            this.developerAmountElement.textContent = `${results.developerAmount} ml kit solution`;
-            this.waterAmountElement.textContent = results.waterAmount > 0 ? `${results.waterAmount} ml water` : 'Ready to use';
+            this.developerAmountElement.textContent = `${results.developerAmount} ml working solution`;
+            this.waterAmountElement.textContent = 'No dilution';
         }
         
         // Add animation to updated cards
@@ -858,7 +1180,8 @@ class DevelopmentCalculator {
 
     async exportResults() {
         if (!this.lastCalculationResult) {
-            alert('No calculation results to export');
+            this.exportBtn.textContent = 'Calculate first';
+            setTimeout(() => { this.exportBtn.textContent = 'Export Results'; }, 1600);
             return;
         }
 
@@ -874,7 +1197,6 @@ class DevelopmentCalculator {
             );
             
             console.log('✅ Export successful:', result);
-            alert(result);
             
             // Show success message
             const originalText = this.exportBtn.textContent;
@@ -888,7 +1210,13 @@ class DevelopmentCalculator {
             
         } catch (error) {
             console.error('❌ Export failed:', error);
-            alert('Export failed: ' + error.message);
+            const originalText = this.exportBtn.textContent;
+            this.exportBtn.textContent = 'Export failed';
+            this.exportBtn.style.borderColor = 'var(--error)';
+            setTimeout(() => {
+                this.exportBtn.textContent = originalText;
+                this.exportBtn.style.borderColor = '';
+            }, 2000);
         }
     }
 

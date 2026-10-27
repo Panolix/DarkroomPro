@@ -8,20 +8,37 @@ A professional desktop application for calculating **precise film development pa
 
 ## 📸 App Preview
 
-![DarkroomPro Application Screenshot](Readme-Images/darkroompro-screenshot.png)
+![DarkroomPro main window](Readme-Images/darkroompro-screenshot.png)
 
-*DarkroomPro's intuitive interface showing film selection, developer options, temperature compensation, and built-in development timer. (Screenshot from an earlier release; the current build also includes the multi-step process timer and darkroom mode.)*
+*Main window: film/developer selection, process controls (kit temperature lock, batch reuse, agitation method), calculation results, the timer with custom agitation, and the sourced film/developer information panels.*
+
+![DarkroomPro fullscreen focus display](Readme-Images/darkroompro-focus.png)
+
+*Darkroom mode's fullscreen focus display, toggled with <kbd>F</kbd> or the Auto Fullscreen option.*
+
+## 🆕 What's new in 1.3.0
+
+- **Custom agitation schedules** with a soft repeating cue (no overlapping chimes).
+- **Rotary/continuous processing**: −15% B&W developer time, colour untouched, cues suppressed.
+- **Batch reuse compensation** for CineStill CS41, Tetenal C-41 and Bellini C41-RA, driven by each kit's published rule.
+- **C-41/E-6 temperature lock** to the kit standard, with an explicit opt-in for published kit tables.
+- **UI refresh**: rounded controls, clearer form sections, stronger contrast and stable button feedback.
+- **Darkroom mode** no longer opens fullscreen automatically.
+
+See [RELEASE_NOTES.md](RELEASE_NOTES.md) for the full changelog.
 
 ## 🎯 **Key Features**
 
 - **47 Film Stocks** - Comprehensive database of B&W, color negative, and slide films
 - **18 Developers** - Popular developers with precise dilution ratios  
-- **433 Combinations** - Tested film/developer pairings with accurate data
+- **433 Combinations** - Sourced film/developer pairings with provenance
 - **Temperature Compensation** - Per-developer curves sourced from manufacturer charts (15-30°C)
-- **Push/Pull Processing** - Accurate calculations for +3 push and -2 pull stops
+- **Push/Pull Processing** - +3 push and -2 pull stops where published; B&W uses the documented Massive Dev Chart guideline when a row is missing
+- **Agitation Method** - Intermittent or rotary/continuous; rotary applies the published ~15% B&W developer-time reduction (starting point)
 - **Multi-Step Timer** - Auto, Buffer and Manual step transitions with a customizable step editor
-- **Agitation Reminders** - Chimes and prompts for the published agitation schedule
-- **Darkroom Mode** - Safelight theme, focus display, agitation chimes and screen wake-lock in one toggle
+- **Agitation Reminders** - Published schedules or your own interval/duration, with optional repeating chimes during each agitation window
+- **Batch Reuse Compensation** - Track rolls already developed through a batch; applies the kit's published compensation (CineStill, Tetenal, Bellini) where one exists
+- **Darkroom Mode** - Safelight theme plus wake-lock and fullscreen options in one toggle; the fullscreen focus display opens when the timer starts (Auto Fullscreen option) or with the F key
 - **Built-in Timer** - Integrated countdown with audio alerts
 - **Export Functionality** - Save calculations as JSON, CSV, or PDF
 - **Cross-Platform** - Native apps for macOS, Windows, and Linux
@@ -31,22 +48,25 @@ A professional desktop application for calculating **precise film development pa
 ### 📊 **Comprehensive Database**
 - **47 Film Stocks**: Complete database of B&W, color negative, and slide films
 - **18 Developers**: Popular developers with precise dilution ratios
-- **433 Combinations**: Tested film/developer pairings with accurate data
+- **433 Combinations**: Sourced film/developer pairings with provenance
 - **Manufacturer Grouping**: Films organized by brand for easy selection
 
 ### 🧮 **Advanced Calculations**
-- **Temperature Compensation**: Per-developer curves for B&W developers from Kodak and Ilford charts, with a standard conversion fallback where no manufacturer chart exists; colour kits use their published time/temperature tables
-- **Push/Pull Processing**: Accurate calculations for +3 push and -2 pull stops of exposure compensation
+- **Temperature Compensation**: Per-developer curves for B&W developers from Kodak and Ilford charts, with a standard conversion fallback where no manufacturer chart exists. Colour kits are locked to the kit's standard temperature; kits that publish a temperature table can be unlocked explicitly
+- **Agitation Method**: Intermittent (inversion) or rotary/continuous. For black & white, rotary processing reduces the developer time by 15% as a starting point (Ilford / Massive Dev Chart); colour times are not agitation-compensated
+- **Push/Pull Processing**: +3 push and -2 pull stops. B&W falls back to the documented Massive Dev Chart guideline when no EI row exists; colour push/pull is offered only where the kit publishes a time (no estimated values)
 - **Dilution Calculator**: Optimal developer-to-water ratios with precise measurements
 - **Type-Safe Calculations**: Rust-powered calculation engine for guaranteed accuracy
 
 ### ⏱️ **Professional Timer**
 - **Multi-Step Process Timer**: The developer step is timed from the calculation; add your own bleach, blix, fixer, stabilizer or rinse steps and enter their times from your kit instructions
 - **Transition Modes**: Auto-advance, Buffer (custom 1-60s prep window) or Manual start
-- **Agitation Reminders**: Cue chimes and on-screen prompts from each combination's agitation schedule
+- **Agitation Reminders**: Cue chimes and on-screen prompts from each combination's published schedule
+- **Custom Agitation**: Override the schedule with your own initial agitation (30s by default), interval and duration (for example: 30s at the start, then 10s every 60s); a soft repeating tick plays during each agitation window
+- **Batch Reuse Compensation**: Enter the number of rolls already developed in the batch; the app applies only documented rules - CineStill +2% per roll, Tetenal +15s per 4 rolls at 38°C (60s at 30°C), Bellini +15s per 3 rolls. One-shot developers show no roll-count compensation
 - **Step Editor**: Add, reorder, remove or retime steps per film/developer; times are saved automatically
-- **Darkroom Mode**: One toggle for the red safelight theme, fullscreen focus display, wake-lock and chimes
-- **Audio Alerts**: Step changes, agitation cues and completion tones
+- **Darkroom Mode**: One toggle for the red safelight theme, wake-lock and fullscreen options. The fullscreen focus display opens when you start the timer (Auto Fullscreen on) or press <kbd>F</kbd> at any time
+- **Audio Alerts**: Step changes, agitation cues and completion tones (agitation chimes can be switched off)
 
 ### 📤 **Export & Sharing**
 - **Multiple Formats**: Export calculations as JSON, CSV, or PDF reports
@@ -79,29 +99,29 @@ A professional desktop application for calculating **precise film development pa
 
 > **Note:** Release builds are unsigned. On macOS, right-click the app and choose **Open** the first time you launch it; on Windows, SmartScreen may ask you to confirm.
 
-> Filenames below show the current 1.2.3 release; if a newer version is out, grab the matching file from [Releases](../../releases).
+> Filenames below show the 1.3.0 release; if a newer version is out, grab the matching file from [Releases](../../releases).
 
 #### **macOS**
-1. Download `DarkroomPro_1.2.3_universal.dmg` from [Releases](../../releases)
+1. Download `DarkroomPro_1.3.0_universal.dmg` from [Releases](../../releases)
 2. Open the DMG file
 3. Drag DarkroomPro to Applications folder
 4. Launch from Applications or Launchpad
 
 #### **Windows**
-1. Download `DarkroomPro_1.2.3_x64_en-US.msi` from [Releases](../../releases)
+1. Download `DarkroomPro_1.3.0_x64_en-US.msi` from [Releases](../../releases)
 2. Run the installer
 3. Follow installation wizard
 4. Launch from Start Menu or Desktop
 
 #### **Linux**
-1. Download `DarkroomPro_1.2.3_amd64.deb` (Debian/Ubuntu), `DarkroomPro-1.2.3-1.x86_64.rpm` (RedHat/Fedora), or `DarkroomPro_1.2.3_amd64.AppImage` (portable)
+1. Download `DarkroomPro_1.3.0_amd64.deb` (Debian/Ubuntu), `DarkroomPro-1.3.0-1.x86_64.rpm` (RedHat/Fedora), or `DarkroomPro_1.3.0_amd64.AppImage` (portable)
 2. Install using your package manager:
    ```bash
    # Debian/Ubuntu
-   sudo dpkg -i DarkroomPro_1.2.3_amd64.deb
+   sudo dpkg -i DarkroomPro_1.3.0_amd64.deb
    
    # RedHat/Fedora
-   sudo rpm -i DarkroomPro-1.2.3-1.x86_64.rpm
+   sudo rpm -i DarkroomPro-1.3.0-1.x86_64.rpm
    ```
 3. Launch from applications menu
 
@@ -109,9 +129,9 @@ A professional desktop application for calculating **precise film development pa
 
 1. **Select your film stock** from the categorized dropdown
 2. **Choose your developer** (filtered based on film compatibility)
-3. **Set your temperature** (B&W: 15-30°C with automatic compensation; colour kits with a published time/temperature table — Tetenal, CineStill, Unicolor — can be run at lower temperatures, otherwise use the fixed kit temperature)
-4. **Adjust push/pull** if needed (+3 push to -2 pull)
-5. **Set solution volume** (100-2000ml)
+3. **Set your temperature** (B&W: 15-30°C with automatic compensation; colour kits are locked to their standard temperature — Tetenal 38°C, Unicolor 38.9°C, CineStill 39°C — with an opt-in temperature table only where the kit instructions publish one)
+4. **Adjust push/pull** if needed (+3 push to -2 pull; unsupported colour combinations are marked “not published”)
+5. **Set solution volume** (100-2000ml) and **agitation method** (intermittent or rotary)
 6. **Calculate** and get precise development time and dilution
 7. **Start the timer** and develop with confidence!
 8. **Export results** for your records
@@ -206,7 +226,9 @@ The application includes a comprehensive database of film stocks and developers:
 - **Specialized**: Push/pull optimized formulations
 
 ### **Data Provenance**
-Every film/developer combination carries a `source`, `source_url`, and `verified_date` field. Black & white base times and push/pull values are researched from the Massive Dev Chart (which aggregates manufacturer-published times and curated user data); where a combination was re-sourced, the `source_url` points at the exact chart query used. Push/pull values are taken from the chart's published exposure-index rows for that film/dilution; when no reliable row exists the field is left empty and the app falls back to the Massive Dev Chart push guideline (separate factors for standard developers, compensating developers and T-Max films), so no values are fabricated. Color (C-41/E-6) push and pull times follow the process tables in the database. The database is validated by automated tests (`cargo test`) that check key resolution, source coverage, and time monotonicity.
+Every film/developer combination carries a `source`, `source_url`, and `verified_date` field. Black & white base times and push/pull values are researched from the Massive Dev Chart (which aggregates manufacturer-published times and curated user data); where a combination was re-sourced, the `source_url` points at the exact chart query used. Where a manufacturer datasheet time was also checked against the chart, the `source` names both (for example `Kodak F-4043 + Massive Dev Chart`) and the URL is the chart query. Push/pull values are taken from the chart's published exposure-index rows for that film/dilution; when no reliable row exists the field is left empty and the app falls back to the Massive Dev Chart push guideline (separate factors for standard developers, compensating developers and T-Max films), so no values are fabricated. Colour (C-41/E-6) push and pull times are included only where the kit publishes them; if a value is missing the app says so instead of estimating one.
+
+Batch reuse is applied only where the kit publishes a rule, stored alongside the developer: CineStill CS41 (+2% per roll already developed, 1 L standard solution), Tetenal Colortec C-41 (+15s per 4-roll block at 38°C, +60s at 30°C) and Bellini C41-RA (+15s per 3-roll block). One-shot and replenished developers show no roll-count compensation rather than a guessed value. The database is validated by automated tests (`cargo test`) that check key resolution, source coverage, and time monotonicity.
 
 ## 🤝 **Contributing**
 

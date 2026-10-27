@@ -85,10 +85,23 @@ jobs:
           releaseBody: |
             ## DarkroomPro ${{ github.ref_name }}
 
-            Maintenance release: refreshed the CI and release pipeline to the latest GitHub Actions versions (checkout v7, setup-node v7, tauri-action v1). No functional changes to the app.
+            **Agitation, rotary processing and batch reuse**
 
-            ### Internal
-            - Fixed the bundled-database film-count assertion so the 47-film Vision3 250D data set is validated correctly.
+            ### Highlights
+            - **Custom agitation:** initial agitation (30s default), then every N seconds for M seconds, with a soft repeating cue instead of a triple beep.
+            - **Rotary / continuous processing:** applies the published -15% B&W developer-time adjustment; colour times are unchanged and agitation cues are suppressed.
+            - **Batch reuse compensation:** CineStill +2% per roll; Tetenal +15s per 4 rolls at 38C (+60s at 30C); Bellini +15s per 3 rolls. Unsupported developers show no compensation.
+            - **Colour temperature locked:** C-41/E-6 stay at the kit's standard temperature; alternative kit tables are opt-in.
+            - **UI refresh:** rounded controls, clearer form sections, stronger contrast, stable buttons, dark native controls, no blocking alerts.
+            - **Darkroom mode:** no longer auto-opens fullscreen; use Auto Fullscreen on Start or press F.
+
+            ### Corrections
+            - HC-110 Dilution E corrected to 1:47; T-Max Developer corrected to 1:4.
+            - Rust and JS dilution amounts now round identically.
+            - Colour push/pull is only offered where the kit publishes a time; no estimated values.
+            - Added B&W temperature and volume validation; corrected 92 provenance labels and T-Max datasheet references.
+
+            See [RELEASE_NOTES.md](https://github.com/Panolix/DarkroomPro/blob/main/RELEASE_NOTES.md) for the full list.
 
             ### Downloads
             - **macOS**: `.dmg` (universal)
@@ -96,8 +109,6 @@ jobs:
             - **Linux**: `.deb`, `.rpm` or `.AppImage`
 
             > Release builds are unsigned. On macOS right-click and choose Open the first time; on Windows SmartScreen may prompt.
-
-            See the [README](https://github.com/Panolix/DarkroomPro/blob/main/README.md) for installation instructions.
           releaseDraft: false
           prerelease: false
           args: ${{ matrix.args }}

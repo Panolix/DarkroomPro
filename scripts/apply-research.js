@@ -263,7 +263,9 @@ for (const [filmKey, mFilm] of Object.entries(mfrFilms)) {
     if (!combo) {
       if (derived.base == null || !masterFor(comboKey)) continue;
       combo = {
-        dilution: comboKey.includes('1_3') ? '1:3' : comboKey.includes('1_2') ? '1:2'
+        dilution: comboKey.startsWith('kodak_tmax_developer') ? '1:4'
+          : comboKey.startsWith('kodak_hc110_e') ? '1:47'
+          : comboKey.includes('1_3') ? '1:3' : comboKey.includes('1_2') ? '1:2'
           : comboKey.includes('1_50') ? '1:50' : comboKey.includes('1_25') ? '1:25'
           : comboKey.includes('1_14') ? '1:14' : comboKey.includes('1_9') ? '1:9'
           : comboKey.includes('1_4') && !comboKey.includes('ddx') && !comboKey.includes('tmax_developer') ? '1:4'

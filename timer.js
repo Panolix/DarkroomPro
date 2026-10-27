@@ -23,6 +23,11 @@ class DevelopmentTimer {
             chimes: this.loadSetting('darkroompro.darkroom.chimes', 'on') === 'on',
             sleep: this.loadSetting('darkroompro.darkroom.sleep', 'on') === 'on',
         };
+
+        this.customAgitation = this.loadSetting('darkroompro.timer.customAgitation', 'off') === 'on';
+        this.agitationInitial = this.clampAgitationInitial(parseInt(this.loadSetting('darkroompro.timer.agitationInitial', '30'), 10));
+        this.agitationEvery = this.clampAgitationEvery(parseInt(this.loadSetting('darkroompro.timer.agitationEvery', '60'), 10));
+        this.agitationDuration = this.clampAgitationDuration(parseInt(this.loadSetting('darkroompro.timer.agitationDuration', '10'), 10));
         try {
             localStorage.removeItem('darkroompro.darkroom');
         } catch (error) {
@@ -34,6 +39,10 @@ class DevelopmentTimer {
         this.focusVisible = false;
         this.sleepBlocked = false;
         this.audioContext = null;
+        this.soundTimers = new Set();
+        this.agitationTimer = null;
+        this.agitationSeq = 0;
+        this.lastSoundAt = 0;
 
         this.initializeElements();
         this.bindEvents();
@@ -74,6 +83,13 @@ class DevelopmentTimer {
         this.focusPauseBtn = document.getElementById('focus-pause');
         this.focusSkipBtn = document.getElementById('focus-skip');
         this.focusExitBtn = document.getElementById('focus-exit');
+        this.agitationToggle = document.getElementById('agitation-toggle');
+        this.agitationSummary = document.getElementById('agitation-summary');
+        this.agitationChimeBtn = document.getElementById('agitation-chime');
+        this.agitationOptions = document.getElementById('agitation-options');
+        this.agitationInitialInput = document.getElementById('agitation-initial');
+        this.agitationEveryInput = document.getElementById('agitation-every');
+        this.agitationDurationInput = document.getElementById('agitation-duration');
         this.editorOpen = false;
     }
 
@@ -101,12 +117,36 @@ class DevelopmentTimer {
         this.darkroomChimesBtn.addEventListener('click', () => this.toggleDarkroomOption('chimes'));
         this.darkroomSleepBtn.addEventListener('click', () => this.toggleDarkroomOption('sleep'));
 
+        this.agitationToggle.addEventListener('click', () => this.toggleCustomAgitation());
+        this.agitationChimeBtn.addEventListener('click', () => this.toggleDarkroomOption('chimes'));
+        this.agitationEveryInput.addEventListener('change', () => this.setAgitationEvery(this.agitationEveryInput.value));
+        this.agitationDurationInput.addEventListener('change', () => this.setAgitationDuration(this.agitationDurationInput.value));
+        this.agitationInitialInput.addEventListener('change', () => this.setAgitationInitial(this.agitationInitialInput.value));
+
         this.focusPauseBtn.addEventListener('click', () => this.focusPrimary());
         this.focusSkipBtn.addEventListener('click', () => this.skip());
         this.focusExitBtn.addEventListener('click', () => this.hideFocus());
 
         document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape' && this.focusVisible) this.hideFocus();
+            if (event.metaKey || event.ctrlKey || event.altKey) return;
+
+            const target = event.target;
+            const typing = target instanceof HTMLElement && (
+                target.tagName === 'INPUT' ||
+                target.tagName === 'TEXTAREA' ||
+                target.tagName === 'SELECT' ||
+                target.isContentEditable
+            );
+
+            if (event.key === 'Escape' && this.focusVisible) {
+                this.hideFocus();
+            } else if (!typing && (event.key === 'f' || event.key === 'F') && this.steps.length > 0) {
+                if (this.focusVisible) {
+                    this.hideFocus();
+                } else {
+                    this.showFocus();
+                }
+            }
         });
     }
 
@@ -149,23 +189,150 @@ class DevelopmentTimer {
         }
     }
 
+    // --- Custom agitation ---
+    clampAgitationInitial(value) {
+        if (!Number.isFinite(value)) return 30;
+        return Math.min(300, Math.max(0, Math.round(value)));
+    }
+
+    clampAgitationEvery(value) {
+        if (!Number.isFinite(value)) return 60;
+        return Math.min(600, Math.max(5, Math.round(value)));
+    }
+
+    clampAgitationDuration(value) {
+        if (!Number.isFinite(value)) return 10;
+        return Math.min(120, Math.max(1, Math.round(value)));
+    }
+
+    isAgitationLocked() {
+        const idle = this.state === 'idle' || this.state === 'done';
+        return !idle || !!this.pendingResume;
+    }
+
+    toggleCustomAgitation() {
+        if (this.isAgitationLocked()) return;
+        this.customAgitation = !this.customAgitation;
+        this.saveSetting('darkroompro.timer.customAgitation', this.customAgitation ? 'on' : 'off');
+        this.prepareCues();
+        this.updateDisplay();
+        this.updateAgitationUI();
+    }
+
+    setAgitationInitial(value) {
+        if (this.isAgitationLocked()) {
+            this.agitationInitialInput.value = this.agitationInitial;
+            return;
+        }
+        this.agitationInitial = this.clampAgitationInitial(parseInt(value, 10));
+        this.saveSetting('darkroompro.timer.agitationInitial', String(this.agitationInitial));
+        this.prepareCues();
+        this.updateDisplay();
+        this.updateAgitationUI();
+    }
+
+    setAgitationEvery(value) {
+        if (this.isAgitationLocked()) {
+            this.agitationEveryInput.value = this.agitationEvery;
+            return;
+        }
+        this.agitationEvery = this.clampAgitationEvery(parseInt(value, 10));
+        if (this.agitationDuration > this.agitationEvery) {
+            this.agitationDuration = this.agitationEvery;
+            this.saveSetting('darkroompro.timer.agitationDuration', String(this.agitationDuration));
+        }
+        this.saveSetting('darkroompro.timer.agitationEvery', String(this.agitationEvery));
+        this.prepareCues();
+        this.updateDisplay();
+        this.updateAgitationUI();
+    }
+
+    setAgitationDuration(value) {
+        if (this.isAgitationLocked()) {
+            this.agitationDurationInput.value = this.agitationDuration;
+            return;
+        }
+        this.agitationDuration = this.clampAgitationDuration(parseInt(value, 10));
+        if (this.agitationDuration > this.agitationEvery) {
+            this.agitationDuration = this.agitationEvery;
+        }
+        this.saveSetting('darkroompro.timer.agitationDuration', String(this.agitationDuration));
+        this.prepareCues();
+        this.updateDisplay();
+        this.updateAgitationUI();
+    }
+
+    updateAgitationUI() {
+        if (!this.agitationToggle) return;
+
+        const rotary = !!(this.context && this.context.rotary);
+        const locked = this.isAgitationLocked() || rotary;
+        const developer = this.steps.find(step => step.kind === 'developer' && step.time_minutes != null);
+        const agitation = developer ? this.effectiveAgitation(developer) : null;
+
+        this.agitationToggle.classList.toggle('active', this.customAgitation);
+        this.agitationToggle.disabled = locked;
+        this.agitationToggle.title = rotary
+            ? 'Rotary processing uses continuous agitation, so there are no interval cues'
+            : locked
+                ? 'Stop or reset the timer to change the agitation schedule'
+                : 'Set your own agitation interval and duration';
+
+        if (this.agitationOptions) {
+            this.agitationOptions.style.display = !rotary && this.customAgitation ? 'inline-flex' : 'none';
+        }
+        if (this.agitationEveryInput) {
+            this.agitationEveryInput.disabled = locked;
+            this.agitationEveryInput.value = this.agitationEvery;
+        }
+        if (this.agitationInitialInput) {
+            this.agitationInitialInput.disabled = locked;
+            this.agitationInitialInput.value = this.agitationInitial;
+        }
+        if (this.agitationDurationInput) {
+            this.agitationDurationInput.disabled = locked;
+            this.agitationDurationInput.value = this.agitationDuration;
+        }
+        if (this.agitationChimeBtn) {
+            this.agitationChimeBtn.classList.toggle('active', this.darkroom.chimes);
+            this.agitationChimeBtn.title = this.darkroom.chimes
+                ? 'Agitation chime is on'
+                : 'Agitation chime is off';
+        }
+        if (this.agitationSummary) {
+            if (rotary) {
+                this.agitationSummary.textContent = 'Rotary/continuous — no agitation cues';
+            } else if (agitation) {
+                const prefix = this.customAgitation ? 'Custom: ' : 'Preset: ';
+                this.agitationSummary.textContent = `${prefix}${window.processSteps.describeAgitation(agitation)}`;
+            } else {
+                this.agitationSummary.textContent = 'No agitation schedule for this step';
+            }
+        }
+    }
+
     // --- Darkroom mode ---
     toggleDarkroom() {
         this.darkroom.enabled = !this.darkroom.enabled;
         this.applyDarkroomUI();
-        if (this.darkroom.enabled) {
-            this.showFocus();
-            this.playSound('start');
-        } else {
+        if (!this.darkroom.enabled) {
+            // Turning the theme off should also leave the fullscreen display.
             this.hideFocus();
-            this.playSound('reset');
         }
+        this.playSound(this.darkroom.enabled ? 'start' : 'reset');
     }
 
     toggleDarkroomOption(option) {
         this.darkroom[option] = !this.darkroom[option];
         this.saveSetting(`darkroompro.darkroom.${option}`, this.darkroom[option] ? 'on' : 'off');
         this.applyDarkroomUI();
+        if (option === 'chimes') {
+            if (!this.darkroom.chimes) {
+                this.stopAgitationChime();
+            } else if (this.activeCue && this.state === 'running') {
+                this.startAgitationChime(this.activeCue.durationSeconds);
+            }
+        }
     }
 
     applyDarkroomUI() {
@@ -175,6 +342,7 @@ class DevelopmentTimer {
         if (this.darkroomFocusBtn) this.darkroomFocusBtn.classList.toggle('active', this.darkroom.focus);
         if (this.darkroomChimesBtn) this.darkroomChimesBtn.classList.toggle('active', this.darkroom.chimes);
         if (this.darkroomSleepBtn) this.darkroomSleepBtn.classList.toggle('active', this.darkroom.sleep);
+        this.updateAgitationUI();
         this.updateSleepBlock();
     }
 
@@ -236,34 +404,51 @@ class DevelopmentTimer {
     }
 
     // --- Agitation cues ---
+    effectiveAgitation(step) {
+        if (!step) return null;
+        if (this.context && this.context.rotary) return null;
+        if (step.kind !== 'developer') return step.agitation || null;
+        if (this.customAgitation) {
+            return {
+                initialSeconds: this.agitationInitial,
+                intervalSeconds: this.agitationDuration,
+                frequencyMinutes: this.agitationEvery / 60
+            };
+        }
+        return step.agitation || (this.context && this.context.presetAgitation) || null;
+    }
+
     prepareCues() {
+        this.stopAgitationChime();
         this.firedCues = new Set();
         this.activeCue = null;
         const step = this.steps[this.currentIndex];
-        this.cues = (window.processSteps && step && step.agitation && step.time_minutes != null)
-            ? window.processSteps.buildAgitationCues(step)
+        const agitation = this.effectiveAgitation(step);
+        this.cues = (window.processSteps && step && agitation && step.time_minutes != null)
+            ? window.processSteps.buildAgitationCues({ ...step, agitation })
             : [];
     }
 
     updateCueState() {
         if (this.state !== 'running' || this.cues.length === 0) {
             this.activeCue = null;
+            this.stopAgitationChime();
             return;
         }
 
         const duration = this.currentStepDuration();
         const elapsed = Math.max(0, duration - this.remaining);
+        const nextCue = this.cues.find(cue => elapsed >= cue.startSeconds && elapsed < cue.startSeconds + cue.durationSeconds) || null;
 
-        for (const cue of this.cues) {
-            if (!this.firedCues.has(cue.startSeconds) && elapsed >= cue.startSeconds) {
-                this.firedCues.add(cue.startSeconds);
-                if (this.darkroom.enabled && this.darkroom.chimes) {
-                    this.playSound('agitate');
-                }
+        if (nextCue && (!this.activeCue || nextCue.startSeconds !== this.activeCue.startSeconds)) {
+            if (this.darkroom.chimes) {
+                this.startAgitationChime(nextCue.durationSeconds);
             }
+        } else if (!nextCue && this.activeCue) {
+            this.stopAgitationChime();
         }
 
-        this.activeCue = this.cues.find(cue => elapsed >= cue.startSeconds && elapsed < cue.startSeconds + cue.durationSeconds) || null;
+        this.activeCue = nextCue;
         if (this.timerCardElement) {
             this.timerCardElement.classList.toggle('agitating', !!this.activeCue);
         }
@@ -304,7 +489,16 @@ class DevelopmentTimer {
     }
 
     getSteps() {
-        return this.steps.map(step => ({ ...step }));
+        return this.steps.map(step => {
+            const copy = { ...step };
+            const agitation = this.effectiveAgitation(step);
+            if (agitation) {
+                copy.agitation = { ...agitation };
+            } else {
+                delete copy.agitation;
+            }
+            return copy;
+        });
     }
 
     customKey() {
@@ -326,7 +520,7 @@ class DevelopmentTimer {
     // --- Controls ---
     start() {
         if (this.steps.length === 0) {
-            alert('Please calculate development time first');
+            if (this.nextElement) this.nextElement.textContent = 'Calculate a development time first';
             return;
         }
 
@@ -440,6 +634,7 @@ class DevelopmentTimer {
             clearInterval(this.interval);
             this.interval = null;
         }
+        this.stopAgitationChime();
     }
 
     tick() {
@@ -575,14 +770,8 @@ class DevelopmentTimer {
         this.playSound('complete');
         this.flashTimer();
 
-        if (this.darkroom.enabled) {
-            // Avoid a blocking modal over the fullscreen focus display.
-            if (this.nextElement) this.nextElement.textContent = 'Process complete';
-        } else {
-            setTimeout(() => {
-                alert('Process complete!\n\nAll steps are finished.');
-            }, 500);
-        }
+        if (this.nextElement) this.nextElement.textContent = 'Process complete';
+        if (this.focusNext) this.focusNext.textContent = 'Process complete';
     }
 
     // --- Rendering ---
@@ -597,6 +786,8 @@ class DevelopmentTimer {
 
     renderStepper() {
         if (!this.stepperElement) return;
+        // A single step needs no stepper - the step name is already shown above.
+        this.stepperElement.style.display = this.steps.length > 1 ? 'flex' : 'none';
         this.stepperElement.innerHTML = '';
 
         this.steps.forEach((step, index) => {
@@ -626,6 +817,8 @@ class DevelopmentTimer {
 
     renderSegments() {
         if (!this.segmentsElement) return;
+        // With one step the main progress bar already covers it.
+        this.segmentsElement.style.display = this.steps.length > 1 ? 'flex' : 'none';
         this.segmentsElement.innerHTML = '';
         this.steps.forEach((step, index) => {
             const segment = document.createElement('div');
@@ -667,6 +860,7 @@ class DevelopmentTimer {
             if (this.stepLabelElement) this.stepLabelElement.textContent = 'No process loaded';
             if (this.stepNameElement) this.stepNameElement.textContent = '';
             if (this.nextElement) this.nextElement.textContent = '';
+            this.updateFocusOverlay();
             return;
         }
 
@@ -751,13 +945,13 @@ class DevelopmentTimer {
         } else {
             this.startBtn.style.display = 'inline-block';
             this.startBtn.textContent = 'Start';
-            this.pauseBtn.style.display = 'inline-block';
-            this.pauseBtn.textContent = 'Pause';
+            this.pauseBtn.style.display = 'none';
         }
 
         this.skipBtn.style.display = hasSteps && this.state !== 'done' ? 'inline-block' : 'none';
         this.extendBtn.style.display = hasSteps ? 'inline-block' : 'none';
 
+        this.updateAgitationUI();
         this.updateSleepBlock();
         this.updateFocusOverlay();
     }
@@ -984,47 +1178,101 @@ class DevelopmentTimer {
             warning: 1000,
             step: 950,
             lowstep: 700,
-            agitate: 880,
-            agitateHigh: 1180,
             complete: 1200
         };
 
-        const beep = (frequency) => {
-            try {
-                const audioContext = this.getAudioContext();
-                if (!audioContext) return false;
-                const oscillator = audioContext.createOscillator();
-                const gainNode = audioContext.createGain();
+        // One sequence at a time: stop the repeating agitation ticks and any
+        // beeps scheduled by a previous cue before starting a new one.
+        this.stopAgitationChime();
+        this.cancelScheduledSounds();
 
-                oscillator.connect(gainNode);
-                gainNode.connect(audioContext.destination);
-                oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
-                oscillator.type = 'sine';
-
-                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
-
-                oscillator.start(audioContext.currentTime);
-                oscillator.stop(audioContext.currentTime + 0.2);
-                return true;
-            } catch (error) {
-                return false;
-            }
-        };
-
-        if (!beep(frequencies[type] || 800)) {
+        if (!this.beep(frequencies[type] || 800)) {
             console.log(`Timer ${type} sound`);
             return;
         }
+        this.lastSoundAt = Date.now();
 
         if (type === 'step') {
-            setTimeout(() => beep(frequencies.lowstep), 220);
-        } else if (type === 'agitate') {
-            setTimeout(() => beep(frequencies.agitateHigh), 140);
-            setTimeout(() => beep(frequencies.agitate), 280);
+            this.scheduleBeep(frequencies.lowstep, 220);
         } else if (type === 'complete') {
-            setTimeout(() => beep(frequencies.warning), 300);
-            setTimeout(() => beep(frequencies.warning), 600);
+            this.scheduleBeep(frequencies.warning, 300);
+            this.scheduleBeep(frequencies.warning, 600);
+        }
+    }
+
+    scheduleBeep(frequency, delay, gain = 0.09, duration = 0.18) {
+        const id = setTimeout(() => {
+            this.soundTimers.delete(id);
+            this.beep(frequency, gain, duration);
+        }, delay);
+        this.soundTimers.add(id);
+    }
+
+    cancelScheduledSounds() {
+        this.soundTimers.forEach(id => clearTimeout(id));
+        this.soundTimers.clear();
+    }
+
+    beep(frequency, gain = 0.09, duration = 0.18) {
+        try {
+            const audioContext = this.getAudioContext();
+            if (!audioContext) return false;
+
+            const now = audioContext.currentTime;
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            oscillator.frequency.setValueAtTime(frequency, now);
+            oscillator.type = 'sine';
+
+            gainNode.gain.setValueAtTime(0.0001, now);
+            gainNode.gain.exponentialRampToValueAtTime(gain, now + 0.015);
+            gainNode.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+            oscillator.start(now);
+            oscillator.stop(now + duration + 0.02);
+            return true;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    // A soft, repeating tick for the duration of an agitation window. It is
+    // deliberately quiet and slower than the visual countdown so it draws
+    // attention without becoming a metronome.
+    startAgitationChime(durationSeconds) {
+        this.stopAgitationChime();
+        if (!(durationSeconds > 0)) return;
+
+        const seq = this.agitationSeq;
+        const durationMs = durationSeconds * 1000;
+        const interval = 2500;
+        const firstDelay = Date.now() - this.lastSoundAt < 700 ? 1200 : 700;
+        let elapsed = 0;
+
+        const scheduleNext = (delay) => {
+            this.agitationTimer = setTimeout(() => {
+                if (seq !== this.agitationSeq) return;
+                this.beep(880, 0.028, 0.06);
+                elapsed += delay;
+                if (elapsed + interval <= durationMs) {
+                    scheduleNext(interval);
+                } else {
+                    this.agitationTimer = null;
+                }
+            }, delay);
+        };
+
+        scheduleNext(firstDelay);
+    }
+
+    stopAgitationChime() {
+        this.agitationSeq++;
+        if (this.agitationTimer) {
+            clearTimeout(this.agitationTimer);
+            this.agitationTimer = null;
         }
     }
 

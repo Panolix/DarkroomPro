@@ -149,6 +149,59 @@ mod tests {
     }
 
     #[test]
+    fn chart_linked_rows_name_the_chart() {
+        let database = load_bundled_database();
+
+        for (film_key, film) in &database.films {
+            for (combo_key, combo) in &film.developers {
+                let url = combo.source_url.as_deref().unwrap_or("");
+                let source = combo.source.as_deref().unwrap_or("");
+                if url.contains("devchart.php") {
+                    assert!(
+                        source.contains("Massive Dev Chart") || source.contains("Chart"),
+                        "combo '{}' of '{}' links to the chart but its source '{}' does not name it",
+                        combo_key, film_key, source
+                    );
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn combo_dilutions_match_developer_metadata() {
+        let database = load_bundled_database();
+
+        for (film_key, film) in &database.films {
+            if !matches!(film.film_type, FilmType::BlackWhite) {
+                continue;
+            }
+            for (combo_key, combo) in &film.developers {
+                let Some(dilution) = combo.dilution.as_deref() else { continue };
+                let normalized_combo = normalize_key(combo_key);
+                let Some((_, developer)) = database.developers.iter()
+                    .filter(|(key, _)| normalized_combo.starts_with(&normalize_key(key)))
+                    .max_by_key(|(key, _)| key.len())
+                else { continue };
+
+                let ratios: Vec<&str> = developer.dilutions.values()
+                    .map(|d| d.ratio.as_str())
+                    .collect();
+                let declared = if dilution == "stock" {
+                    developer.dilutions.contains_key("stock") || ratios.contains(&"1:0")
+                } else {
+                    ratios.contains(&dilution)
+                };
+
+                assert!(
+                    declared,
+                    "combo '{}' of '{}' uses dilution '{}' not declared by developer '{}' ({:?})",
+                    combo_key, film_key, dilution, developer.name, ratios
+                );
+            }
+        }
+    }
+
+    #[test]
     fn color_combos_have_kit_temperature() {
         let database = load_bundled_database();
 

@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DarkroomPro v1.2.3 - Professional Film Development Calculator</title>
+    <link rel="preload" href="/fonts/InterVariable.woff2" as="font" type="font/woff2" crossorigin>
+    <title>DarkroomPro v1.3.0 - Professional Film Development Calculator</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -15,47 +16,81 @@
 
         <main class="calculator">
             <div class="input-section">
-                <div class="input-group">
-                    <label for="film-stock">Film Stock</label>
-                    <select id="film-stock" disabled>
-                        <option value="">Loading database...</option>
-                    </select>
-                </div>
-
-                <div class="input-group">
-                    <label for="developer">Developer</label>
-                    <select id="developer" disabled>
-                        <option value="">Loading...</option>
-                    </select>
-                </div>
-
-                <div class="input-row">
+                <div class="form-section">
+                    <div class="form-section-title">Film &amp; Developer</div>
                     <div class="input-group">
-                        <label for="temperature">Temperature (°C)</label>
-                        <input type="number" id="temperature" value="20" min="15" max="30" step="0.5">
+                        <label for="film-stock">Film Stock</label>
+                        <select id="film-stock" disabled>
+                            <option value="">Loading database...</option>
+                        </select>
                     </div>
 
                     <div class="input-group">
-                        <label for="push-pull">Push/Pull (stops)</label>
-                        <select id="push-pull">
-                            <option value="-2">Pull 2 stops</option>
-                            <option value="-1">Pull 1 stop</option>
-                            <option value="0" selected>Normal</option>
-                            <option value="1">Push 1 stop</option>
-                            <option value="2">Push 2 stops</option>
-                            <option value="3">Push 3 stops</option>
+                        <label for="developer">Developer</label>
+                        <select id="developer" disabled>
+                            <option value="">Loading...</option>
                         </select>
                     </div>
                 </div>
 
-                <div class="input-group">
-                    <label for="volume">Solution Volume (ml)</label>
-                    <input type="number" id="volume" value="500" min="100" max="2000" step="50">
+                <div class="form-section">
+                    <div class="form-section-title">Process</div>
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label for="temperature">Temperature (°C)</label>
+                            <input type="number" id="temperature" value="20" min="15" max="30" step="0.5">
+                            <button id="kit-temp-toggle" class="link-btn" type="button" style="display: none;">Use kit temperature table</button>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="push-pull">Push/Pull (stops)</label>
+                            <select id="push-pull">
+                                <option value="-2">Pull 2 stops</option>
+                                <option value="-1">Pull 1 stop</option>
+                                <option value="0" selected>Normal</option>
+                                <option value="1">Push 1 stop</option>
+                                <option value="2">Push 2 stops</option>
+                                <option value="3">Push 3 stops</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label for="volume">Solution Volume (ml)</label>
+                            <input type="number" id="volume" value="500" min="100" max="2000" step="50">
+                        </div>
+
+                        <div class="input-group">
+                            <label for="agitation-method">Agitation Method</label>
+                            <select id="agitation-method">
+                                <option value="inversion">Intermittent (inversion)</option>
+                                <option value="rotary">Rotary (continuous)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label for="rolls-developed">Rolls already developed</label>
+                            <input type="number" id="rolls-developed" min="0" max="30" step="1" value="0" aria-label="Rolls already developed in this batch">
+                            <button id="rolls-reset" class="link-btn" type="button" style="display: none;">Reset batch</button>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Batch capacity</label>
+                            <div class="static-field" id="batch-capacity">Not published</div>
+                        </div>
+                    </div>
+
+                    <div class="rolls-note" id="rolls-note"></div>
+                    <div class="process-note" id="process-note"></div>
                 </div>
 
                 <button id="calculate" class="calculate-btn">Calculate Development</button>
                 <div id="export-section" style="display: none;">
-                    <select id="export-format" class="export-format-select">
+                    <label for="export-format" class="export-label">Export Format</label>
+                    <select id="export-format" class="export-format-select" aria-label="Export format">
                         <option value="json">JSON</option>
                         <option value="csv">CSV</option>
                         <option value="pdf">PDF</option>
@@ -72,7 +107,7 @@
                 </div>
 
                 <div class="result-card" id="dilution-result">
-                    <h3>Dilution Ratio</h3>
+                    <h3 id="dilution-title">Dilution Ratio</h3>
                     <div class="result-value" id="dilution">1:--</div>
                     <div class="result-breakdown" id="dilution-breakdown">
                         <span id="developer-amount">-- ml developer</span>
@@ -95,7 +130,7 @@
                             <button class="mode-btn active" data-mode="auto" type="button">Auto</button>
                             <button class="mode-btn" data-mode="buffer" type="button">Buffer</button>
                             <button class="mode-btn" data-mode="manual" type="button">Manual</button>
-                            <input type="number" id="buffer-seconds" class="buffer-seconds" min="1" max="60" step="1" value="5" title="Buffer seconds" style="display: none;">
+                            <input type="number" id="buffer-seconds" class="buffer-seconds" min="1" max="60" step="1" value="5" title="Buffer seconds" aria-label="Buffer seconds" style="display: none;">
                         </div>
                     </div>
                     <div class="timer-step-label" id="timer-step-label">No process loaded</div>
@@ -118,10 +153,24 @@
                         <button id="toggle-custom" class="timer-btn ghost" type="button">Customize Steps</button>
                         <span id="custom-badge" class="custom-badge" style="display: none;">customized</span>
                     </div>
+                    <div class="timer-agitation-row">
+                        <button id="agitation-toggle" class="timer-btn ghost" type="button">Custom Agitation</button>
+                        <span id="agitation-summary" class="agitation-summary"></span>
+                        <button id="agitation-chime" class="timer-btn ghost small" type="button" title="Play a chime when it is time to agitate">Chime</button>
+                    </div>
+                    <div id="agitation-options" class="agitation-options" style="display: none;">
+                        <label for="agitation-initial">First</label>
+                        <input type="number" id="agitation-initial" min="0" max="300" step="5" value="30" aria-label="Initial agitation in seconds">
+                        <span class="agitation-unit">s, then every</span>
+                        <input type="number" id="agitation-every" min="5" max="600" step="5" value="60" aria-label="Agitation interval in seconds">
+                        <span class="agitation-unit">s agitate for</span>
+                        <input type="number" id="agitation-duration" min="1" max="120" step="1" value="10" aria-label="Agitation duration in seconds">
+                        <span class="agitation-unit">s</span>
+                    </div>
                     <div class="darkroom-row">
                         <button id="darkroom-toggle" class="timer-btn ghost darkroom-toggle" type="button">Darkroom Mode</button>
                         <span id="darkroom-options" class="darkroom-options" style="display: none;">
-                            <button id="darkroom-focus" class="timer-btn ghost small" type="button">Focus</button>
+                            <button id="darkroom-focus" class="timer-btn ghost small" type="button" title="Open the fullscreen display automatically when the timer starts. Press F to toggle it manually at any time.">Auto Fullscreen</button>
                             <button id="darkroom-chimes" class="timer-btn ghost small" type="button">Chimes</button>
                             <button id="darkroom-sleep" class="timer-btn ghost small" type="button">No Sleep</button>
                         </span>
@@ -165,29 +214,5 @@
     <script type="module" src="steps.js"></script>
     <script type="module" src="calculator.js"></script>
     <script type="module" src="timer.js"></script>
-    
-    <!-- Force database loading debug -->
-    <script>
-        window.addEventListener('load', async () => {
-            console.log('🚀 Window loaded, forcing database check...');
-            
-            // Wait a bit for modules to load
-            setTimeout(async () => {
-                const database = window.filmDatabase || {};
-                console.log('🔍 Checking if database loaded:', {
-                    filmDatabase: Object.keys(database).length,
-                    calculator: !!window.calculator
-                });
-                
-                // Force database reload if empty
-                if (Object.keys(database).length === 0) {
-                    console.log('🔄 Database empty, forcing reload...');
-                    if (typeof window.loadDatabase === 'function') {
-                        await window.loadDatabase();
-                    }
-                }
-            }, 2000);
-        });
-    </script>
 </body>
 </html>

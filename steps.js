@@ -91,7 +91,14 @@ function summarizeSteps(steps) {
 
 function describeAgitation(agitation) {
     if (!agitation) return null;
-    return `Agitate ${agitation.initialSeconds}s at start, then ${agitation.intervalSeconds}s every ${agitation.frequencyMinutes} min`;
+    const frequency = agitation.frequencyMinutes;
+    const every = frequency < 1
+        ? `${Math.round(frequency * 60)}s`
+        : `${frequency} min`;
+    const initial = agitation.initialSeconds > 0
+        ? `Agitate ${agitation.initialSeconds}s at start, then `
+        : 'Agitate ';
+    return `${initial}${agitation.intervalSeconds}s every ${every}`;
 }
 
 function buildAgitationCues(step) {
@@ -121,10 +128,10 @@ function buildAgitationCues(step) {
     return cues;
 }
 
-const api = { STEP_LIBRARY, buildPresetSteps, createStep, summarizeSteps, buildAgitationCues, describeAgitation, DEFAULT_AGITATION };
+const api = { STEP_LIBRARY, buildPresetSteps, createStep, summarizeSteps, buildAgitationCues, describeAgitation, agitationFromCombo, DEFAULT_AGITATION };
 
 if (typeof window !== 'undefined') {
     window.processSteps = api;
 }
 
-export { STEP_LIBRARY, buildPresetSteps, createStep, summarizeSteps, buildAgitationCues, describeAgitation, DEFAULT_AGITATION };
+export { STEP_LIBRARY, buildPresetSteps, createStep, summarizeSteps, buildAgitationCues, describeAgitation, agitationFromCombo, DEFAULT_AGITATION };

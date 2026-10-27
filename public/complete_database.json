@@ -66,7 +66,7 @@
           "verified_date": "2026-09-22"
         },
         "kodak_hc110_e": {
-          "dilution": "1:63",
+          "dilution": "1:47",
           "time_minutes": 8,
           "temperature_c": 20,
           "agitation_initial_seconds": 30,
@@ -331,7 +331,7 @@
           "verified_date": "2026-09-22"
         },
         "kodak_tmax_developer": {
-          "dilution": "stock",
+          "dilution": "1:4",
           "temperature_c": 20,
           "agitation_initial_seconds": 30,
           "agitation_interval_seconds": 10,
@@ -540,7 +540,7 @@
           "pull_1_stop_minutes": 11.5
         },
         "kodak_tmax_developer": {
-          "dilution": "stock",
+          "dilution": "1:4",
           "temperature_c": 20,
           "agitation_initial_seconds": 30,
           "agitation_interval_seconds": 10,
@@ -610,7 +610,7 @@
           "push_1_stop_minutes": 6.5,
           "push_2_stop_minutes": 8.25,
           "push_3_stop_minutes": 11,
-          "source": "Kodak F-4016",
+          "source": "Kodak F-4016 + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kodak%20T-Max%20100&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -623,7 +623,7 @@
           "agitation_frequency_minutes": 1,
           "push_1_stop_minutes": null,
           "push_2_stop_minutes": null,
-          "source": "Kodak F-4016",
+          "source": "Kodak F-4016 + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kodak%20T-Max%20100&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -636,7 +636,7 @@
           "agitation_frequency_minutes": 1,
           "push_1_stop_minutes": 7.5,
           "push_2_stop_minutes": 12.25,
-          "source": "Kodak F-4016",
+          "source": "Kodak F-4016 + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kodak%20T-Max%20100&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -649,7 +649,7 @@
           "agitation_frequency_minutes": 1,
           "push_1_stop_minutes": 6,
           "push_2_stop_minutes": 11.5,
-          "source": "Kodak F-4016",
+          "source": "Kodak F-4016 + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kodak%20T-Max%20100&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -664,7 +664,7 @@
           "push_2_stop_minutes": 9.5,
           "push_3_stop_minutes": 10.5,
           "pull_1_stop_minutes": 5.75,
-          "source": "Kodak F-4016",
+          "source": "Kodak F-4016 + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kodak%20T-Max%20100&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -692,7 +692,7 @@
           "push_2_stop_minutes": 12.25,
           "push_3_stop_minutes": 14.5,
           "pull_1_stop_minutes": 8,
-          "source": "Kodak F-4016",
+          "source": "Kodak F-4016 + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kodak%20T-Max%20100&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -797,7 +797,7 @@
           "agitation_frequency_minutes": 1,
           "push_1_stop_minutes": 8,
           "push_2_stop_minutes": 10.5,
-          "source": "Kodak F-4016",
+          "source": "Kodak F-4043 + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kodak%20T-Max%20400&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -810,7 +810,7 @@
           "agitation_frequency_minutes": 1,
           "push_1_stop_minutes": 7,
           "push_2_stop_minutes": 10,
-          "source": "Kodak F-4016",
+          "source": "Kodak F-4043 + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kodak%20T-Max%20400&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -824,7 +824,7 @@
           "push_1_stop_minutes": 6,
           "push_2_stop_minutes": 8.5,
           "push_3_stop_minutes": 9.5,
-          "source": "Kodak F-4016",
+          "source": "Kodak F-4043 + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kodak%20T-Max%20400&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -839,7 +839,7 @@
           "push_2_stop_minutes": 8.5,
           "push_3_stop_minutes": 9.5,
           "pull_1_stop_minutes": 5.75,
-          "source": "Kodak F-4016",
+          "source": "Kodak F-4043 + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kodak%20T-Max%20400&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -853,7 +853,7 @@
           "push_1_stop_minutes": null,
           "push_2_stop_minutes": 18.5,
           "pull_2_stop_minutes": 8.75,
-          "source": "Kodak F-4016",
+          "source": "Kodak F-4043 + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kodak%20T-Max%20400&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -881,7 +881,7 @@
           "push_1_stop_minutes": 9.5,
           "push_2_stop_minutes": 10.75,
           "pull_1_stop_minutes": 8,
-          "source": "Kodak F-4016",
+          "source": "Kodak F-4043 + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kodak%20T-Max%20400&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -992,7 +992,7 @@
           "push_1_stop_minutes": 6.75,
           "push_2_stop_minutes": 9.5,
           "push_3_stop_minutes": 11,
-          "source": "Kodak F-4017",
+          "source": "Kodak F-4017 + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kodak%20Tri-X%20400&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -1006,7 +1006,7 @@
           "push_1_stop_minutes": 9.75,
           "push_2_stop_minutes": 13.25,
           "push_3_stop_minutes": 16,
-          "source": "Kodak F-4017",
+          "source": "Kodak F-4017 + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kodak%20Tri-X%20400&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -1040,7 +1040,7 @@
           "push_1_stop_minutes": 3.75
         },
         "kodak_hc110_e": {
-          "dilution": "1:63",
+          "dilution": "1:47",
           "time_minutes": 7.25,
           "temperature_c": 20,
           "agitation_initial_seconds": 30,
@@ -1064,7 +1064,7 @@
           "push_2_stop_minutes": 9.75,
           "push_3_stop_minutes": 10.5,
           "pull_1_stop_minutes": 5.5,
-          "source": "Kodak F-4017",
+          "source": "Kodak F-4017 + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kodak%20Tri-X%20400&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -1079,7 +1079,7 @@
           "push_2_stop_minutes": 13.25,
           "push_3_stop_minutes": 14.5,
           "pull_1_stop_minutes": 8,
-          "source": "Kodak F-4017",
+          "source": "Kodak F-4017 + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kodak%20Tri-X%20400&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -1166,7 +1166,7 @@
           "push_1_stop_minutes": 6,
           "push_2_stop_minutes": 8.75,
           "push_3_stop_minutes": 12,
-          "source": "Kodak F-4017",
+          "source": "Kodak F-4017 + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kodak%20Tri-X%20400&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         }
@@ -1316,7 +1316,7 @@
           "time_minutes": 14.5
         },
         "kodak_hc110_e": {
-          "dilution": "stock",
+          "dilution": "1:47",
           "temperature_c": 20,
           "agitation_initial_seconds": 30,
           "agitation_interval_seconds": 10,
@@ -1373,7 +1373,7 @@
           "time_minutes": 14
         },
         "kodak_tmax_developer": {
-          "dilution": "stock",
+          "dilution": "1:4",
           "temperature_c": 20,
           "agitation_initial_seconds": 30,
           "agitation_interval_seconds": 10,
@@ -1599,7 +1599,7 @@
           "time_minutes": 14.5
         },
         "kodak_hc110_e": {
-          "dilution": "stock",
+          "dilution": "1:47",
           "temperature_c": 20,
           "agitation_initial_seconds": 30,
           "agitation_interval_seconds": 10,
@@ -1656,7 +1656,7 @@
           "time_minutes": 14
         },
         "kodak_tmax_developer": {
-          "dilution": "stock",
+          "dilution": "1:4",
           "temperature_c": 20,
           "agitation_initial_seconds": 30,
           "agitation_interval_seconds": 10,
@@ -1771,7 +1771,7 @@
           "push_2_stop_minutes": null,
           "push_3_stop_minutes": 14,
           "pull_1_stop_minutes": 7,
-          "source": "Ilford Delta 100 datasheet",
+          "source": "Ilford Delta 100 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20Delta%20100&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -1785,7 +1785,7 @@
           "push_1_stop_minutes": 12.5,
           "push_2_stop_minutes": 23,
           "pull_1_stop_minutes": 8,
-          "source": "Ilford Delta 100 datasheet",
+          "source": "Ilford Delta 100 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20Delta%20100&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -1856,7 +1856,7 @@
           "push_1_stop_minutes": 13,
           "push_2_stop_minutes": 14.5,
           "pull_1_stop_minutes": 10,
-          "source": "Ilford Delta 100 datasheet",
+          "source": "Ilford Delta 100 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20Delta%20100&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -1870,7 +1870,7 @@
           "push_1_stop_minutes": null,
           "push_2_stop_minutes": null,
           "pull_1_stop_minutes": 15,
-          "source": "Ilford Delta 100 datasheet",
+          "source": "Ilford Delta 100 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20Delta%20100&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -1883,7 +1883,7 @@
           "agitation_frequency_minutes": 1,
           "push_1_stop_minutes": 8,
           "push_2_stop_minutes": 10,
-          "source": "Ilford Delta 100 datasheet",
+          "source": "Ilford Delta 100 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20Delta%20100&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -1896,7 +1896,7 @@
           "agitation_frequency_minutes": 1,
           "push_1_stop_minutes": 14,
           "push_2_stop_minutes": null,
-          "source": "Ilford Delta 100 datasheet",
+          "source": "Ilford Delta 100 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20Delta%20100&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -1911,7 +1911,7 @@
           "push_2_stop_minutes": null,
           "pull_1_stop_minutes": 12,
           "pull_2_stop_minutes": 9,
-          "source": "Ilford Delta 100 datasheet",
+          "source": "Ilford Delta 100 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20Delta%20100&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -1925,7 +1925,7 @@
           "push_1_stop_minutes": null,
           "push_2_stop_minutes": null,
           "pull_1_stop_minutes": 13,
-          "source": "Ilford Delta 100 datasheet",
+          "source": "Ilford Delta 100 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20Delta%20100&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -1938,7 +1938,7 @@
           "agitation_frequency_minutes": 1,
           "push_1_stop_minutes": 7.5,
           "push_2_stop_minutes": 11,
-          "source": "Ilford Delta 100 datasheet",
+          "source": "Ilford Delta 100 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20Delta%20100&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -1951,7 +1951,7 @@
           "agitation_frequency_minutes": 1,
           "push_1_stop_minutes": null,
           "push_2_stop_minutes": null,
-          "source": "Ilford Delta 100 datasheet",
+          "source": "Ilford Delta 100 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20Delta%20100&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -2047,7 +2047,7 @@
           "push_2_stop_minutes": 14.5,
           "push_3_stop_minutes": 19,
           "pull_1_stop_minutes": 7,
-          "source": "Ilford Delta 400 datasheet",
+          "source": "Ilford Delta 400 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20Delta%20400&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -2062,7 +2062,7 @@
           "push_2_stop_minutes": 13.5,
           "push_3_stop_minutes": 18,
           "pull_1_stop_minutes": 6,
-          "source": "Ilford Delta 400 datasheet",
+          "source": "Ilford Delta 400 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20Delta%20400&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -2120,7 +2120,7 @@
           "push_1_stop_minutes": 17.5,
           "push_2_stop_minutes": null,
           "pull_1_stop_minutes": 10,
-          "source": "Ilford Delta 400 datasheet",
+          "source": "Ilford Delta 400 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20Delta%20400&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -2149,7 +2149,7 @@
           "push_2_stop_minutes": 10.5,
           "push_3_stop_minutes": 14,
           "pull_1_stop_minutes": 5,
-          "source": "Ilford Delta 400 datasheet",
+          "source": "Ilford Delta 400 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20Delta%20400&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -2163,7 +2163,7 @@
           "push_1_stop_minutes": 14,
           "push_2_stop_minutes": null,
           "pull_1_stop_minutes": 5.5,
-          "source": "Ilford Delta 400 datasheet",
+          "source": "Ilford Delta 400 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20Delta%20400&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -2177,7 +2177,7 @@
           "push_1_stop_minutes": 20.5,
           "push_2_stop_minutes": null,
           "pull_1_stop_minutes": 8,
-          "source": "Ilford Delta 400 datasheet",
+          "source": "Ilford Delta 400 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20Delta%20400&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -2247,7 +2247,7 @@
           "agitation_initial_seconds": 10,
           "agitation_interval_seconds": 10,
           "agitation_frequency_minutes": 1,
-          "source": "Ilford Delta 400 datasheet",
+          "source": "Ilford Delta 400 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20Delta%20400&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22",
           "time_minutes": 11.5,
@@ -2290,7 +2290,7 @@
           "push_2_stop_minutes": 17,
           "pull_1_stop_minutes": 9.5,
           "pull_2_stop_minutes": 8,
-          "source": "Ilford Delta 3200 datasheet",
+          "source": "Ilford Delta 3200 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20Delta%203200&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -2306,7 +2306,7 @@
           "push_3_stop_minutes": 25,
           "pull_1_stop_minutes": 8,
           "pull_2_stop_minutes": 7,
-          "source": "Ilford Delta 3200 datasheet",
+          "source": "Ilford Delta 3200 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20Delta%203200&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -2321,7 +2321,7 @@
           "push_2_stop_minutes": 16.5,
           "pull_1_stop_minutes": 8,
           "pull_2_stop_minutes": 7,
-          "source": "Ilford Delta 3200 datasheet",
+          "source": "Ilford Delta 3200 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20Delta%203200&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22",
           "push_3_stop_minutes": 22
@@ -2337,7 +2337,7 @@
           "push_2_stop_minutes": null,
           "pull_1_stop_minutes": 15,
           "pull_2_stop_minutes": 13,
-          "source": "Ilford Delta 3200 datasheet",
+          "source": "Ilford Delta 3200 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20Delta%203200&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -2352,7 +2352,7 @@
           "push_2_stop_minutes": null,
           "pull_1_stop_minutes": 10,
           "pull_2_stop_minutes": 7.5,
-          "source": "Ilford Delta 3200 datasheet",
+          "source": "Ilford Delta 3200 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20Delta%203200&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -2367,7 +2367,7 @@
           "push_2_stop_minutes": null,
           "pull_1_stop_minutes": 15.5,
           "pull_2_stop_minutes": 13,
-          "source": "Ilford Delta 3200 datasheet",
+          "source": "Ilford Delta 3200 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20Delta%203200&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -2422,7 +2422,7 @@
           "push_1_stop_minutes": 10.5,
           "push_2_stop_minutes": 14,
           "pull_1_stop_minutes": 6.75,
-          "source": "Ilford HP5 Plus datasheet (2018)",
+          "source": "Ilford HP5 Plus datasheet (2018) + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20HP5%20Plus&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -2438,7 +2438,7 @@
           "push_3_stop_minutes": 25,
           "pull_1_stop_minutes": 10,
           "pull_2_stop_minutes": 6,
-          "source": "Ilford HP5 Plus datasheet (2018)",
+          "source": "Ilford HP5 Plus datasheet (2018) + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20HP5%20Plus&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -2453,7 +2453,7 @@
           "push_2_stop_minutes": 13,
           "push_3_stop_minutes": 20,
           "pull_1_stop_minutes": 7,
-          "source": "Ilford HP5 Plus datasheet (2018)",
+          "source": "Ilford HP5 Plus datasheet (2018) + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20HP5%20Plus&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -2467,7 +2467,7 @@
           "push_1_stop_minutes": 8,
           "push_2_stop_minutes": 11,
           "push_3_stop_minutes": 16,
-          "source": "Ilford HP5 Plus datasheet (2018)",
+          "source": "Ilford HP5 Plus datasheet (2018) + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20HP5%20Plus&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -2553,7 +2553,7 @@
           "push_1_stop_minutes": 25,
           "push_2_stop_minutes": 30,
           "pull_1_stop_minutes": 14,
-          "source": "Ilford HP5 Plus datasheet (2018)",
+          "source": "Ilford HP5 Plus datasheet (2018) + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20HP5%20Plus&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -2566,7 +2566,7 @@
           "agitation_frequency_minutes": 1,
           "push_1_stop_minutes": 15,
           "push_2_stop_minutes": 21,
-          "source": "Ilford HP5 Plus datasheet (2018)",
+          "source": "Ilford HP5 Plus datasheet (2018) + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20HP5%20Plus&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -2580,7 +2580,7 @@
           "push_1_stop_minutes": null,
           "push_2_stop_minutes": 22,
           "pull_2_stop_minutes": 9,
-          "source": "Ilford HP5 Plus datasheet (2018)",
+          "source": "Ilford HP5 Plus datasheet (2018) + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20HP5%20Plus&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -2593,7 +2593,7 @@
           "agitation_frequency_minutes": 1,
           "push_1_stop_minutes": null,
           "push_2_stop_minutes": null,
-          "source": "Ilford HP5 Plus datasheet (2018)",
+          "source": "Ilford HP5 Plus datasheet (2018) + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20HP5%20Plus&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -2608,7 +2608,7 @@
           "push_2_stop_minutes": 17,
           "push_3_stop_minutes": 24.5,
           "pull_1_stop_minutes": 5,
-          "source": "Ilford HP5 Plus datasheet (2018)",
+          "source": "Ilford HP5 Plus datasheet (2018) + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20HP5%20Plus&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -2622,7 +2622,7 @@
           "push_1_stop_minutes": 19.5,
           "push_2_stop_minutes": null,
           "pull_1_stop_minutes": 7,
-          "source": "Ilford HP5 Plus datasheet (2018)",
+          "source": "Ilford HP5 Plus datasheet (2018) + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20HP5%20Plus&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -2704,7 +2704,7 @@
           "push_1_stop_minutes": 10,
           "push_2_stop_minutes": 12,
           "pull_1_stop_minutes": 6.5,
-          "source": "Ilford FP4 Plus datasheet (2018)",
+          "source": "Ilford FP4 Plus datasheet (2018) + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20FP4%20Plus&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -2718,7 +2718,7 @@
           "push_1_stop_minutes": 12,
           "push_2_stop_minutes": 18,
           "pull_1_stop_minutes": 8,
-          "source": "Ilford FP4 Plus datasheet (2018)",
+          "source": "Ilford FP4 Plus datasheet (2018) + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20FP4%20Plus&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -2774,7 +2774,7 @@
           "push_1_stop_minutes": 15,
           "push_2_stop_minutes": 18,
           "pull_1_stop_minutes": 8,
-          "source": "Ilford FP4 Plus datasheet (2018)",
+          "source": "Ilford FP4 Plus datasheet (2018) + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20FP4%20Plus&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -2788,7 +2788,7 @@
           "push_1_stop_minutes": null,
           "push_2_stop_minutes": null,
           "pull_1_stop_minutes": 17,
-          "source": "Ilford FP4 Plus datasheet (2018)",
+          "source": "Ilford FP4 Plus datasheet (2018) + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20FP4%20Plus&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -2802,7 +2802,7 @@
           "push_1_stop_minutes": 9,
           "push_2_stop_minutes": 15.5,
           "push_3_stop_minutes": 20,
-          "source": "Ilford FP4 Plus datasheet (2018)",
+          "source": "Ilford FP4 Plus datasheet (2018) + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20FP4%20Plus&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -2815,7 +2815,7 @@
           "agitation_frequency_minutes": 1,
           "push_1_stop_minutes": 14,
           "push_2_stop_minutes": null,
-          "source": "Ilford FP4 Plus datasheet (2018)",
+          "source": "Ilford FP4 Plus datasheet (2018) + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20FP4%20Plus&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -2829,7 +2829,7 @@
           "push_1_stop_minutes": null,
           "push_2_stop_minutes": 17,
           "pull_1_stop_minutes": 9,
-          "source": "Ilford FP4 Plus datasheet (2018)",
+          "source": "Ilford FP4 Plus datasheet (2018) + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20FP4%20Plus&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -2843,7 +2843,7 @@
           "push_1_stop_minutes": null,
           "push_2_stop_minutes": null,
           "pull_1_stop_minutes": 13,
-          "source": "Ilford FP4 Plus datasheet (2018)",
+          "source": "Ilford FP4 Plus datasheet (2018) + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20FP4%20Plus&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -2856,7 +2856,7 @@
           "agitation_frequency_minutes": 1,
           "push_1_stop_minutes": 7.5,
           "push_2_stop_minutes": null,
-          "source": "Ilford FP4 Plus datasheet (2018)",
+          "source": "Ilford FP4 Plus datasheet (2018) + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20FP4%20Plus&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -2869,7 +2869,7 @@
           "agitation_frequency_minutes": 1,
           "push_1_stop_minutes": null,
           "push_2_stop_minutes": null,
-          "source": "Ilford FP4 Plus datasheet (2018)",
+          "source": "Ilford FP4 Plus datasheet (2018) + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20FP4%20Plus&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -2995,7 +2995,7 @@
           "push_2_stop_minutes": null,
           "pull_1_stop_minutes": 4.5,
           "pull_2_stop_minutes": 4,
-          "source": "Ilford Pan F Plus datasheet",
+          "source": "Ilford Pan F Plus datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20Pan%20F%20Plus%2050&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -3009,7 +3009,7 @@
           "push_1_stop_minutes": null,
           "push_2_stop_minutes": null,
           "pull_1_stop_minutes": 9,
-          "source": "Ilford Pan F Plus datasheet",
+          "source": "Ilford Pan F Plus datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20Pan%20F%20Plus%2050&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -3067,7 +3067,7 @@
           "push_1_stop_minutes": 11,
           "push_2_stop_minutes": null,
           "pull_1_stop_minutes": 6,
-          "source": "Ilford Pan F Plus datasheet",
+          "source": "Ilford Pan F Plus datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20Pan%20F%20Plus%2050&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -3082,7 +3082,7 @@
           "push_2_stop_minutes": null,
           "pull_1_stop_minutes": 12.5,
           "pull_2_stop_minutes": 9,
-          "source": "Ilford Pan F Plus datasheet",
+          "source": "Ilford Pan F Plus datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20Pan%20F%20Plus%2050&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -3096,7 +3096,7 @@
           "push_1_stop_minutes": 9,
           "push_2_stop_minutes": null,
           "pull_1_stop_minutes": 7,
-          "source": "Ilford Pan F Plus datasheet",
+          "source": "Ilford Pan F Plus datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20Pan%20F%20Plus%2050&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -3109,7 +3109,7 @@
           "agitation_frequency_minutes": 1,
           "push_1_stop_minutes": 8,
           "push_2_stop_minutes": 12,
-          "source": "Ilford Pan F Plus datasheet",
+          "source": "Ilford Pan F Plus datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20Pan%20F%20Plus%2050&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -3122,7 +3122,7 @@
           "agitation_frequency_minutes": 1,
           "push_1_stop_minutes": null,
           "push_2_stop_minutes": null,
-          "source": "Ilford Pan F Plus datasheet",
+          "source": "Ilford Pan F Plus datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20Pan%20F%20Plus%2050&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -3136,7 +3136,7 @@
           "push_1_stop_minutes": null,
           "push_2_stop_minutes": null,
           "pull_1_stop_minutes": 10.5,
-          "source": "Ilford Pan F Plus datasheet",
+          "source": "Ilford Pan F Plus datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20Pan%20F%20Plus%2050&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -3149,7 +3149,7 @@
           "agitation_frequency_minutes": 1,
           "push_1_stop_minutes": 5.5,
           "push_2_stop_minutes": null,
-          "source": "Ilford Pan F Plus datasheet",
+          "source": "Ilford Pan F Plus datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Ilford%20Pan%20F%20Plus%2050&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -5238,7 +5238,7 @@
           "push_1_stop_minutes": 11,
           "push_2_stop_minutes": null,
           "pull_1_stop_minutes": 7,
-          "source": "Kentmere Pan 100 datasheet",
+          "source": "Kentmere Pan 100 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kentmere%20Pan%20100&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -5252,7 +5252,7 @@
           "push_1_stop_minutes": 15.5,
           "push_2_stop_minutes": 20,
           "pull_1_stop_minutes": 8.5,
-          "source": "Kentmere Pan 100 datasheet",
+          "source": "Kentmere Pan 100 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kentmere%20Pan%20100&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -5337,7 +5337,7 @@
           "push_1_stop_minutes": 12.5,
           "push_2_stop_minutes": null,
           "pull_1_stop_minutes": 8.5,
-          "source": "Kentmere Pan 100 datasheet",
+          "source": "Kentmere Pan 100 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kentmere%20Pan%20100&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -5363,7 +5363,7 @@
           "agitation_frequency_minutes": 1,
           "push_1_stop_minutes": 9,
           "push_2_stop_minutes": null,
-          "source": "Kentmere Pan 100 datasheet",
+          "source": "Kentmere Pan 100 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kentmere%20Pan%20100&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -5373,7 +5373,7 @@
           "agitation_initial_seconds": 10,
           "agitation_interval_seconds": 10,
           "agitation_frequency_minutes": 1,
-          "source": "Kentmere Pan 100 datasheet",
+          "source": "Kentmere Pan 100 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kentmere%20Pan%20100&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22",
           "time_minutes": 21,
@@ -5385,7 +5385,7 @@
           "agitation_initial_seconds": 10,
           "agitation_interval_seconds": 10,
           "agitation_frequency_minutes": 1,
-          "source": "Kentmere Pan 100 datasheet",
+          "source": "Kentmere Pan 100 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kentmere%20Pan%20100&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22",
           "time_minutes": 5
@@ -5396,7 +5396,7 @@
           "agitation_initial_seconds": 10,
           "agitation_interval_seconds": 10,
           "agitation_frequency_minutes": 1,
-          "source": "Kentmere Pan 100 datasheet",
+          "source": "Kentmere Pan 100 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kentmere%20Pan%20100&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22",
           "time_minutes": 7.5
@@ -5407,7 +5407,7 @@
           "agitation_initial_seconds": 10,
           "agitation_interval_seconds": 10,
           "agitation_frequency_minutes": 1,
-          "source": "Kentmere Pan 100 datasheet",
+          "source": "Kentmere Pan 100 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kentmere%20Pan%20100&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22",
           "time_minutes": 10.5,
@@ -5419,7 +5419,7 @@
           "agitation_initial_seconds": 10,
           "agitation_interval_seconds": 10,
           "agitation_frequency_minutes": 1,
-          "source": "Kentmere Pan 100 datasheet",
+          "source": "Kentmere Pan 100 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kentmere%20Pan%20100&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22",
           "time_minutes": 12.5,
@@ -5431,7 +5431,7 @@
           "agitation_initial_seconds": 10,
           "agitation_interval_seconds": 10,
           "agitation_frequency_minutes": 1,
-          "source": "Kentmere Pan 100 datasheet",
+          "source": "Kentmere Pan 100 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kentmere%20Pan%20100&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22",
           "time_minutes": 15.5,
@@ -5496,7 +5496,7 @@
           "agitation_frequency_minutes": 1,
           "push_1_stop_minutes": 13,
           "push_2_stop_minutes": 20,
-          "source": "Kentmere Pan 400 datasheet",
+          "source": "Kentmere Pan 400 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kentmere%20Pan%20400&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -5510,7 +5510,7 @@
           "push_1_stop_minutes": 20.5,
           "push_2_stop_minutes": 22,
           "push_3_stop_minutes": 26,
-          "source": "Kentmere Pan 400 datasheet",
+          "source": "Kentmere Pan 400 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kentmere%20Pan%20400&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -5596,7 +5596,7 @@
           "push_1_stop_minutes": 13,
           "push_2_stop_minutes": 17,
           "push_3_stop_minutes": 30,
-          "source": "Kentmere Pan 400 datasheet",
+          "source": "Kentmere Pan 400 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kentmere%20Pan%20400&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -5623,7 +5623,7 @@
           "agitation_frequency_minutes": 1,
           "push_1_stop_minutes": 10,
           "push_2_stop_minutes": 12,
-          "source": "Kentmere Pan 400 datasheet",
+          "source": "Kentmere Pan 400 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kentmere%20Pan%20400&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -5633,7 +5633,7 @@
           "agitation_initial_seconds": 10,
           "agitation_interval_seconds": 10,
           "agitation_frequency_minutes": 1,
-          "source": "Kentmere Pan 400 datasheet",
+          "source": "Kentmere Pan 400 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kentmere%20Pan%20400&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22",
           "time_minutes": 25.5
@@ -5644,7 +5644,7 @@
           "agitation_initial_seconds": 10,
           "agitation_interval_seconds": 10,
           "agitation_frequency_minutes": 1,
-          "source": "Kentmere Pan 400 datasheet",
+          "source": "Kentmere Pan 400 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kentmere%20Pan%20400&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22",
           "time_minutes": 6.5,
@@ -5656,7 +5656,7 @@
           "agitation_initial_seconds": 10,
           "agitation_interval_seconds": 10,
           "agitation_frequency_minutes": 1,
-          "source": "Kentmere Pan 400 datasheet",
+          "source": "Kentmere Pan 400 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kentmere%20Pan%20400&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22",
           "time_minutes": 11,
@@ -5668,7 +5668,7 @@
           "agitation_initial_seconds": 10,
           "agitation_interval_seconds": 10,
           "agitation_frequency_minutes": 1,
-          "source": "Kentmere Pan 400 datasheet",
+          "source": "Kentmere Pan 400 datasheet + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kentmere%20Pan%20400&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22",
           "time_minutes": 15,
@@ -5869,7 +5869,7 @@
           "time_minutes": 17
         },
         "kodak_hc110_e": {
-          "dilution": "stock",
+          "dilution": "1:47",
           "temperature_c": 20,
           "agitation_initial_seconds": 30,
           "agitation_interval_seconds": 10,
@@ -6134,7 +6134,7 @@
           "time_minutes": 22.5
         },
         "kodak_hc110_e": {
-          "dilution": "stock",
+          "dilution": "1:47",
           "temperature_c": 20,
           "agitation_initial_seconds": 30,
           "agitation_interval_seconds": 10,
@@ -6224,7 +6224,7 @@
           "push_2_stop_minutes": null,
           "pull_1_stop_minutes": 12.5,
           "pull_2_stop_minutes": 11.5,
-          "source": "Kodak F-4016",
+          "source": "Kodak F-4001 + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kodak%20T-Max%20P3200&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -6255,7 +6255,7 @@
           "push_3_stop_minutes": 19,
           "pull_1_stop_minutes": 11.5,
           "pull_2_stop_minutes": 10.5,
-          "source": "Kodak F-4016",
+          "source": "Kodak F-4001 + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kodak%20T-Max%20P3200&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -6270,7 +6270,7 @@
           "push_2_stop_minutes": null,
           "pull_1_stop_minutes": 9.25,
           "pull_2_stop_minutes": 8.5,
-          "source": "Kodak F-4016",
+          "source": "Kodak F-4001 + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kodak%20T-Max%20P3200&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22"
         },
@@ -6334,7 +6334,7 @@
           "agitation_initial_seconds": 30,
           "agitation_interval_seconds": 10,
           "agitation_frequency_minutes": 1,
-          "source": "Kodak F-4016",
+          "source": "Kodak F-4001 + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kodak%20T-Max%20P3200&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22",
           "time_minutes": 18.5,
@@ -6345,12 +6345,12 @@
           "pull_2_stop_minutes": 14
         },
         "kodak_tmax_developer": {
-          "dilution": "stock",
+          "dilution": "1:4",
           "temperature_c": 20,
           "agitation_initial_seconds": 30,
           "agitation_interval_seconds": 10,
           "agitation_frequency_minutes": 1,
-          "source": "Kodak F-4016",
+          "source": "Kodak F-4001 + Massive Dev Chart",
           "source_url": "https://www.digitaltruth.com/devchart.php?Film=Kodak%20T-Max%20P3200&Developer=&mdc=Search&TempUnits=C&TimeUnits=D",
           "verified_date": "2026-09-22",
           "time_minutes": 12,
@@ -6565,7 +6565,7 @@
       "manufacturer": "Kodak",
       "iso": 200,
       "type": "color_negative",
-      "process": "c41_development",
+      "process": "c41",
       "year_released": null,
       "current_production": true,
       "price_35mm_usd": 7,
@@ -6654,7 +6654,7 @@
       "manufacturer": "Kodak",
       "iso": 100,
       "type": "color_negative",
-      "process": "c41_development",
+      "process": "c41",
       "year_released": null,
       "current_production": true,
       "price_35mm_usd": 11,
@@ -6742,7 +6742,7 @@
       "manufacturer": "CineStill",
       "iso": 400,
       "type": "color_negative",
-      "process": "c41_development",
+      "process": "c41",
       "year_released": 2022,
       "current_production": true,
       "price_35mm_usd": 15,
@@ -6831,7 +6831,7 @@
       "manufacturer": "Harman",
       "iso": 200,
       "type": "color_negative",
-      "process": "c41_development",
+      "process": "c41",
       "year_released": 2023,
       "current_production": true,
       "price_35mm_usd": 13.5,
@@ -7671,7 +7671,21 @@
         "38": 1,
         "45": 0.615
       },
-      "temperature_compensation_source": "Tetenal Colortec C-41 Kit instructions (normalised to 38°C)"
+      "temperature_compensation_source": "Tetenal Colortec C-41 Kit instructions (normalised to 38°C)",
+      "roll_compensation": {
+        "type": "seconds_per_block",
+        "block": 4,
+        "rated_rolls": 16,
+        "max_rolls": 16,
+        "seconds_by_temperature": {
+          "38": 15,
+          "30": 60
+        },
+        "source": "Tetenal Colortec C-41 instructions: 38°C 3:15/3:30/3:45/4:00 for rolls 1-4/5-8/9-12/13-16; 30°C 8:00/9:00/10:00/11:00",
+        "verified_date": "2026-10-27",
+        "note": "Add the block increment for each 4 rolls already developed in the batch.",
+        "source_url": "https://www.digitaltruth.com/products/tetenal_tech/Tetenal-Colortec-C41-Kit-2.5L-Instructions.pdf"
+      }
     },
     "unicolor_c41_kit": {
       "name": "Unicolor C-41 Kit",
@@ -7740,7 +7754,17 @@
         "39": 1,
         "29.5": 3.714
       },
-      "temperature_compensation_source": "CineStill CS41 powder kit instructions (normalised to 39°C)"
+      "temperature_compensation_source": "CineStill CS41 powder kit instructions (normalised to 39°C)",
+      "roll_compensation": {
+        "type": "percent_per_roll",
+        "value": 2,
+        "rated_rolls": 8,
+        "max_rolls": 24,
+        "source": "CineStill CS41 powder kit instructions: +2% per roll previously processed (1 L/1 qt standard solution)",
+        "verified_date": "2026-10-27",
+        "note": "Add 2% for each roll already developed. The weakened 500 ml solution uses 4%/roll and the 2 L solution 1%/roll.",
+        "source_url": "https://cdn.shopify.com/s/files/1/0339/5113/files/CS41powder_Instructions_Complete.pdf"
+      }
     },
     "kodak_e6_kit": {
       "name": "Kodak E-6 Kit",
@@ -7796,11 +7820,11 @@
         "color_accuracy"
       ],
       "avoid_with": [],
+      "temperature_compensation_source": "Tetenal Colortec E-6 3-bath kit instructions (38°C = 6:15, 39°C = 7:00)",
       "temperature_compensation": {
         "38": 1,
         "39": 1.12
-      },
-      "temperature_compensation_source": "Tetenal Colortec E-6 3-bath kit instructions (normalised to 38°C)"
+      }
     },
     "unicolor_e6_kit": {
       "name": "Unicolor E-6 Kit",
@@ -7856,7 +7880,20 @@
       ],
       "safety_notes": "Wear gloves, ensure ventilation",
       "year_introduced": 2012,
-      "temperature_compensation_source": "Bellini C41-RA technical data sheet (temperature-critical; no time compensation)"
+      "temperature_compensation_source": "Bellini C41-RA technical data sheet (temperature-critical; no time compensation)",
+      "roll_compensation": {
+        "type": "seconds_per_block",
+        "block": 3,
+        "rated_rolls": 16,
+        "max_rolls": 16,
+        "seconds_by_temperature": {
+          "38": 15
+        },
+        "source": "Bellini C41-RA instructions (reported): 3:15 for rolls 1-3, then +15s for each further 3 rolls",
+        "verified_date": "2026-10-27",
+        "note": "Add 15s for each 3 rolls already developed at 38°C.",
+        "source_url": "https://www.freestylephoto.com/static/pdf/product_pdf/bellini/C41_TECH_DATA_SHEET.pdf"
+      }
     }
   },
   "processes": {

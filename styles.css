@@ -14,7 +14,7 @@
     --background-color: #000000;
     --text-color: #ffffff;
     --light-gray: #333333;
-    --dark-gray: #666666;
+    --dark-gray: #9a9a9a;
     --shadow: rgba(255, 255, 255, 0.1);
     --transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     --fast-transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -320,10 +320,14 @@ select:focus, input:focus {
 }
 
 .mode-btn + .mode-btn {
-    border-left: none;
+    /* Collapse the shared edge without deleting it, so an active button
+       still shows a complete box. */
+    margin-left: -1px;
 }
 
 .mode-btn.active {
+    position: relative;
+    z-index: 1;
     color: var(--film-amber);
     border-color: var(--film-amber);
 }
@@ -544,7 +548,7 @@ select:focus, input:focus {
 }
 
 .film-info p, .developer-info p {
-    color: var(--text-secondary);
+    color: var(--dark-gray);
     font-size: 0.95rem;
     line-height: 1.5;
 }
@@ -1006,14 +1010,19 @@ input {
     border-color: var(--film-amber);
 }
 
-.timer-card.agitating .timer-step-name {
+.timer-card.agitating #timer-next {
     color: var(--film-amber);
-    animation: agitatePulse 1s ease-in-out infinite;
+}
+
+.timer-card.agitating #timer-next::before {
+    content: '●';
+    margin-right: 6px;
+    animation: agitatePulse 1.4s ease-in-out infinite;
 }
 
 @keyframes agitatePulse {
     0%, 100% { opacity: 1; }
-    50% { opacity: 0.55; }
+    50% { opacity: 0.45; }
 }
 
 /* Darkroom safe-light theme (red only, safe under safelights) */
@@ -1023,7 +1032,7 @@ body.darkroom {
     --background-color: #050000;
     --text-color: #ff4436;
     --light-gray: #4a1414;
-    --dark-gray: #b3413a;
+    --dark-gray: #cf5b52;
     --shadow: rgba(255, 60, 40, 0.08);
     --surface: #140202;
     --border: #3a0d0d;
@@ -1146,3 +1155,568 @@ body.focus-open {
     overflow: hidden;
 }
 
+
+/* ==========================================================================
+   Design consistency pass
+   One rounded radius language for surfaces and controls. The radius tokens
+   let the whole app change its corner style without editing individual rules.
+   ========================================================================== */
+:root {
+    color-scheme: dark;
+    --radius-card: 12px;
+    --radius-inner: 8px;
+    --radius-control: 6px;
+    --radius-badge: 4px;
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- Header ------------------------------------------------------------- */
+.header {
+    padding: 38px 24px 32px;
+    margin-bottom: 32px;
+    border-top: 2px solid var(--film-amber);
+    border-radius: var(--radius-card);
+    box-shadow: none;
+}
+
+.header h1 {
+    font-size: 2.9rem;
+    letter-spacing: -0.015em;
+    margin-bottom: 8px;
+}
+
+.header p {
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--dark-gray);
+}
+
+/* --- Surfaces ----------------------------------------------------------- */
+.input-section,
+.result-card,
+.timer-section,
+.film-info,
+.developer-info {
+    border-radius: var(--radius-card);
+}
+
+.input-section,
+.input-section:hover {
+    box-shadow: none;
+}
+
+.timer-display {
+    text-shadow: none !important;
+}
+
+/* --- Info panels (flat, shared palette, darkroom-aware) ----------------- */
+.info-card-content {
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-inner);
+    box-shadow: none;
+    color: var(--text-color);
+}
+
+.info-header {
+    border-bottom: 1px solid var(--border);
+}
+
+.info-header h3 {
+    color: var(--accent-color);
+    font-weight: 500;
+    letter-spacing: 0.01em;
+}
+
+.iso-badge,
+.type-badge {
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-color);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-control);
+    font-weight: 500;
+}
+
+.type-badge {
+    background: transparent;
+    color: var(--dark-gray);
+}
+
+.prod-badge {
+    border-radius: var(--radius-control);
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-color);
+}
+
+.prod-badge.current {
+    background: rgba(76, 175, 80, 0.14);
+    border: 1px solid rgba(76, 175, 80, 0.38);
+    color: var(--success);
+}
+
+.prod-badge.discontinued {
+    background: rgba(244, 67, 54, 0.14);
+    border: 1px solid rgba(244, 67, 54, 0.38);
+    color: #ff8a80;
+}
+
+.info-item {
+    background: rgba(255, 255, 255, 0.04);
+    border-left: 2px solid var(--border);
+    border-radius: var(--radius-control);
+}
+
+.info-item .label,
+.char-label {
+    color: var(--dark-gray);
+    font-weight: 500;
+}
+
+.info-item .value,
+.char-value {
+    color: var(--text-color);
+}
+
+.description {
+    background: rgba(255, 255, 255, 0.03);
+    border-left: 3px solid var(--film-amber);
+    border-radius: var(--radius-control);
+}
+
+.description p {
+    color: var(--text-color);
+}
+
+.char-item {
+    border-bottom: 1px solid var(--border);
+}
+
+.safety-warning {
+    border-radius: var(--radius-control);
+}
+
+.safety-text {
+    color: #ff8a80;
+}
+
+.alternative-names {
+    background: rgba(255, 255, 255, 0.05);
+    border-left: 3px solid var(--border);
+    border-radius: var(--radius-control);
+}
+
+.alternative-names .value {
+    color: var(--dark-gray);
+}
+
+/* --- Buttons ------------------------------------------------------------ */
+.timer-btn.start,
+.timer-btn.pause,
+.timer-btn.reset {
+    color: #0a0a0a;
+}
+
+.timer-btn.ghost {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: var(--border);
+    color: var(--dark-gray);
+}
+
+.timer-btn.ghost:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: var(--film-amber);
+}
+
+.mode-btn {
+    background: var(--input-bg);
+    color: var(--dark-gray);
+}
+
+.mode-btn:hover {
+    border-color: var(--film-amber);
+}
+
+.mode-btn.active {
+    background: rgba(255, 179, 102, 0.08);
+}
+
+body.darkroom .mode-btn.active {
+    background: rgba(255, 107, 61, 0.1);
+}
+
+.calculate-btn {
+    border-color: #8a8a8a !important;
+    letter-spacing: 1.5px !important;
+}
+
+.export-label {
+    margin-top: 4px !important;
+    font-size: 0.78rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.16em !important;
+    text-transform: uppercase !important;
+    color: var(--dark-gray) !important;
+}
+
+/* --- Keyboard focus ----------------------------------------------------- */
+button:focus-visible,
+select:focus-visible,
+input:focus-visible,
+a:focus-visible {
+    outline: 2px solid var(--film-amber);
+    outline-offset: 2px;
+}
+
+/* --- Darkroom safelight adjustments ------------------------------------- */
+body.darkroom .iso-badge,
+body.darkroom .type-badge,
+body.darkroom .prod-badge {
+    background: var(--surface);
+    border-color: var(--border);
+}
+
+body.darkroom .prod-badge.current {
+    background: rgba(255, 107, 94, 0.14);
+    border-color: rgba(255, 107, 94, 0.38);
+}
+
+body.darkroom .info-item,
+body.darkroom .description,
+body.darkroom .alternative-names,
+body.darkroom .timer-btn.ghost {
+    background: rgba(255, 60, 40, 0.05);
+}
+
+/* --- Small screens ------------------------------------------------------ */
+@media (max-width: 600px) {
+    .header {
+        padding: 30px 16px 26px;
+    }
+
+    .header h1 {
+        font-size: 2rem;
+    }
+
+    .header p {
+        font-size: 0.68rem;
+        letter-spacing: 0.16em;
+    }
+}
+
+/* Info panels need the full width before the inner grid gets cramped. */
+@media (max-width: 900px) {
+    .info-section {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Badges should never break a word ("ISO" / "250") or spill the header. */
+.iso-badge,
+.type-badge,
+.prod-badge {
+    white-space: nowrap;
+}
+
+.info-header {
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* Controls follow the same radius token, so the whole app can switch between
+   rounded and square by changing --radius-card / --radius-control above. */
+select,
+input,
+.calculate-btn,
+.export-btn,
+.timer-btn,
+.mode-btn,
+.timer-progress,
+.info-item,
+.iso-badge,
+.type-badge,
+.prod-badge,
+.description,
+.alternative-names {
+    border-radius: var(--radius-control) !important;
+}
+
+/* Result cards are informational, not interactive. */
+.result-card:hover {
+    box-shadow: none;
+    border-color: var(--border);
+}
+
+/* Let all three result cards fit on one line at tablet widths instead of
+   leaving one card alone in a second row. */
+@media (min-width: 769px) {
+    .results-section {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+}
+
+/* The primary action reads as the primary action. Export stays an outline. */
+.calculate-btn {
+    background: var(--accent-color) !important;
+    color: var(--primary-color) !important;
+    border-color: var(--accent-color) !important;
+}
+
+.calculate-btn:hover {
+    background: #e8e8e8 !important;
+    color: #000000 !important;
+    border-color: #e8e8e8 !important;
+}
+
+.calculate-btn:active {
+    background: #d4d4d4 !important;
+}
+
+#export-section {
+    margin-top: 18px;
+}
+
+/* Badges and larger inner blocks get a slightly smaller radius than cards. */
+.iso-badge,
+.type-badge,
+.prod-badge {
+    border-radius: var(--radius-badge) !important;
+}
+
+.safety-warning,
+.alternative-names {
+    border-radius: var(--radius-inner);
+}
+
+/* The Auto/Buffer/Manual control is segmented: only its outer corners round. */
+.mode-btn {
+    border-radius: 0 !important;
+}
+
+.timer-mode .mode-btn:first-of-type {
+    border-radius: var(--radius-control) 0 0 var(--radius-control) !important;
+}
+
+.timer-mode .mode-btn:last-of-type {
+    border-radius: 0 var(--radius-control) var(--radius-control) 0 !important;
+}
+
+/* --- Custom agitation controls ------------------------------------------ */
+.timer-agitation-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.agitation-summary {
+    color: var(--dark-gray);
+    font-size: 0.8rem;
+    letter-spacing: 0.02em;
+    max-width: 28rem;
+}
+
+.agitation-options {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+    color: var(--dark-gray);
+}
+
+.agitation-options label {
+    display: inline;
+    margin: 0;
+    color: var(--dark-gray);
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+}
+
+.agitation-options input {
+    width: 74px;
+    padding: 6px 8px;
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+.agitation-unit {
+    margin-right: 6px;
+    color: var(--dark-gray);
+    font-size: 0.8rem;
+}
+
+.timer-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.timer-btn.ghost.active {
+    color: var(--film-amber);
+    border-color: var(--film-amber);
+}
+
+/* ==========================================================================
+   Interaction feel
+   Native controls follow the dark scheme, selects get a stable custom chevron,
+   and buttons no longer move under the pointer.
+   ========================================================================== */
+select {
+    -webkit-appearance: none;
+    appearance: none;
+    padding-right: 48px !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' fill='none' stroke='%239a9a9a' stroke-width='1.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 18px center;
+    background-size: 12px 8px;
+}
+
+body.darkroom select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' fill='none' stroke='%23cf5b52' stroke-width='1.5'/%3E%3C/svg%3E");
+}
+
+select:focus,
+input:focus {
+    border-color: var(--film-amber);
+    outline: none;
+}
+
+.timer-btn,
+.mode-btn,
+.calculate-btn,
+.export-btn {
+    transition: background-color 140ms ease, border-color 140ms ease,
+                color 140ms ease, opacity 140ms ease !important;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+.timer-btn:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.timer-btn:active,
+.mode-btn:active,
+.calculate-btn:active,
+.export-btn:active {
+    transform: scale(0.985);
+}
+
+.input-section {
+    transition: none;
+}
+
+.result-card {
+    transition: border-color 140ms ease, background-color 140ms ease;
+}
+
+/* A recalculation should read as a refresh, not a bounce. */
+.result-card.updated {
+    animation: resultUpdate 0.18s ease-out;
+}
+
+@keyframes resultUpdate {
+    0% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+/* ==========================================================================
+   Form information architecture
+   ========================================================================== */
+.form-section + .form-section {
+    margin-top: 26px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+}
+
+.form-section-title {
+    margin-bottom: 16px;
+    color: var(--dark-gray);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+.form-section .input-group:last-child {
+    margin-bottom: 0;
+}
+
+.link-btn {
+    margin-top: 8px;
+    padding: 0;
+    background: none;
+    border: none;
+    color: var(--film-amber);
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+    text-align: left;
+    cursor: pointer;
+}
+
+.link-btn:hover {
+    text-decoration: underline;
+}
+
+.link-btn.active {
+    color: var(--warning);
+}
+
+.process-note {
+    margin-top: 12px;
+    color: var(--dark-gray);
+    font-size: 0.78rem;
+    line-height: 1.5;
+}
+
+.process-note:empty {
+    display: none;
+}
+
+/* Locked (temperature-critical) fields should look locked, not broken. */
+input:disabled,
+select:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+/* "Ready to use" is a label, not a ratio - keep it on one line. */
+.result-value.compact {
+    font-size: 1.9rem;
+    letter-spacing: -0.01em;
+}
+
+/* Read-only batch capacity and the per-batch roll compensation note. */
+.static-field {
+    width: 100%;
+    padding: 15px 20px;
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-control);
+    color: var(--dark-gray);
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+.rolls-note {
+    margin-top: 8px;
+    color: var(--dark-gray);
+    font-size: 0.75rem;
+    line-height: 1.5;
+}
+
+.rolls-note:empty {
+    display: none;
+}

@@ -14,8 +14,20 @@ fn normalize_key(key: &str) -> String {
 // Massive Dev Chart push guideline, used when a combination has no published EI
 // row. Compensating developers = Microphen / T-Max developer; T-Max films use
 // Kodak's reduced push increments. Returns (push1, push2, push3, pull1, pull2).
-fn push_pull_factors(film: &Film, developer: &Developer) -> (Decimal, Decimal, Decimal, Decimal, Decimal) {
-    let film_name = film.name.to_lowercase();
+fn published_push_pull_time(
+    value: Option<Decimal>,
+    film: &Film,
+    developer: &Developer,
+    push_pull: i32,
+) -> Result<Decimal, CalculationError> {
+    value.ok_or_else(|| CalculationError::PushPullNotPublished {
+        film: film.name.clone(),
+        developer: developer.name.clone(),
+        push_pull,
+    })
+}
+
+fn push_pull_factors(film: &Film, developer: &Developer) -> (Decimal, Decimal, Decimal, Decimal, Decimal) {    let film_name = film.name.to_lowercase();
     let dev_name = developer.name.to_lowercase();
     let is_tmax_film = film_name.contains("t-max") || film_name.contains("tmax");
     let is_compensating = dev_name.contains("microphen") || dev_name.contains("t-max");
@@ -42,6 +54,8 @@ pub enum CalculationError {
     InvalidTemperature(Decimal),
     #[error("Invalid push/pull value: {0} (must be between -2 and +3)")]
     InvalidPushPull(i32),
+    #[error("No published push/pull time for {film} in {developer} at {push_pull} stops")]
+    PushPullNotPublished { film: String, developer: String, push_pull: i32 },
     #[error("Invalid volume: {0}ml (must be between 100-2000ml)")]
     InvalidVolume(u32),
     #[error("Database not loaded")]
@@ -231,21 +245,21 @@ impl CalculationEngine {
                 },
                 FilmType::ColorNegative => {
                     match push_pull {
-                        1 => dev_data.push_1_stop_dev_time.unwrap_or(Decimal::new(45, 1)), // 4.5
-                        2 => dev_data.push_2_stop_dev_time.unwrap_or(Decimal::new(65, 1)), // 6.5
-                        3 => dev_data.push_3_stop_dev_time.unwrap_or(Decimal::from(9)), // 9.0
-                        -1 => dev_data.pull_1_stop_dev_time.unwrap_or(Decimal::new(25, 1)), // 2.5
-                        -2 => dev_data.pull_2_stop_dev_time.unwrap_or(Decimal::from(2)), // 2.0
+                        1 => published_push_pull_time(dev_data.push_1_stop_dev_time, film, developer, push_pull)?,
+                        2 => published_push_pull_time(dev_data.push_2_stop_dev_time, film, developer, push_pull)?,
+                        3 => published_push_pull_time(dev_data.push_3_stop_dev_time, film, developer, push_pull)?,
+                        -1 => published_push_pull_time(dev_data.pull_1_stop_dev_time, film, developer, push_pull)?,
+                        -2 => published_push_pull_time(dev_data.pull_2_stop_dev_time, film, developer, push_pull)?,
                         _ => base_time,
                     }
                 },
                 FilmType::Slide => {
                     match push_pull {
-                        1 => dev_data.push_1_stop_first_dev_time.unwrap_or(Decimal::from(8)),
-                        2 => dev_data.push_2_stop_first_dev_time.unwrap_or(Decimal::from(10)),
-                        3 => dev_data.push_3_stop_first_dev_time.unwrap_or(Decimal::from(12)),
-                        -1 => dev_data.pull_1_stop_first_dev_time.unwrap_or(Decimal::new(45, 1)), // 4.5
-                        -2 => dev_data.pull_2_stop_first_dev_time.unwrap_or(Decimal::new(35, 1)), // 3.5
+                        1 => published_push_pull_time(dev_data.push_1_stop_first_dev_time, film, developer, push_pull)?,
+                        2 => published_push_pull_time(dev_data.push_2_stop_first_dev_time, film, developer, push_pull)?,
+                        3 => published_push_pull_time(dev_data.push_3_stop_first_dev_time, film, developer, push_pull)?,
+                        -1 => published_push_pull_time(dev_data.pull_1_stop_first_dev_time, film, developer, push_pull)?,
+                        -2 => published_push_pull_time(dev_data.pull_2_stop_first_dev_time, film, developer, push_pull)?,
                         _ => base_time,
                     }
                 },
@@ -316,7 +330,7 @@ impl CalculationEngine {
                 } else {
                     let ratio = self.parse_dilution(dilution_str)?;
                     let total_parts = ratio.developer + ratio.water;
-                    let developer_amount = (volume * ratio.developer) / total_parts;
+                    let developer_amount = ((volume as f64 * ratio.developer as f64) / total_parts as f64).round() as u32;
                     let water_amount = volume - developer_amount;
                     Ok((dilution_str.to_string(), developer_amount, water_amount))
                 }
@@ -445,6 +459,20 @@ mod tests {
         );
     }
 
+    #[test]
+    fn dilution_amounts_round_to_nearest_ml() {
+        let engine = CalculationEngine::new();
+
+        let (label, dev, water) = engine.calculate_dilution("1:31", 500, &FilmType::BlackWhite).unwrap();
+        assert_eq!((label.as_str(), dev, water), ("1:31", 16, 484));
+
+        let (_, dev, water) = engine.calculate_dilution("1:50", 500, &FilmType::BlackWhite).unwrap();
+        assert_eq!((dev, water), (10, 490));
+
+        let (_, dev, water) = engine.calculate_dilution("1:25", 500, &FilmType::BlackWhite).unwrap();
+        assert_eq!((dev, water), (19, 481));
+    }
+
     fn color_combo() -> DeveloperData {
         let mut data = DeveloperData::default();
         data.developer_time_minutes = Some(Decimal::new(325, 2)); // 3.25
@@ -475,9 +503,15 @@ mod tests {
         assert_eq!(engine.get_base_time(&film, &Developer::default(), &data, 0).unwrap(), Decimal::new(325, 2));
         assert_eq!(engine.get_base_time(&film, &Developer::default(), &data, 1).unwrap(), Decimal::new(45, 1));
         assert_eq!(engine.get_base_time(&film, &Developer::default(), &data, 2).unwrap(), Decimal::new(65, 1));
-        // Push 3 / Pull 2 fall back to sensible defaults
-        assert_eq!(engine.get_base_time(&film, &Developer::default(), &data, 3).unwrap(), Decimal::from(9));
-        assert_eq!(engine.get_base_time(&film, &Developer::default(), &data, -2).unwrap(), Decimal::from(2));
+        // Push 3 / Pull 2 are not published for this combo: no guessed value
+        assert!(matches!(
+            engine.get_base_time(&film, &Developer::default(), &data, 3),
+            Err(CalculationError::PushPullNotPublished { .. })
+        ));
+        assert!(matches!(
+            engine.get_base_time(&film, &Developer::default(), &data, -2),
+            Err(CalculationError::PushPullNotPublished { .. })
+        ));
     }
 
     #[test]
@@ -492,8 +526,14 @@ mod tests {
         assert_eq!(engine.get_base_time(&film, &Developer::default(), &data, 0).unwrap(), Decimal::from(6));
         assert_eq!(engine.get_base_time(&film, &Developer::default(), &data, 1).unwrap(), Decimal::from(8));
         assert_eq!(engine.get_base_time(&film, &Developer::default(), &data, 2).unwrap(), Decimal::from(10));
-        assert_eq!(engine.get_base_time(&film, &Developer::default(), &data, 3).unwrap(), Decimal::from(12));
-        assert_eq!(engine.get_base_time(&film, &Developer::default(), &data, -2).unwrap(), Decimal::new(35, 1));
+        assert!(matches!(
+            engine.get_base_time(&film, &Developer::default(), &data, 3),
+            Err(CalculationError::PushPullNotPublished { .. })
+        ));
+        assert!(matches!(
+            engine.get_base_time(&film, &Developer::default(), &data, -2),
+            Err(CalculationError::PushPullNotPublished { .. })
+        ));
     }
 
     #[test]
@@ -533,9 +573,14 @@ mod tests {
         assert_eq!(rc.time_minutes, Decimal::new(425, 2));
         assert_eq!(rc.dilution, "Ready to use");
 
-        // E-6 Velvia 50, -2 stops => 3.5 min
-        let re = calc("fuji_velvia_50", "kodak_e6_kit", 38, -2).unwrap();
-        assert_eq!(re.time_minutes, Decimal::new(35, 1));
+        // E-6 Velvia 50, +1 stop => 8 min
+        let re = calc("fuji_velvia_50", "kodak_e6_kit", 38, 1).unwrap();
+        assert_eq!(re.time_minutes, Decimal::from(8));
+        // Kodak E-6 publishes no pull times: no guessed values
+        assert!(calc("fuji_velvia_50", "kodak_e6_kit", 38, -1).is_err());
+        assert!(calc("fuji_velvia_50", "kodak_e6_kit", 38, -2).is_err());
+        // Bellini publishes no colour push/pull times
+        assert!(calc("kodak_portra_400", "bellini_c41_kit", 38, 1).is_err());
 
         // Colour temperature: CineStill CS41 at 24C => 3.5 * 10 = 35 min
         let rcool = calc("kodak_portra_400", "cinestill_c41_kit", 24, 0).unwrap();
